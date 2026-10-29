@@ -7,75 +7,82 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Hind Siliguri,Arial,sans-serif}
 body{background:#fff7ed;padding:12px;padding-bottom:80px}
-.top{display:flex;justify-content:space-between;align-items:center;padding:4px 2px}
-.logo{font-size:28px;font-weight:900;color:#111}
+.logo{font-size:30px;font-weight:900}
 .logo span{color:#16a34a}
-.sub{font-size:13px;color:#666;margin:2px 0 10px}
-.live{background:#111;color:#fff;padding:10px 14px;border-radius:12px;display:flex;justify-content:space-between;font-size:13px;font-weight:700}
+.sub{font-size:13px;color:#666;margin:4px 0 10px}
+.live{background:#111;color:#fff;padding:12px;border-radius:12px;display:flex;justify-content:space-between;font-size:13px;font-weight:700}
 .live b{color:#fbbf24}
-.searchBox{display:flex;gap:8px;background:#fff;border:1px solid #eee;padding:10px;border-radius:14px;margin:14px 0;box-shadow:0 2px 10px #00000010}
+.searchBox{display:flex;gap:8px;background:#fff;border:1px solid #eee;padding:10px;border-radius:14px;margin:14px 0}
 .searchBox input{flex:1;border:0;outline:0;font-size:15px}
-.searchBox button{background:#0ea5e9;color:#fff;border:0;padding:10px 16px;border-radius:20px;font-weight:700}
-.filter{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px}
-.filter button{white-space:nowrap;border:1px solid #e5e7eb;background:#fff;padding:8px 14px;border-radius:20px;font-weight:700;cursor:pointer}
-.filter button.active{background:#0284c7;color:#fff;border-color:#0284c7}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-top:12px}
+.searchBox button{background:#0ea5e9;color:#fff;border:0;padding:10px 14px;border-radius:20px;font-weight:700}
+.filter{display:flex;gap:8px;overflow-x:auto;padding-bottom:8px}
+.filter button{white-space:nowrap;border:1px solid #ddd;background:#fff;padding:8px 14px;border-radius:20px;font-weight:700}
+.filter button.active{background:#0284c7;color:#fff}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-top:10px}
 .card{background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 4px 18px #00000012;border:1px solid #f1f1f1}
-.card img{width:100%;height:220px;object-fit:cover}
+.avatar{height:130px;display:flex;align-items:center;justify-content:center;font-size:60px;font-weight:900;color:#fff}
 .card-body{padding:12px}
 .badge{color:#16a34a;font-size:12px;font-weight:700}
-.name{font-size:20px;font-weight:900;margin:3px 0}
+.name{font-size:20px;font-weight:900}
 .spec{color:#666;font-size:14px}
-.time{font-size:13px;color:#444;margin:6px 0}
+.time{font-size:13px;margin:6px 0}
 .price{color:#16a34a;font-size:20px;font-weight:900}
 .row{display:flex;justify-content:space-between;align-items:center;margin-top:8px}
-.serialBtn{background:#16a34a;color:#fff;border:0;padding:10px 14px;border-radius:10px;font-weight:800;cursor:pointer}
-.delBtn{background:#fee2e2;color:#dc2626;border:0;padding:8px 10px;border-radius:8px;cursor:pointer;display:none}
-.adminMode .delBtn{display:inline-block}
-.adminMode .addArea{display:block!important}
+.serialBtn{background:#16a34a;color:#fff;border:0;padding:11px 14px;border-radius:10px;font-weight:800;width:100%}
+.delBtn{background:#fee2e2;color:#dc2626;border:0;padding:8px 10px;border-radius:8px;display:none;margin-top:6px;width:100%}
+.adminMode .delBtn{display:block}
 .addArea{display:none!important;background:#fff;padding:14px;border-radius:14px;margin-top:14px;border:2px dashed #0284c7}
+.adminMode .addArea{display:block!important}
 .addArea input{width:100%;padding:10px;margin:5px 0;border:1px solid #ddd;border-radius:10px}
 .addArea button{background:#0284c7;color:#fff;border:0;padding:11px;border-radius:10px;width:100%;font-weight:800}
 .footer{text-align:center;margin-top:30px;color:#999;font-size:12px}
-.footer a{color:#999;text-decoration:none}
 </style>
 </head>
 <body>
-
-<div class="top">
 <div class="logo">Doctor <span>Serial</span></div>
-<div style="font-size:12px;color:#888">চট্টগ্রাম • ফ্রি সার্ভিস</div>
-</div>
 <p class="sub">ঘরে বসে ডাক্তারের সিরিয়াল নিন - ফ্রি, কোনো লাইনে দাঁড়াতে হবে না</p>
-
-<div class="live"><span>🔴 LIVE - এখন সিরিয়াল চলতেছে</span><span>মোট সিরিয়াল: <b id="count">0</b> জন ডাক্তার</span></div>
-
-<div class="searchBox">
-<input id="search" placeholder="ডাক্তারের নাম বা রোগ লিখুন... যেমন: জ্বর, গাইনী, শিশু" oninput="render()">
-<button onclick="render()">খুঁজুন</button>
-</div>
-
+<div class="live"><span>🔴 LIVE - এখন সিরিয়াল চলতেছে</span><span>মোট: <b id="count">5</b> জন ডাক্তার</span></div>
+<div class="searchBox"><input id="search" placeholder="ডাক্তারের নাম বা রোগ লিখুন... যেমন: জ্বর, গাইনী, শিশু" oninput="render()"><button onclick="render()">খুঁজুন</button></div>
 <div class="filter" id="filters"></div>
 <div class="grid" id="grid"></div>
-
-<div class="addArea" id="addArea">
-<h3>Admin - নতুন ডাক্তার Add করুন (শুধু তুমি)</h3>
-<input id="nName" placeholder="ডাক্তারের নাম - যেমন: ডা. নুসরাত জাহান">
-<input id="nSpec" placeholder="কি রোগের ডাক্তার - যেমন: গাইনী, মেডিসিন, শিশু, চোখ, হার্ট">
+<div class="addArea">
+<h3>Admin - নতুন ডাক্তার Add (শুধু তুমি)</h3>
+<input id="nName" placeholder="ডাক্তারের নাম">
+<input id="nSpec" placeholder="রোগ - যেমন: গাইনী, মেডিসিন, শিশু, চোখ, হার্ট">
 <input id="nTime" placeholder="সময় - যেমন: সকাল ১০টা - দুপুর ১টা">
 <input id="nFee" placeholder="ফি - যেমন: 1000">
-<input id="nImg" placeholder="ছবির লিংক (না দিলে অটো ছবি আসবে)">
 <button onclick="addDoctor()">ডাক্তার Add করুন</button>
-<button onclick="logoutAdmin()" style="background:#ef4444;margin-top:6px">Admin থেকে বের হোন</button>
 </div>
-
-<div class="footer"><a href="#" onclick="adminLogin();return false">Admin</a> • শুধু মালিক ডিলিট / Add করতে পারবে • Made for Chittagong</div>
-
+<div class="footer"><a href="#" onclick="adminLogin();return false">Admin</a> • শুধু মালিক ডিলিট / Add করতে পারবে</div>
 <script>
-let ADMIN_PASS="1234";
-let doctors=JSON.parse(localStorage.getItem("doctors_v3")||"null")||[
-{name:"ডা. নুসরাত জাহান",spec:"গাইনী",time:"সকাল ১০টা - দুপুর ১টা",fee:"1000",img:"https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=600&q=80"},
-{name:"ডা. তানভীর আহমেদ",spec:"শিশু",time:"বিকাল ৪টা - রাত ৭টা",fee:"900",img:"https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=600&q=80"},
-{name:"ডা. সাবরিনা করিম",spec:"চোখ",time:"সকাল ৯টা - দুপুর ১২টা",fee:"700",img:"https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=600&q=80"},
-{name:"ডা. রহিম উদ্দিন",spec:"মেডিসিন",time:"বিকাল ৩টা - সন্ধ্যা ৬টা",fee:"800",img:"https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=600&q=80"},
-{name:"ডা. ফারিয়া হক",spec:"হার্ট",time:"সকাল ১০টা - দুপুর ২টা",fee:"1200",img:"https://images.unsplash.com/photo-165100837681
+let doctors=[
+{name:"ডা. নুসরাত জাহান",spec:"গাইনী",time:"সকাল ১০টা - দুপুর ১টা",fee:"1000",color:"#ec4899",letter:"ন"},
+{name:"ডা. তানভীর আহমেদ",spec:"শিশু",time:"বিকাল ৪টা - রাত ৭টা",fee:"900",color:"#0ea5e9",letter:"ত"},
+{name:"ডা. সাবরিনা করিম",spec:"চোখ",time:"সকাল ৯টা - দুপুর ১২টা",fee:"700",color:"#8b5cf6",letter:"স"},
+{name:"ডা. রহিম উদ্দিন",spec:"মেডিসিন",time:"বিকাল ৩টা - সন্ধ্যা ৬টা",fee:"800",color:"#16a34a",letter:"র"},
+{name:"ডা. ফারিয়া হক",spec:"হার্ট",time:"সকাল ১০টা - দুপুর ২টা",fee:"1200",color:"#f97316",letter:"ফ"},
+{name:"ডা. ইমরান খান",spec:"মেডিসিন",time:"সকাল ৯টা - দুপুর ১টা",fee:"600",color:"#14b8a6",letter:"ই"}
+];
+let cats=["সব","মেডিসিন","গাইনী","শিশু","চোখ","হার্ট"];
+let active="সব";
+function render(){
+let q=document.getElementById("search").value.toLowerCase();
+let f=document.getElementById("filters");f.innerHTML="";
+cats.forEach(c=>{let b=document.createElement("button");b.textContent=c;if(c==active)b.className="active";b.onclick=()=>{active=c;render()};f.appendChild(b)});
+let list=doctors.filter(d=>(active=="সব"||d.spec==active)&&(d.name.toLowerCase().includes(q)||d.spec.toLowerCase().includes(q)));
+document.getElementById("count").textContent=list.length;
+let g=document.getElementById("grid");g.innerHTML="";
+list.forEach((d,i)=>{
+let div=document.createElement("div");div.className="card";
+div.innerHTML=`<div class="avatar" style="background:${d.color}">${d.letter}</div><div class="card-body"><div class="badge">● এখন চেম্বারে আছে</div><div class="name">${d.name}</div><div class="spec">${d.spec} বিশেষজ্ঞ</div><div class="time">🕐 ${d.time}</div><div class="row"><span class="price">${d.fee} টাকা</span><span>⭐ 4.9</span></div><button class="serialBtn" onclick="book('${d.name}')">WhatsApp এ সিরিয়াল নিন</button><button class="delBtn" onclick="delDoctor(${doctors.indexOf(d)})">Delete করুন</button></div>`;
+g.appendChild(div);
+});
+}
+function book(name){let n=prompt("রোগীর নাম লিখুন:");if(!n)return;let msg=encodeURIComponent("আসসালামু আলাইকুম, আমি "+n+", "+name+" স্যারের সিরিয়াল নিতে চাই।");window.open("https://wa.me/8801700000000?text="+msg,"_blank")}
+function adminLogin(){let p=prompt("Admin পাসওয়ার্ড দিন:");if(p=="1234"){document.body.classList.add("adminMode");alert("স্বাগতম বস! এখন Add / Delete করতে পারবা")}else alert("ভুল পাসওয়ার্ড!")}
+function addDoctor(){let n=document.getElementById("nName").value,s=document.getElementById("nSpec").value,t=document.getElementById("nTime").value,f=document.getElementById("nFee").value;if(!n||!s){alert("নাম আর রোগ লিখো");return}doctors.unshift({name:n,spec:s,time:t||"সকাল ১০টা - দুপুর ১টা",fee:f||"500",color:"#0ea5e9",letter:n.replace("ডা. ","").charAt(0)});render();alert("Add হয়ে গেছে বস!")}
+function delDoctor(i){if(confirm("ডিলিট করবা বস?")){doctors.splice(i,1);render()}}
+render();
+</script>
+</body>
+</html>
