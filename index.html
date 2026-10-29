@@ -3,158 +3,79 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Doctor Serial BD</title>
+<title>Doctor Serial - ঘরে বসে সিরিয়াল নিন</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
-body{background:#f2f5f9}
-header{background:#fff;padding:14px 0;box-shadow:0 2px 10px rgba(0,0,0,.1);position:sticky;top:0;z-index:99}
-.wrap{max-width:1280px;margin:auto;padding:0 18px}
-.top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
-.logo{font-size:28px;font-weight:900;color:#0b5ed7}
-.logo span{color:#111}
-.btn{padding:11px 18px;border-radius:999px;border:0;font-weight:800;cursor:pointer;font-size:15px}
-.btn-blue{background:#0b5ed7;color:#fff}
-.btn-green{background:#16a34a;color:#fff}
-.btn-red{background:#ef4444;color:#fff}
-.btn-gray{background:#e5e7eb}
-.hero{max-width:1280px;margin:18px auto;padding:0 18px}
-.live{background:#111;color:#fff;padding:14px 18px;border-radius:14px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
-.live b{color:#facc15}
-.search{background:#fff;padding:12px;border-radius:14px;display:flex;gap:10px;margin-top:14px;box-shadow:0 2px 8px rgba(0,0,0,.06)}
-.search input{flex:1;border:0;outline:0;font-size:18px}
-.search button{background:#0b5ed7;color:#fff;border:0;padding:10px 22px;border-radius:999px;font-weight:800;cursor:pointer}
-.hosp{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
-.hosp button{padding:10px 18px;border-radius:999px;border:1px solid #ddd;background:#fff;cursor:pointer;font-size:15px}
-.hosp button.active{background:#0b5ed7;color:#fff}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:18px}
-@media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:550px){.grid{grid-template-columns:1fr}}
-.card{background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.08)}
-.card img{width:100%;height:180px;object-fit:cover}
-.card-body{padding:16px}
-.card-body h3{font-size:20px}
-.card-body p{color:#666;font-size:14px;margin:5px 0}
-.tag{display:inline-block;background:#dcfce7;color:#166534;padding:5px 10px;border-radius:999px;font-size:12px;font-weight:800}
-.tag-red{background:#fee2e2;color:#991b1b}
-.row{display:flex;justify-content:space-between;align-items:center;margin-top:10px}
-.price{font-size:20px;font-weight:900;color:#16a34a}
-.actions{display:flex;gap:8px;margin-top:12px}
-.actions button,.actions a{flex:1;text-align:center;padding:11px;border-radius:10px;font-weight:800;border:0;cursor:pointer;text-decoration:none;font-size:14px}
-.book{background:#16a34a;color:#fff}
-.del{background:#fee2e2;color:#991b1b}
-/* MODAL */
-.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:999;align-items:center;justify-content:center;padding:16px}
-.modal.open{display:flex}
-.box{background:#fff;width:100%;max-width:520px;border-radius:18px;padding:22px}
-.box h2{margin-bottom:12px}
-.box input,.box select{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;margin-bottom:10px;font-size:16px}
-.box label{font-size:13px;color:#666}
-.slip{background:#f0fdf4;border:2px dashed #16a34a;border-radius:14px;padding:16px;text-align:center;margin-top:16px}
-.slip b{font-size:32px;color:#16a34a}
-footer{text-align:center;padding:20px;color:#888;font-size:13px}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Hind Siliguri,Arial,sans-serif}
+body{background:#fff7ed;padding:12px;padding-bottom:80px}
+.top{display:flex;justify-content:space-between;align-items:center;padding:4px 2px}
+.logo{font-size:28px;font-weight:900;color:#111}
+.logo span{color:#16a34a}
+.sub{font-size:13px;color:#666;margin:2px 0 10px}
+.live{background:#111;color:#fff;padding:10px 14px;border-radius:12px;display:flex;justify-content:space-between;font-size:13px;font-weight:700}
+.live b{color:#fbbf24}
+.searchBox{display:flex;gap:8px;background:#fff;border:1px solid #eee;padding:10px;border-radius:14px;margin:14px 0;box-shadow:0 2px 10px #00000010}
+.searchBox input{flex:1;border:0;outline:0;font-size:15px}
+.searchBox button{background:#0ea5e9;color:#fff;border:0;padding:10px 16px;border-radius:20px;font-weight:700}
+.filter{display:flex;gap:8px;overflow-x:auto;padding-bottom:6px}
+.filter button{white-space:nowrap;border:1px solid #e5e7eb;background:#fff;padding:8px 14px;border-radius:20px;font-weight:700;cursor:pointer}
+.filter button.active{background:#0284c7;color:#fff;border-color:#0284c7}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-top:12px}
+.card{background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 4px 18px #00000012;border:1px solid #f1f1f1}
+.card img{width:100%;height:220px;object-fit:cover}
+.card-body{padding:12px}
+.badge{color:#16a34a;font-size:12px;font-weight:700}
+.name{font-size:20px;font-weight:900;margin:3px 0}
+.spec{color:#666;font-size:14px}
+.time{font-size:13px;color:#444;margin:6px 0}
+.price{color:#16a34a;font-size:20px;font-weight:900}
+.row{display:flex;justify-content:space-between;align-items:center;margin-top:8px}
+.serialBtn{background:#16a34a;color:#fff;border:0;padding:10px 14px;border-radius:10px;font-weight:800;cursor:pointer}
+.delBtn{background:#fee2e2;color:#dc2626;border:0;padding:8px 10px;border-radius:8px;cursor:pointer;display:none}
+.adminMode .delBtn{display:inline-block}
+.adminMode .addArea{display:block!important}
+.addArea{display:none!important;background:#fff;padding:14px;border-radius:14px;margin-top:14px;border:2px dashed #0284c7}
+.addArea input{width:100%;padding:10px;margin:5px 0;border:1px solid #ddd;border-radius:10px}
+.addArea button{background:#0284c7;color:#fff;border:0;padding:11px;border-radius:10px;width:100%;font-weight:800}
+.footer{text-align:center;margin-top:30px;color:#999;font-size:12px}
+.footer a{color:#999;text-decoration:none}
 </style>
 </head>
 <body>
 
-<header><div class="wrap"><div class="top">
-<div class="logo">Doctor Serial <span>BD</span></div>
-<div style="display:flex;gap:8px;flex-wrap:wrap">
-<button class="btn btn-blue" onclick="openModal('hospModal')">+ হাসপাতাল Add</button>
-<button class="btn btn-green" onclick="openModal('docModal')">+ ডাক্তার Add</button>
+<div class="top">
+<div class="logo">Doctor <span>Serial</span></div>
+<div style="font-size:12px;color:#888">চট্টগ্রাম • ফ্রি সার্ভিস</div>
 </div>
-</div></div></header>
+<p class="sub">ঘরে বসে ডাক্তারের সিরিয়াল নিন - ফ্রি, কোনো লাইনে দাঁড়াতে হবে না</p>
 
-<div class="hero">
-<div class="live"><span>🔴 LIVE - এখন সিরিয়াল চলতেছে</span><b id="liveCount">মোট সিরিয়াল: ১২ টা</b></div>
-<div class="search"><span style="font-size:20px">🔍</span><input id="q" placeholder="ডাক্তার / হাসপাতাল / বিভাগ খুঁজুন..." onkeyup="render()"><button onclick="render()">খুঁজুন</button></div>
+<div class="live"><span>🔴 LIVE - এখন সিরিয়াল চলতেছে</span><span>মোট সিরিয়াল: <b id="count">0</b> জন ডাক্তার</span></div>
 
-<div class="hosp" id="hospList"></div>
+<div class="searchBox">
+<input id="search" placeholder="ডাক্তারের নাম বা রোগ লিখুন... যেমন: জ্বর, গাইনী, শিশু" oninput="render()">
+<button onclick="render()">খুঁজুন</button>
+</div>
+
+<div class="filter" id="filters"></div>
 <div class="grid" id="grid"></div>
-<div id="slipArea"></div>
+
+<div class="addArea" id="addArea">
+<h3>Admin - নতুন ডাক্তার Add করুন (শুধু তুমি)</h3>
+<input id="nName" placeholder="ডাক্তারের নাম - যেমন: ডা. নুসরাত জাহান">
+<input id="nSpec" placeholder="কি রোগের ডাক্তার - যেমন: গাইনী, মেডিসিন, শিশু, চোখ, হার্ট">
+<input id="nTime" placeholder="সময় - যেমন: সকাল ১০টা - দুপুর ১টা">
+<input id="nFee" placeholder="ফি - যেমন: 1000">
+<input id="nImg" placeholder="ছবির লিংক (না দিলে অটো ছবি আসবে)">
+<button onclick="addDoctor()">ডাক্তার Add করুন</button>
+<button onclick="logoutAdmin()" style="background:#ef4444;margin-top:6px">Admin থেকে বের হোন</button>
 </div>
 
-<!-- ADD HOSPITAL -->
-<div class="modal" id="hospModal"><div class="box">
-<h2>+ নতুন হাসপাতাল Add করুন</h2>
-<input id="hName" placeholder="হাসপাতালের নাম - যেমন: Popular Hospital">
-<input id="hLoc" placeholder="ঠিকানা - যেমন: চকবাজার, চট্টগ্রাম">
-<input id="hImg" placeholder="ছবির লিংক (না থাকলে খালি রাখুন)">
-<button class="btn btn-blue" style="width:100%" onclick="addHosp()">✅ হাসপাতাল Add করুন</button>
-<button class="btn btn-gray" style="width:100%;margin-top:8px" onclick="closeModal('hospModal')">বন্ধ করুন</button>
-</div></div>
-
-<!-- ADD DOCTOR -->
-<div class="modal" id="docModal"><div class="box">
-<h2>+ নতুন ডাক্তার Add করুন</h2>
-<label>ডাক্তারের নাম</label><input id="dName" placeholder="যেমন: ডা. রাহাত হোসেন">
-<label>বিভাগ</label><select id="dDept"><option>মেডিসিন</option><option>শিশু</option><option>গাইনি</option><option>চোখ</option><option>দাঁত</option><option>হাড়</option><option>চর্ম</option><option>হার্ট</option></select>
-<label>হাসপাতাল</label><select id="dHosp"></select>
-<label>ভিজিট ফি (টাকা)</label><input id="dFee" placeholder="যেমন: 800" type="number">
-<label>সময়</label><input id="dTime" placeholder="যেমন: বিকাল ৫টা - রাত ৮টা">
-<label>সিরিয়াল কয়টা বাকি?</label><input id="dLeft" placeholder="যেমন: 3" type="number" value="5">
-<label>ডাক্তারের ছবির লিংক (না থাকলে খালি রাখুন)</label><input id="dImg" placeholder="ছবির লিংক">
-<button class="btn btn-green" style="width:100%" onclick="addDoc()">✅ ডাক্তার Add করুন</button>
-<button class="btn btn-gray" style="width:100%;margin-top:8px" onclick="closeModal('docModal')">বন্ধ করুন</button>
-</div></div>
-
-<footer>Doctor Serial BD • তুমি নিজে Add করতে পারবা • কোনো কোড লাগবে না</footer>
+<div class="footer"><a href="#" onclick="adminLogin();return false">Admin</a> • শুধু মালিক ডিলিট / Add করতে পারবে • Made for Chittagong</div>
 
 <script>
-let hospitals = JSON.parse(localStorage.getItem('hospitals')) || [
-{name:"Mid Point Hospital",loc:"বহদ্দারহাট, চট্টগ্রাম",img:"https://images.unsplash.com/photo-1586773860418-d37222d8fce3?w=800&q=80"},
-{name:"Evercare Hospital",loc:"জিইসি, চট্টগ্রাম",img:"https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=800&q=80"},
-{name:"Parkview Hospital",loc:"পাঁচলাইশ, চট্টগ্রাম",img:"https://images.unsplash.com/photo-1551076805-e1869033e561?w=800&q=80"},
-{name:"Metropolitan Hospital",loc:"জিইসি, চট্টগ্রাম",img:"https://images.unsplash.com/photo-1538108149393-fbbd81895907?w=800&q=80"}
-];
-let doctors = JSON.parse(localStorage.getItem('doctors')) || [
-{name:"ডা. রাহাত হোসেন",dept:"মেডিসিন",hosp:"Mid Point Hospital",fee:800,time:"বিকাল ৫টা - রাত ৮টা",left:3,img:"https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=800&q=80"},
-{name:"ডা. নুসরাত জাহান",dept:"গাইনি",hosp:"Mid Point Hospital",fee:1000,time:"সকাল ১০টা - দুপুর ১টা",left:5,img:"https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=800&q=80"},
-{name:"ডা. তানভীর আহমেদ",dept:"শিশু",hosp:"Evercare Hospital",fee:900,time:"বিকাল ৪টা - রাত ৭টা",left:2,img:"https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=800&q=80"},
-{name:"ডা. সাবরিনা করিম",dept:"চোখ",hosp:"Parkview Hospital",fee:700,time:"সকাল ৯টা - দুপুর ১২টা",left:8,img:"https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=800&q=80"}
-];
-let filterHosp="সব";
-function save(){localStorage.setItem('hospitals',JSON.stringify(hospitals));localStorage.setItem('doctors',JSON.stringify(doctors));}
-function openModal(id){document.getElementById(id).classList.add('open');fillHospSelect();}
-function closeModal(id){document.getElementById(id).classList.remove('open');}
-function fillHospSelect(){let s=document.getElementById('dHosp');s.innerHTML=hospitals.map(h=>`<option>${h.name}</option>`).join('');}
-function addHosp(){
-let n=document.getElementById('hName').value.trim();if(!n){alert('হাসপাতালের নাম দাও!');return;}
-hospitals.push({name:n,loc:document.getElementById('hLoc').value||'চট্টগ্রাম',img:document.getElementById('hImg').value||'https://images.unsplash.com/photo-1586773860418-d37222d8fce3?w=800&q=80'});
-save();closeModal('hospModal');render();alert('✅ হাসপাতাল Add হয়ে গেছে!');
-}
-function addDoc(){
-let n=document.getElementById('dName').value.trim();if(!n){alert('ডাক্তারের নাম দাও!');return;}
-doctors.push({name:n,dept:document.getElementById('dDept').value,hosp:document.getElementById('dHosp').value,fee:document.getElementById('dFee').value||800,time:document.getElementById('dTime').value||'বিকাল ৫টা',left:parseInt(document.getElementById('dLeft').value)||5,img:document.getElementById('dImg').value||'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=800&q=80'});
-save();closeModal('docModal');render();alert('✅ ডাক্তার Add হয়ে গেছে! মানুষ এখন দেখতে পারবে!');
-}
-function delDoc(i){if(confirm('এই ডাক্তার ডিলিট করবা?')){doctors.splice(i,1);save();render();}}
-function book(i){
-let d=doctors[i];if(d.left<=0){alert('সিরিয়াল শেষ!');return;}
-d.left--;save();render();
-let serial = 20 - d.left;
-document.getElementById('slipArea').innerHTML=`<div class="slip"><p>✅ সিরিয়াল বুকিং সফল!</p><b>সিরিয়াল নং - ${serial}</b><p>${d.name} • ${d.hosp}</p><p>${d.time} • ফি ${d.fee} টাকা</p><p>স্ক্রিনশট নিয়ে রাখুন</p></div>`;
-window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'});
-}
-function render(){
-let q=document.getElementById('q').value.toLowerCase();
-let hl=document.getElementById('hospList');hl.innerHTML=`<button class="${filterHosp==='সব'?'active':''}" onclick="filterHosp='সব';render()">সব হাসপাতাল</button>`+hospitals.map(h=>`<button class="${filterHosp===h.name?'active':''}" onclick="filterHosp='${h.name}';render()">${h.name}</button>`).join('');
-let list=doctors.map((d,idx)=>({...d,idx})).filter(d=>{
-let matchQ=(d.name+d.dept+d.hosp).toLowerCase().includes(q);
-let matchH=filterHosp==='সব'||d.hosp===filterHosp;
-return matchQ&&matchH;
-});
-document.getElementById('liveCount').innerText=`মোট সিরিয়াল: ${doctors.length} জন ডাক্তার • মোট হাসপাতাল: ${hospitals.length} টা`;
-document.getElementById('grid').innerHTML=list.map(d=>`
-<div class="card">
-<img src="${d.img}">
-<div class="card-body">
-<span class="tag ${d.left<=3?'tag-red':''}">${d.left<=3?'🔥 সিরিয়াল বাকি মাত্র '+d.left+' টা!':'● এখন চেম্বারে আছে'}</span>
-<h3>${d.name}</h3><p>${d.dept} বিশেষজ্ঞ • ${d.hosp}</p><p>🕒 ${d.time}</p>
-<div class="row"><span class="price">${d.fee} টাকা</span><span>⭐ 4.9</span></div>
-<div class="actions"><button class="book" onclick="book(${d.idx})">সিরিয়াল নিন</button><button class="del" onclick="delDoc(${d.idx})">ডিলিট</button></div>
-</div></div>`).join('') || '<p style="padding:20px">কোনো ডাক্তার পাওয়া যায় নাই। উপরে + ডাক্তার Add চাপো।</p>';
-}
-render();
-</script>
-</body>
-</html>
+let ADMIN_PASS="1234";
+let doctors=JSON.parse(localStorage.getItem("doctors_v3")||"null")||[
+{name:"ডা. নুসরাত জাহান",spec:"গাইনী",time:"সকাল ১০টা - দুপুর ১টা",fee:"1000",img:"https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=600&q=80"},
+{name:"ডা. তানভীর আহমেদ",spec:"শিশু",time:"বিকাল ৪টা - রাত ৭টা",fee:"900",img:"https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=600&q=80"},
+{name:"ডা. সাবরিনা করিম",spec:"চোখ",time:"সকাল ৯টা - দুপুর ১২টা",fee:"700",img:"https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=600&q=80"},
+{name:"ডা. রহিম উদ্দিন",spec:"মেডিসিন",time:"বিকাল ৩টা - সন্ধ্যা ৬টা",fee:"800",img:"https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=600&q=80"},
+{name:"ডা. ফারিয়া হক",spec:"হার্ট",time:"সকাল ১০টা - দুপুর ২টা",fee:"1200",img:"https://images.unsplash.com/photo-165100837681
