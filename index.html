@@ -5,20 +5,19 @@
 <title>Doctor Serial - ঘরে বসে সিরিয়াল নিন</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Hind Siliguri,Arial,sans-serif}
-/* পিছনের কালার - এখন সাদা + হালকা আকাশি */
-body{background:#eef6ff;padding:12px;padding-bottom:90px}
+body{background:linear-gradient(180deg,#dbeafe 0%,#e0f2fe 35%,#ecfdf5 100%);padding:12px;padding-bottom:90px;min-height:100vh}
 .header{text-align:center;background:linear-gradient(135deg,#0ea5e9,#16a34a);padding:20px 10px 16px;border-radius:18px;color:#fff;box-shadow:0 6px 20px #0ea5e933;margin-bottom:10px}
 .header .logo{font-size:38px;font-weight:900;line-height:1}
 .header .logo .d{color:#fff}.header .logo .s{color:#fef08a}
 .header .sub{font-size:14px;color:#fff;margin-top:6px;font-weight:600}
 .header .badge-top{display:inline-block;background:#fff;color:#16a34a;font-size:12px;font-weight:900;padding:4px 12px;border-radius:20px;margin-bottom:8px}
 .live{background:#111;color:#fff;padding:12px;border-radius:12px;display:flex;justify-content:space-between;font-size:13px;font-weight:700}.live b{color:#fbbf24}
-.searchBox{display:flex;gap:8px;background:#fff;border:1px solid #eee;padding:10px;border-radius:14px;margin:14px 0}.searchBox input{flex:1;border:0;outline:0;font-size:15px}.searchBox button{background:#0ea5e9;color:#fff;border:0;padding:10px 14px;border-radius:20px;font-weight:700}
+.searchBox{display:flex;gap:8px;background:#fff;border:2px solid #e5e7eb;padding:10px;border-radius:14px;margin:14px 0}.searchBox input{flex:1;border:0;outline:0;font-size:15px}.searchBox button{background:#0ea5e9;color:#fff;border:0;padding:10px 14px;border-radius:20px;font-weight:700}
 .filter{display:flex;gap:10px;overflow-x:auto;padding:6px 2px 12px;scrollbar-width:none}.filter::-webkit-scrollbar{display:none}
 .filter button{white-space:nowrap;border:0;padding:13px 22px;border-radius:25px;font-weight:900;font-size:17px;color:#fff;box-shadow:0 4px 10px #00000020;cursor:pointer;min-width:80px}
 .filter button.active{outline:3px solid #111;outline-offset:2px;transform:scale(1.08)}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-top:10px}
-.card{background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 4px 18px #00000012;border:1px solid #f1f1f1}
+.card{background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 6px 20px #00000015;border:1px solid #e5e7eb}
 .card img{width:100%;height:220px;object-fit:cover;background:#eee}
 .avatar{height:130px;display:flex;align-items:center;justify-content:center;font-size:60px;font-weight:900;color:#fff}
 .card-body{padding:12px}.badge{color:#16a34a;font-size:12px;font-weight:700}.name{font-size:20px;font-weight:900}.spec{color:#666;font-size:14px}.center{font-size:13px;color:#0284c7;font-weight:700;margin-top:3px}.time{font-size:13px;margin:6px 0}.price{color:#16a34a;font-size:20px;font-weight:900}.row{display:flex;justify-content:space-between;align-items:center;margin-top:8px}
@@ -27,7 +26,7 @@ body{background:#eef6ff;padding:12px;padding-bottom:90px}
 .delBtn{background:#fee2e2;color:#dc2626;border:0;padding:8px 10px;border-radius:8px;margin-top:6px;width:100%}
 .panel{display:none;background:#fff;padding:14px;border-radius:14px;margin-top:14px;border:2px dashed #0284c7}.panel input{width:100%;padding:11px;margin:5px 0;border:1px solid #ddd;border-radius:10px}.panel button{background:#0284c7;color:#fff;border:0;padding:11px;border-radius:10px;width:100%;font-weight:800}.panel label{font-size:13px;font-weight:700}
 .hospList{background:#f0f9ff;padding:10px;border-radius:10px;margin-top:10px;font-size:13px}
-.footer{text-align:center;margin-top:30px;color:#999;font-size:12px}
+.footer{text-align:center;margin-top:30px;color:#64748b;font-size:12px}
 #preview{width:100%;height:150px;object-fit:cover;border-radius:10px;display:none;margin-top:6px}
 .who{font-size:13px;font-weight:700;color:#16a34a;text-align:center;margin-top:8px}
 .modal{display:none;position:fixed;inset:0;background:#000000aa;z-index:99;align-items:center;justify-content:center;padding:14px}
@@ -44,9 +43,9 @@ body{background:#eef6ff;padding:12px;padding-bottom:90px}
 </head>
 <body>
 <div class="header">
-<div class="badge-top">✦ চট্টগ্রাম • ফ্রি সার্ভিস ✦</div>
+<div class="badge-top">✦ দ্রুত সিরিয়াল • সারা বাংলাদেশ ✦</div>
 <div class="logo"><span class="d">Doctor</span> <span class="s">Serial</span></div>
-<div class="sub">ঘরে বসে ডাক্তারের সিরিয়াল নিন - ফ্রি, কোনো লাইনে দাঁড়াতে হবে না</div>
+<div class="sub">ঘরে বসে ডাক্তারের সিরিয়াল নিন - সহজে, কোনো লাইনে দাঁড়াতে হবে না</div>
 </div>
 <div class="live"><span>🔴 LIVE - এখন সিরিয়াল চলতেছে</span><span>মোট: <b id="count">0</b> জন</span></div>
 <div class="who" id="who"></div>
@@ -64,7 +63,7 @@ body{background:#eef6ff;padding:12px;padding-bottom:90px}
 <input id="pName" placeholder="যেমন: রাকিব হোসেন">
 <label>২. মোবাইল নাম্বার *</label>
 <input id="pPhone" type="tel" placeholder="যেমন: 018XXXXXXXX">
-<button class="ok" onclick="confirmSerial('whatsapp')">🟢 WhatsApp এ পাঠান - ফ্রি</button>
+<button class="ok" onclick="confirmSerial('whatsapp')">🟢 WhatsApp এ পাঠান</button>
 <button class="okSms" onclick="confirmSerial('sms')">📩 SMS এ পাঠান - সিম দিয়ে</button>
 <button class="cancel" onclick="closeModal()">বাতিল</button>
 </div>
@@ -86,7 +85,7 @@ body{background:#eef6ff;padding:12px;padding-bottom:90px}
 <label>১. ডাক্তারের নাম</label><input id="nName" placeholder="যেমন: ডা. নুসরাত জাহান">
 <label>২. কি রোগের ডাক্তার</label><input id="nSpec" placeholder="যেমন: গাইনী, মেডিসিন, শিশু, চোখ, হার্ট">
 <label>৩. সময়</label><input id="nTime" placeholder="যেমন: সকাল ১০টা - দুপুর ১টা">
-<label>৪. ফি</label><input id="nFee" placeholder="যেমন: 1000">
+<label>৪. ডাক্তারের ভিজিট</label><input id="nFee" placeholder="যেমন: 1000">
 <label>৫. ছবি - ফোন থেকে বেছে নাও</label><input type="file" accept="image/*" onchange="previewImg(event)"><img id="preview">
 <label>অথবা ছবির লিংক</label><input id="nImg" placeholder="ছবির লিংক - না দিলেও হবে">
 <button onclick="addDoctor()">✅ ডাক্তার Add করুন</button>
