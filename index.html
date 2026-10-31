@@ -1,237 +1,161 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Doctor Serial - ঘরে বসে সিরিয়াল নিন</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Doctor Serial - ডাক্তার সিরিয়াল চট্টগ্রাম</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Hind Siliguri,Arial,sans-serif}
-body{background:linear-gradient(180deg,#dbeafe 0%,#e0f2fe 35%,#ecfdf5 100%);padding:12px;padding-bottom:90px;min-height:100vh}
-.header{text-align:center;background:linear-gradient(135deg,#0ea5e9,#16a34a);padding:20px 10px 16px;border-radius:18px;color:#fff;box-shadow:0 6px 20px #0ea5e933;margin-bottom:10px}
-.header .logo{font-size:38px;font-weight:900;line-height:1}
-.header .logo .d{color:#fff}.header .logo .s{color:#fef08a}
-.header .sub{font-size:14px;color:#fff;margin-top:6px;font-weight:600;line-height:1.5}
-.header .badge-top{display:inline-block;background:#fff;color:#16a34a;font-size:12px;font-weight:900;padding:4px 12px;border-radius:20px;margin-bottom:8px}
-.live{background:#111;color:#fff;padding:12px;border-radius:12px;display:flex;justify-content:space-between;font-size:13px;font-weight:700}.live b{color:#fbbf24}
-.searchWrap{position:relative;margin:14px 0}
-.searchBox{display:flex;gap:8px;background:#fff;border:2px solid #e5e7eb;padding:10px;border-radius:14px}.searchBox input{flex:1;border:0;outline:0;font-size:15px;min-width:0}.searchBox button{background:#0ea5e9;color:#fff;border:0;padding:10px 14px;border-radius:20px;font-weight:700;white-space:nowrap}
-.suggest{display:none;position:absolute;left:0;right:0;top:100%;margin-top:6px;background:#fff;border-radius:14px;box-shadow:0 10px 30px #00000020;border:1px solid #e5e7eb;z-index:50;overflow:hidden;max-height:300px;overflow-y:auto}
-.suggestTitle{padding:10px 12px 4px;font-size:12px;font-weight:900;color:#64748b}
-.suggestItem{display:flex;align-items:center;gap:8px;padding:11px 12px;border-top:1px solid #f1f5f9;cursor:pointer;font-weight:700;font-size:15px}
-.suggestItem:active{background:#f0f9ff}
-.suggestItem small{color:#0284c7;font-size:12px;display:block;font-weight:600}
-.filter{display:flex;gap:8px;overflow-x:auto;padding:4px 2px 12px;scrollbar-width:none;-webkit-overflow-scrolling:touch}.filter::-webkit-scrollbar{display:none}
-.filter button{flex:0 0 auto;white-space:nowrap;border:0;padding:10px 18px;border-radius:25px;font-weight:800;font-size:15px;color:#fff;box-shadow:0 2px 6px #00000020;cursor:pointer}
-.filter button.active{outline:2px solid #111;outline-offset:1px;transform:scale(1.05)}
-.grid{display:grid;grid-template-columns:1fr;gap:14px;margin-top:10px}
-@media(min-width:600px){.grid{grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}}
-.card{background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 6px 20px #00000015;border:1px solid #e5e7eb}
-.card img{width:100%;height:200px;object-fit:cover;background:#eee}
-.avatar{height:100px;display:flex;align-items:center;justify-content:center;font-size:52px;font-weight:900;color:#fff}
-.card-body{padding:12px}.badge{color:#16a34a;font-size:12px;font-weight:700}.name{font-size:20px;font-weight:900}.spec{color:#666;font-size:14px}.center{font-size:13px;color:#0284c7;font-weight:700;margin-top:3px}.time{font-size:13px;margin:6px 0}.price{color:#16a34a;font-size:20px;font-weight:900}.row{display:flex;justify-content:space-between;align-items:center;margin-top:8px}
-.serialBtn{background:#25D366;color:#fff;border:0;padding:13px 14px;border-radius:10px;font-weight:800;width:100%;font-size:16px;margin-top:6px}
-.smsBtn{background:#0284c7;color:#fff;border:0;padding:12px 14px;border-radius:10px;font-weight:800;width:100%;font-size:15px;margin-top:6px}
-.delBtn{background:#fee2e2;color:#dc2626;border:0;padding:8px 10px;border-radius:8px;margin-top:6px;width:100%}
-.panel{display:none;background:#fff;padding:14px;border-radius:14px;margin-top:14px;border:2px dashed #0284c7}.panel input{width:100%;padding:11px;margin:5px 0;border:1px solid #ddd;border-radius:10px}.panel button{background:#0284c7;color:#fff;border:0;padding:11px;border-radius:10px;width:100%;font-weight:800}.panel label{font-size:13px;font-weight:700}
-.hospList{background:#f0f9ff;padding:10px;border-radius:10px;margin-top:10px;font-size:13px}
-.hospItem{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:10px;margin-top:8px}
-.hospItem b{font-size:15px}
-.hospItem small{color:#64748b;display:block;line-height:1.6;margin:4px 0}
-.hospItem .row2{display:flex;gap:8px}
-.hospItem .row2 button{padding:8px;border:0;border-radius:8px;font-weight:800;font-size:13px;cursor:pointer}
-.editBtn{background:#fef3c7;color:#92400e;flex:1}
-.delHospBtn{background:#fee2e2;color:#dc2626;flex:1}
-.footer{text-align:center;margin-top:30px;color:#64748b;font-size:12px;padding:20px;line-height:1.7}
-.footer a{color:#0284c7;font-weight:800;text-decoration:none}
-#preview{width:100%;height:150px;object-fit:cover;border-radius:10px;display:none;margin-top:6px}
-.who{font-size:13px;font-weight:700;color:#16a34a;text-align:center;margin-top:8px;background:#dcfce7;padding:8px;border-radius:10px;display:none}
-.who.show{display:block}
-.modal{display:none;position:fixed;inset:0;background:#000000aa;z-index:99;align-items:center;justify-content:center;padding:14px}
-.modalBox{background:#fff;width:100%;max-width:380px;border-radius:18px;padding:18px}
-.modalBox h3{text-align:center;font-size:21px}
-.modalBox p{text-align:center;color:#666;font-size:13px;margin:4px 0 12px}
-.modalBox label{font-size:14px;font-weight:800;display:block;margin-top:8px}
-.modalBox input{width:100%;padding:13px;border:2px solid #ddd;border-radius:12px;margin-top:4px;font-size:16px}
-.modalBox .ok{background:#25D366;color:#fff;border:0;padding:14px;border-radius:12px;width:100%;font-weight:900;font-size:17px;margin-top:14px}
-.modalBox .okSms{background:#0284c7;color:#fff;border:0;padding:13px;border-radius:12px;width:100%;font-weight:900;font-size:16px;margin-top:8px}
-.modalBox .cancel{background:#eee;border:0;padding:10px;border-radius:10px;width:100%;margin-top:8px;font-weight:700}
-.serialNo{text-align:center;background:#fef3c7;padding:10px;border-radius:10px;font-weight:900;color:#92400e;margin-top:10px}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Hind Siliguri,sans-serif}
+body{background:#eef4ff;padding:8px}
+.header{background:linear-gradient(135deg,#00b4d8,#00c853);color:#fff;text-align:center;padding:12px 8px;border-radius:14px}
+.header span{background:#fff;color:#008000;font-size:11px;padding:4px 10px;border-radius:20px;font-weight:bold}
+.header h1{font-size:30px;margin:5px 0 2px}
+.header h1 b{color:#ffe600}
+.header p{font-size:12px;line-height:1.4}
+.live{background:#000;color:#fff;display:flex;justify-content:space-between;padding:8px 10px;border-radius:10px;margin:8px 0;font-size:12px}
+.live b{color:#ffcc00}
+.search{background:#fff;display:flex;padding:5px;border-radius:12px;margin-bottom:8px}
+.search input{flex:1;border:none;outline:none;padding:8px;font-size:13px}
+.search button{background:#00a8e8;color:#fff;border:none;padding:8px 14px;border-radius:20px;font-weight:bold}
+.cats{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px}
+.cats button{border:none;padding:7px 14px;border-radius:20px;color:#fff;font-weight:bold;font-size:13px;white-space:nowrap;cursor:pointer;opacity:0.6}
+.cats button.active{opacity:1;outline:2px solid #000}
+.card{background:#fff;border-radius:14px;overflow:hidden;margin-bottom:8px}
+.dbox{background:#0096e8;color:#fff;text-align:center;font-size:32px;font-weight:bold;padding:10px}
+.card-body{padding:8px 10px}
+.card-body .green{color:green;font-size:11px;font-weight:bold}
+.card-body h2{font-size:18px;margin:2px 0}
+.card-body .sub{font-size:12px;color:#666}
+.hosp{color:#0096e8;font-size:12px;font-weight:bold;margin:4px 0}
+.row{display:flex;justify-content:space-between;align-items:center;font-size:12px}
+.price{color:green;font-size:16px;font-weight:bold}
+.btn1{background:#00c853;color:#fff;width:100%;border:none;padding:8px;border-radius:8px;font-weight:bold;font-size:13px;margin-top:6px}
+.btn2{background:#0077cc;color:#fff;width:100%;border:none;padding:8px;border-radius:8px;font-weight:bold;font-size:13px;margin-top:5px}
 </style>
 </head>
 <body>
+
 <div class="header">
-<div class="badge-top">✦ ১ মিনিটে সিরিয়াল • ঘরে বসেই ✦</div>
-<div class="logo"><span class="d">Doctor</span> <span class="s">Serial</span></div>
-<div class="sub">লাইনে দাঁড়ানো ছাড়াই পছন্দের ডাক্তারের সিরিয়াল নিন<br>WhatsApp ও SMS এ সাথে সাথে কনফার্ম</div>
-</div>
-<div class="live"><span>🔴 LIVE - এখন সিরিয়াল চলছে</span><span>মোট: <b id="count">0</b> জন ডাক্তার</span></div>
-<div class="who" id="who"></div>
-<div class="searchWrap">
-<div class="searchBox"><input id="search" placeholder="ডাক্তার / রোগ / হাসপাতাল লিখুন..." oninput="render();showHospitals()" onclick="showHospitals()" onfocus="showHospitals()"><button onclick="hideHospitals();render()">খুঁজুন</button></div>
-<div class="suggest" id="suggest"></div>
-</div>
-<div class="filter" id="filters"></div>
-<div class="grid" id="grid"></div>
-
-<div class="modal" id="serialModal">
-<div class="modalBox">
-<h3>📋 সিরিয়াল নিন</h3>
-<p id="modalDoctor">ডাক্তার</p>
-<p id="modalHospPhone" style="color:#0284c7;font-weight:800">যাবে: </p>
-<div class="serialNo">তোমার সিরিয়াল নং: <span id="serialNo">1</span></div>
-<label>১. রোগীর নাম *</label>
-<input id="pName" placeholder="যেমন: রাকিব হোসেন">
-<label>২. মোবাইল নাম্বার *</label>
-<input id="pPhone" type="tel" placeholder="যেমন: 018XXXXXXXX">
-<button class="ok" onclick="confirmSerial('whatsapp')">🟢 WhatsApp এ পাঠান</button>
-<button class="okSms" onclick="confirmSerial('sms')">📩 SMS এ পাঠান - সিম দিয়ে</button>
-<button class="cancel" onclick="closeModal()">বাতিল</button>
-</div>
+<span>✦ ১ মিনিটে সিরিয়াল • ঘরে বসেই ✦</span>
+<h1>Doctor <b>Serial</b></h1>
+<p>লাইনে দাঁড়ানো ছাড়াই পছন্দের ডাক্তারের সিরিয়াল নিন<br>WhatsApp ও SMS এ সাথে সাথে কনফার্ম</p>
 </div>
 
-<div class="panel" id="bossPanel">
-<h3>👑 Admin প্যানেল - নতুন হাসপাতাল Add করো</h3>
-<label>১. হাসপাতাল / সেন্টারের নাম</label><input id="hName" placeholder="যেমন: মেডিকেল সেন্টার, চকবাজার">
-<label>২. ওই হাসপাতালের ইউজারনেম দাও</label><input id="hUser" placeholder="যেমন: medical">
-<label>৩. ওই হাসপাতালের পাসওয়ার্ড দাও</label><input id="hPass" placeholder="যেমন: medical123">
-<label>৪. ওই হাসপাতালের মোবাইল নাম্বার (WhatsApp + SMS দুইটাই এই নাম্বারে যাবে) *</label><input id="hPhone" placeholder="যেমন: 01812345678">
-<button onclick="addHospital()" style="background:#16a34a">🏥 নতুন হাসপাতাল Add করুন</button>
-<div class="hospList" id="hospList"></div>
-<button onclick="logout()" style="background:#ef4444;margin-top:8px">বের হোন</button>
+<div class="live"><span>🔴 LIVE - এখন সিরিয়াল চলছে</span><span>মোট: <b>8 জন ডাক্তার</b></span></div>
+
+<div class="search"><input id="searchInput" placeholder="ডাক্তার / রোগ / হাসপাতাল লিখুন..." onkeyup="filterDoctor()"><button onclick="filterDoctor()">খুঁজুন</button></div>
+
+<div class="cats">
+<button class="active" onclick="filterCat('all',this)">সব</button>
+<button onclick="filterCat('medicine',this)">মেডিসিন</button>
+<button onclick="filterCat('gynae',this)">গাইনী</button>
+<button onclick="filterCat('pediatric',this)">শিশু / Pediatric</button>
+<button onclick="filterCat('neurology',this)">Neurology - নার্ভ</button>
+<button onclick="filterCat('oncology',this)">Oncology - ক্যান্সার</button>
+<button onclick="filterCat('orthopedic',this)">Orthopedic - হাড়</button>
+<button onclick="filterCat('pediatric-surgery',this)">Pediatric Surgery</button>
+<button onclick="filterCat('pulmonology',this)">Pulmonology - ফুসফুস</button>
+<button onclick="filterCat('urology',this)">Urology - কিডনি</button>
 </div>
 
-<div class="panel" id="hospPanel">
-<h3>🏥 <span id="myHospName"></span> - ডাক্তার Add করো</h3>
-<label>১. ডাক্তারের নাম</label><input id="nName" placeholder="যেমন: ডা. নুসরাত জাহান">
-<label>২. কি রোগের ডাক্তার</label><input id="nSpec" placeholder="যেমন: গাইনী, মেডিসিন, শিশু, চোখ, হার্ট">
-<label>৩. সময়</label><input id="nTime" placeholder="যেমন: সকাল ১০টা - দুপুর ১টা">
-<label>৪. ডাক্তারের ভিজিট</label><input id="nFee" placeholder="যেমন: 1000">
-<label>৫. ছবি - ফোন থেকে বেছে নাও</label><input type="file" accept="image/*" onchange="previewImg(event)"><img id="preview">
-<label>অথবা ছবির লিংক</label><input id="nImg" placeholder="ছবির লিংক - না দিলেও হবে">
-<button onclick="addDoctor()">✅ ডাক্তার Add করুন</button>
-<button onclick="logout()" style="background:#ef4444;margin-top:6px">লগআউট</button>
+<div id="list">
+
+<!-- 1 Radiology -->
+<div class="card" data-cat="medicine">
+<div class="dbox">D</div>
+<div class="card-body">
+<div class="green">• এখন চেম্বারে আছেন</div>
+<h2>Dr. Somaiya Hassan</h2>
+<div class="sub">রেডিওলজিস্ট বিশেষজ্ঞ</div>
+<div class="hosp">📍 MID POINT HOSPITAL</div>
+<div class="row"><span>🕒 3-5</span><span>⭐ 4.9</span></div>
+<div class="price">100 টাকা</div>
+<button class="btn1">🟢 WhatsApp এ সিরিয়াল নিন</button>
+<button class="btn2">📩 SMS এ সিরিয়াল নিন</button>
+</div>
 </div>
 
-<div class="footer">
-<a href="#" onclick="hospLogin();return false">🏥 Hospital Login</a><br>হাসপাতাল মালিক? ডাক্তার Add করতে এখানে চাপ দিন<br>Doctor Serial - সারা বাংলাদেশ • ঘরে বসে সিরিয়াল নিন
+<!-- 2 Neurology -->
+<div class="card" data-cat="neurology">
+<div class="dbox" style="background:#8e44ad">N</div>
+<div class="card-body">
+<div class="green">• এখন চেম্বারে আছেন</div>
+<h2>Dr. Neurology ডাক্তার</h2>
+<div class="sub">Neurology - ব্রেন / নার্ভ বিশেষজ্ঞ</div>
+<div class="hosp">📍 CHITTAGONG MEDICAL</div>
+<div class="row"><span>🕒 4-6</span><span>⭐ 4.8</span></div>
+<div class="price">500 টাকা</div>
+<button class="btn1">🟢 WhatsApp এ সিরিয়াল নিন</button>
+<button class="btn2">📩 SMS এ সিরিয়াল নিন</button>
+</div>
 </div>
 
-<script>
-let BOSS_PASS="boss123";
-let hospitals=JSON.parse(localStorage.getItem("hospitals")||"null")||[
-{name:"চকবাজার সেন্টার",user:"chokbazar",pass:"1111",phone:"01812345678"},
-{name:"MID POINT HOSPITAL & DIAGNOSTIC CENTER",user:"midpoint",pass:"2222",phone:"01812345678"}
-];
-hospitals=hospitals.map(h=>({name:h.name||"",user:h.user||h.username||"",pass:h.pass||h.password||"",phone:h.phone||h.mobile||""}));
-let doctors=JSON.parse(localStorage.getItem("doctors2")||"null")||[
-{name:"Dr. Somaiya Hassan",spec:"রেডিওলজিস্ট",center:"MID POINT HOSPITAL & DIAGNOSTIC CENTER",time:"3-5",fee:"100",color:"#0ea5e9",letter:"D",img:""},
-{name:"ডা. নুসরাত জাহান",spec:"গাইনী",center:"চকবাজার সেন্টার",time:"সকাল ১০টা - দুপুর ১টা",fee:"1000",color:"#ec4899",letter:"ন",img:""}
-];
-let currentUser=null; let isBoss=false; let tempImg=""; let selectedDoctor=""; let selectedCenter=""; let selectedPhone=""; let serialCount=parseInt(localStorage.getItem("serialCount")||"0");
-let cats=[{name:"সব",color:"#0284c7"},{name:"মেডিসিন",color:"#16a34a"},{name:"গাইনী",color:"#ec4899"},{name:"শিশু",color:"#f97316"},{name:"চোখ",color:"#9333ea"},{name:"হার্ট",color:"#dc2626"}];
-let active="সব";
-if(window.location.search.includes("admin=1")){ setTimeout(()=>bossLogin(),300); }
-function save(){localStorage.setItem("hospitals",JSON.stringify(hospitals));localStorage.setItem("doctors2",JSON.stringify(doctors))}
-function previewImg(e){let r=new FileReader();r.onload=function(){tempImg=r.result;let p=document.getElementById("preview");p.src=tempImg;p.style.display="block"};r.readAsDataURL(e.target.files[0])}
-function getPhoneForCenter(centerName){let h=hospitals.find(x=>x.name==centerName);return h&&h.phone?h.phone:"01812345678"}
-// সার্চে ক্লিক করলে সব হাসপাতালের নাম আসবে
-function showHospitals(){
-let q=document.getElementById("search").value.toLowerCase().trim();
-let s=document.getElementById("suggest");
-let list=hospitals.filter(h=>h.name&&(!q||h.name.toLowerCase().includes(q)));
-if(list.length==0){s.style.display="none";return;}
-s.innerHTML=`<div class="suggestTitle">🏥 হাসপাতাল বেছে নিন - চাপ দিলেই ওই হাসপাতালের ডাক্তার দেখাবে</div>`+list.map(h=>{
-let c=doctors.filter(d=>d.center==h.name).length;
-return `<div class="suggestItem" onclick="pickHospital('${h.name.replace(/'/g,"")}')"><span style="font-size:22px">🏥</span><div>${h.name}<small>${c} জন ডাক্তার আছেন • চাপ দিন</small></div></div>`;
-}).join("");
-s.style.display="block";
-}
-function hideHospitals(){setTimeout(()=>{document.getElementById("suggest").style.display="none"},200);}
-function pickHospital(name){
-document.getElementById("search").value=name;
-document.getElementById("suggest").style.display="none";
-active="সব"; render();
-document.getElementById("grid").scrollIntoView({behavior:"smooth"});
-}
-document.addEventListener("click",function(e){if(!e.target.closest(".searchWrap")){document.getElementById("suggest").style.display="none";}});
-function render(){
-let q=document.getElementById("search").value.toLowerCase();
-let f=document.getElementById("filters");f.innerHTML="";
-cats.forEach(c=>{let b=document.createElement("button");b.textContent=c.name;b.style.background=c.color;if(c.name==active)b.className="active";b.onclick=()=>{active=c.name;render()};f.appendChild(b)});
-let list=doctors.filter(d=>(active=="সব"||d.spec==active)&&(d.name.toLowerCase().includes(q)||d.spec.toLowerCase().includes(q)||(d.center||"").toLowerCase().includes(q)));
-document.getElementById("count").textContent=list.length;
-let g=document.getElementById("grid");g.innerHTML="";
-list.forEach(d=>{
-let canDel=isBoss||(currentUser&&currentUser.name==d.center);
-let div=document.createElement("div");div.className="card";
-let top=d.img?`<img src="${d.img}">`:`<div class="avatar" style="background:${d.color}">${d.letter}</div>`;
-div.innerHTML=top+`<div class="card-body"><div class="badge">● এখন চেম্বারে আছেন</div><div class="name">${d.name}</div><div class="spec">${d.spec} বিশেষজ্ঞ</div><div class="center">📍 ${d.center}</div><div class="time">🕐 ${d.time}</div><div class="row"><span class="price">${d.fee} টাকা</span><span>⭐ 4.9</span></div><button class="serialBtn" onclick="book('${d.name.replace(/'/g,"")}','${d.center}')">🟢 WhatsApp এ সিরিয়াল নিন</button><button class="smsBtn" onclick="book('${d.name.replace(/'/g,"")}','${d.center}')">📩 SMS এ সিরিয়াল নিন</button>${canDel?`<button class="delBtn" style="display:block" onclick="delDoctor(${doctors.indexOf(d)})">Delete করুন</button>`:""}</div>`;
-g.appendChild(div);
-});
-let who=document.getElementById("who");
-if(isBoss){who.textContent="👑 Admin প্যানেল চালু আছে";who.classList.add("show");}
-else if(currentUser){who.textContent="🏥 স্বাগতম, "+currentUser.name+(currentUser.phone?"  •  সিরিয়াল যাবে: "+currentUser.phone:"");who.classList.add("show");}
-else{who.textContent="";who.classList.remove("show");}
-let hl=document.getElementById("hospList");
-if(hl){
-hl.innerHTML="<b>তোমার হাসপাতাল গুলা:</b>"+hospitals.map((h,i)=>`<div class="hospItem"><b>🏥 ${h.name||"(নাম নাই)"}</b><small>ইউজার: <b>${h.user||"(দেওয়া হয় নাই)"}</b><br>পাস: <b>${h.pass||"(দেওয়া হয় নাই)"}</b><br>WhatsApp/SMS: <b>${h.phone||"(দেওয়া হয় নাই)"}</b></small><div class="row2"><button class="editBtn" onclick="editHospital(${i})">✏️ Edit - ইউজার / পাস চেঞ্জ</button><button class="delHospBtn" onclick="delHospital(${i})">🗑️ Delete</button></div></div>`).join("");
-}
-}
-function book(name,center){
-selectedDoctor=name;selectedCenter=center;selectedPhone=getPhoneForCenter(center);
-document.getElementById("modalDoctor").textContent=name+" - এর সিরিয়াল";
-document.getElementById("modalHospPhone").textContent="যাবে এই নাম্বারে: "+selectedPhone+" ("+center+")";
-document.getElementById("serialNo").textContent=serialCount+1;
-document.getElementById("pName").value="";document.getElementById("pPhone").value="";
-document.getElementById("serialModal").style.display="flex";
-}
-function closeModal(){document.getElementById("serialModal").style.display="none"}
-function confirmSerial(type){
-let n=document.getElementById("pName").value.trim();
-let ph=document.getElementById("pPhone").value.trim();
-if(!n){alert("রোগীর নাম লিখো!");return}
-if(!ph||ph.length<10){alert("সঠিক মোবাইল নাম্বার দাও! যেমন: 018XXXXXXXX");return}
-serialCount++;localStorage.setItem("serialCount",serialCount);
-let msg="আসসালামু আলাইকুম, সিরিয়াল নিতে চাই\n\nডাক্তার: "+selectedDoctor+"\nহাসপাতাল: "+selectedCenter+"\nরোগীর নাম: "+n+"\nমোবাইল নাম্বার: "+ph+"\nসিরিয়াল নং: "+serialCount;
-let phone880=selectedPhone.startsWith("880")?selectedPhone:"88"+selectedPhone.replace(/^0/,"");
-closeModal();
-if(type=="whatsapp"){
-alert("হয়ে গেছে! সিরিয়াল নং: "+serialCount+" - এখন WhatsApp এ যাচ্ছে!");
-window.open("https://wa.me/"+phone880+"?text="+encodeURIComponent(msg),"_blank");
-}else{
-let smsMsg="Serial: Doctor "+selectedDoctor+", Rogi: "+n+", Mobile: "+ph+", Serial No: "+serialCount+", Hospital: "+selectedCenter;
-alert("হয়ে গেছে! সিরিয়াল নং: "+serialCount+" - এখন SMS অ্যাপ খুলবে, শুধু Send চাপ দাও! SMS যাবে "+selectedPhone+" এই নাম্বারে!");
-window.location.href="sms:"+phone880+"?body="+encodeURIComponent(smsMsg);
-}
-}
-function bossLogin(){let p=prompt("Admin পাসওয়ার্ড দাও (শুধু তুমি জানো):");if(p==BOSS_PASS){isBoss=true;currentUser=null;document.getElementById("bossPanel").style.display="block";document.getElementById("hospPanel").style.display="block";document.getElementById("myHospName").textContent="Admin - সব হাসপাতাল";render();alert("স্বাগতম Admin!")}else if(p!=null) alert("ভুল পাসওয়ার্ড!")}
-function hospLogin(){let u=prompt("হাসপাতালের ইউজারনেম দাও:");if(u==null) return; let p=prompt("হাসপালের পাসওয়ার্ড দাও:");let h=hospitals.find(x=>x.user==u&&x.pass==p);if(h){currentUser=h;isBoss=false;document.getElementById("bossPanel").style.display="none";document.getElementById("hospPanel").style.display="block";document.getElementById("myHospName").textContent=h.name;render();alert("স্বাগতম "+h.name+"!")}else alert("ভুল ইউজার / পাসওয়ার্ড!")}
-function addHospital(){let n=document.getElementById("hName").value.trim(),u=document.getElementById("hUser").value.trim(),p=document.getElementById("hPass").value.trim(),ph=document.getElementById("hPhone").value.trim();if(!n||!u||!p||!ph){alert("৪টা ঘরই পূরণ করো! নাম্বার না দিলে WhatsApp/SMS কোথায় যাবে!");return}hospitals.push({name:n,user:u,pass:p,phone:ph});save();render();alert("হয়ে গেছে! "+n+" এর WhatsApp + SMS যাবে "+ph+" এই নাম্বারে!");document.getElementById("hName").value="";document.getElementById("hUser").value="";document.getElementById("hPass").value="";document.getElementById("hPhone").value="";}
-function editHospital(i){
-let h=hospitals[i];
-let nu=prompt("নতুন ইউজারনেম দাও ("+h.name+"):",h.user||"");
-if(nu==null) return;
-let np=prompt("নতুন পাসওয়ার্ড দাও ("+h.name+"):",h.pass||"");
-if(np==null) return;
-let nph=prompt("নতুন মোবাইল নাম্বার দাও (WhatsApp/SMS যাবে):",h.phone||"");
-if(nph==null) return;
-h.user=nu.trim(); h.pass=np.trim(); h.phone=nph.trim();
-save();render();alert("হয়ে গেছে! "+h.name+" এর নতুন ইউজার: "+h.user+" পাস: "+h.pass);
-}
-function delHospital(i){
-if(confirm("ডিলিট করবা? "+hospitals[i].name)){
-hospitals.splice(i,1);save();render();alert("ডিলিট হয়ে গেছে!");
-}
-}
-function addDoctor(){
-let n=document.getElementById("nName").value,s=document.getElementById("nSpec").value,t=document.getElementById("nTime").value,f=document.getElementById("nFee").value,im=document.getElementById("nImg").value||tempImg;
-let center=isBoss?"চকবাজার সেন্টার":currentUser.name;
-if(isBoss){let c=prompt("কোন হাসপাতালের জন্য ডাক্তার Add করবা? নাম লিখো:\n"+hospitals.map(h=>h.name).join("\n"));if(c)center=c;}
-if(!n||!s){alert("নাম আর রোগ লিখো!");return}
-doctors.unshift({name:n,spec:s,center:center,time:t||"সকাল ১০টা - দুপুর ১টা",fee:f||"500",color:"#0ea5e9",letter:n.replace("ডা. ","").charAt(0),img:im});save();render();alert("ডাক্তার Add হয়ে গেছে!");tempImg="";
-}
-function delDoctor(i){if(confirm("ডিলিট করবা?")){doctors.splice(i,1);save();render()}}
-function logout(){isBoss=false;currentUser=null;document.getElementById("bossPanel").style.display="none";document.getElementById("hospPanel").style.display="none";render();alert("লগআউট হয়ে গেছো")}
-render();
-</script>
-</body>
-</html>
+<!-- 3 Oncology -->
+<div class="card" data-cat="oncology">
+<div class="dbox" style="background:#e74c3c">O</div>
+<div class="card-body">
+<div class="green">• এখন চেম্বারে আছেন</div>
+<h2>Dr. Oncology ডাক্তার</h2>
+<div class="sub">Oncology - ক্যান্সার বিশেষজ্ঞ</div>
+<div class="hosp">📍 CHITTAGONG CANCER CENTER</div>
+<div class="row"><span>🕒 3-5</span><span>⭐ 4.9</span></div>
+<div class="price">600 টাকা</div>
+<button class="btn1">🟢 WhatsApp এ সিরিয়াল নিন</button>
+<button class="btn2">📩 SMS এ সিরিয়াল নিন</button>
+</div>
+</div>
+
+<!-- 4 Orthopedic -->
+<div class="card" data-cat="orthopedic">
+<div class="dbox" style="background:#2c3e50">O</div>
+<div class="card-body">
+<div class="green">• এখন চেম্বারে আছেন</div>
+<h2>Dr. Orthopedic ডাক্তার</h2>
+<div class="sub">Orthopedic - হাড় / জয়েন্ট বিশেষজ্ঞ</div>
+<div class="hosp">📍 MEDICARE HOSPITAL</div>
+<div class="row"><span>🕒 5-7</span><span>⭐ 4.7</span></div>
+<div class="price">400 টাকা</div>
+<button class="btn1">🟢 WhatsApp এ সিরিয়াল নিন</button>
+<button class="btn2">📩 SMS এ সিরিয়াল নিন</button>
+</div>
+</div>
+
+<!-- 5 Pediatric -->
+<div class="card" data-cat="pediatric">
+<div class="dbox" style="background:#ff8c00">P</div>
+<div class="card-body">
+<div class="green">• এখন চেম্বারে আছেন</div>
+<h2>Dr. শিশু ডাক্তার</h2>
+<div class="sub">Pediatric - বাচ্চাদের বিশেষজ্ঞ</div>
+<div class="hosp">📍 SHISHU HOSPITAL</div>
+<div class="row"><span>🕒 4-6</span><span>⭐ 5.0</span></div>
+<div class="price">300 টাকা</div>
+<button class="btn1">🟢 WhatsApp এ সিরিয়াল নিন</button>
+<button class="btn2">📩 SMS এ সিরিয়াল নিন</button>
+</div>
+</div>
+
+<!-- 6 Pediatric Surgery -->
+<div class="card" data-cat="pediatric-surgery">
+<div class="dbox" style="background:#f39c12">PS</div>
+<div class="card-body">
+<div class="green">• এখন চেম্বারে আছেন</div>
+<h2>Dr. Pediatric Surgery</h2>
+<div class="sub">বাচ্চাদের অপারেশন বিশেষজ্ঞ</div>
+<div class="hosp">📍 CHITTAGONG MEDICAL</div>
+<div class="row"><span>🕒 2-4</span><span>⭐ 4.8</span></div>
+<div class="price">800 টাকা</div>
+<button class="btn1">🟢 WhatsApp এ সিরিয়াল নিন</button>
+<button class="btn2">📩 SMS এ সিরিয়াল নিন</button>
+</div>
+</div>
+
+<!-- 7 Pulmonology -->
+<div class="card" data-cat="pulmonology">
+<div class="dbox" style="background:#16a085">P</div>
+<div class="card-body">
+<div class="green">• এখন চেম্বারে আছেন</div>
+<h2>Dr. Pulmonology ডাক্তার</h2>
+<div class="sub">Pulmonology - ফুসফুস / হাঁপানি বিশেষজ্ঞ</div>
+<div class="hosp">📍 POPULAR DIAGNOSTIC</div>
+<div class="row"><span>🕒
