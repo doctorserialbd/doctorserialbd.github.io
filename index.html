@@ -6,20 +6,21 @@
 <title>Doctor Serial - ডাক্তার সিরিয়াল চট্টগ্রাম</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Hind Siliguri,sans-serif}
-body{background:#eef4ff;padding:8px}
+body{background:#eef4ff;padding:8px;overflow-x:hidden}
 .header{background:linear-gradient(135deg,#00b4d8,#00c853);color:#fff;text-align:center;padding:12px 8px;border-radius:14px}
-.header span{background:#fff;color:#008000;font-size:11px;padding:4px 10px;border-radius:20px;font-weight:bold}
+.header span{background:#fff;color:#008000;font-size:11px;padding:4px 10px;border-radius:20px;font-weight:bold;display:inline-block}
 .header h1{font-size:30px;margin:5px 0 2px}
 .header h1 b{color:#ffe600}
 .header p{font-size:12px;line-height:1.4}
-.live{background:#000;color:#fff;display:flex;justify-content:space-between;padding:8px 10px;border-radius:10px;margin:8px 0;font-size:12px}
+.live{background:#000;color:#fff;display:flex;justify-content:space-between;align-items:center;padding:9px 10px;border-radius:10px;margin:8px 0;font-size:12px;white-space:nowrap;overflow:hidden}
 .live b{color:#ffcc00}
-.search{background:#fff;display:flex;padding:5px;border-radius:12px;margin-bottom:8px}
-.search input{flex:1;border:none;outline:none;padding:8px;font-size:13px}
-.search button{background:#00a8e8;color:#fff;border:none;padding:8px 14px;border-radius:20px;font-weight:bold}
-.cats{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px}
-.cats button{border:none;padding:7px 14px;border-radius:20px;color:#fff;font-weight:bold;font-size:13px;white-space:nowrap;cursor:pointer;opacity:0.6}
-.cats button.active{opacity:1;outline:2px solid #000}
+.search{background:#fff;display:flex;align-items:center;padding:5px;border-radius:12px;margin-bottom:8px;width:100%;overflow:hidden}
+.search input{flex:1;border:none;outline:none;padding:8px;font-size:13px;min-width:0}
+.search button{background:#00a8e8;color:#fff;border:none;padding:8px 14px;border-radius:20px;font-weight:bold;white-space:nowrap;flex-shrink:0}
+.cats{display:flex;gap:6px;overflow-x:auto;padding:4px 2px 8px;scrollbar-width:none}
+.cats::-webkit-scrollbar{display:none}
+.cats button{border:none;padding:8px 15px;border-radius:20px;color:#fff;font-weight:bold;font-size:13px;white-space:nowrap;cursor:pointer;flex-shrink:0;opacity:1}
+.cats button.active{outline:2px solid #000;transform:scale(1.05)}
 .card{background:#fff;border-radius:14px;overflow:hidden;margin-bottom:8px}
 .dbox{background:#0096e8;color:#fff;text-align:center;font-size:32px;font-weight:bold;padding:10px}
 .card-body{padding:8px 10px}
@@ -31,6 +32,13 @@ body{background:#eef4ff;padding:8px}
 .price{color:green;font-size:16px;font-weight:bold}
 .btn1{background:#00c853;color:#fff;width:100%;border:none;padding:8px;border-radius:8px;font-weight:bold;font-size:13px;margin-top:6px}
 .btn2{background:#0077cc;color:#fff;width:100%;border:none;padding:8px;border-radius:8px;font-weight:bold;font-size:13px;margin-top:5px}
+/* হাসপাতাল এডমিন */
+.admin{background:#fff;border-radius:14px;padding:12px;margin-top:10px;text-align:center;border:2px dashed #0077cc}
+.admin h3{font-size:16px;margin-bottom:4px}
+.admin p{font-size:12px;color:#666;margin-bottom:8px}
+.admin button{background:#000;color:#fff;border:none;padding:10px 18px;border-radius:8px;font-weight:bold;width:100%;margin-bottom:6px}
+.admin .btn-green{background:#00c853}
+.footer{text-align:center;font-size:11px;color:#888;padding:12px}
 </style>
 </head>
 <body>
@@ -46,21 +54,19 @@ body{background:#eef4ff;padding:8px}
 <div class="search"><input id="searchInput" placeholder="ডাক্তার / রোগ / হাসপাতাল লিখুন..." onkeyup="filterDoctor()"><button onclick="filterDoctor()">খুঁজুন</button></div>
 
 <div class="cats">
-<button class="active" onclick="filterCat('all',this)">সব</button>
-<button onclick="filterCat('medicine',this)">মেডিসিন</button>
-<button onclick="filterCat('gynae',this)">গাইনী</button>
-<button onclick="filterCat('pediatric',this)">শিশু / Pediatric</button>
-<button onclick="filterCat('neurology',this)">Neurology - নার্ভ</button>
-<button onclick="filterCat('oncology',this)">Oncology - ক্যান্সার</button>
-<button onclick="filterCat('orthopedic',this)">Orthopedic - হাড়</button>
-<button onclick="filterCat('pediatric-surgery',this)">Pediatric Surgery</button>
-<button onclick="filterCat('pulmonology',this)">Pulmonology - ফুসফুস</button>
-<button onclick="filterCat('urology',this)">Urology - কিডনি</button>
+<button class="active" style="background:#0096e8" onclick="filterCat('all',this)">সব</button>
+<button style="background:#00c853" onclick="filterCat('medicine',this)">মেডিসিন</button>
+<button style="background:#ff4d8d" onclick="filterCat('gynae',this)">গাইনী</button>
+<button style="background:#ff8c00" onclick="filterCat('pediatric',this)">শিশু / Pediatric</button>
+<button style="background:#8e44ad" onclick="filterCat('neurology',this)">Neurology - নার্ভ</button>
+<button style="background:#e74c3c" onclick="filterCat('oncology',this)">Oncology - ক্যান্সার</button>
+<button style="background:#2c3e50" onclick="filterCat('orthopedic',this)">Orthopedic - হাড়</button>
+<button style="background:#f39c12" onclick="filterCat('pediatric-surgery',this)">Pediatric Surgery</button>
+<button style="background:#16a085" onclick="filterCat('pulmonology',this)">Pulmonology - ফুসফুস</button>
+<button style="background:#2980b9" onclick="filterCat('urology',this)">Urology - কিডনি</button>
 </div>
 
 <div id="list">
-
-<!-- 1 Radiology -->
 <div class="card" data-cat="medicine">
 <div class="dbox">D</div>
 <div class="card-body">
@@ -75,7 +81,6 @@ body{background:#eef4ff;padding:8px}
 </div>
 </div>
 
-<!-- 2 Neurology -->
 <div class="card" data-cat="neurology">
 <div class="dbox" style="background:#8e44ad">N</div>
 <div class="card-body">
@@ -90,7 +95,6 @@ body{background:#eef4ff;padding:8px}
 </div>
 </div>
 
-<!-- 3 Oncology -->
 <div class="card" data-cat="oncology">
 <div class="dbox" style="background:#e74c3c">O</div>
 <div class="card-body">
@@ -105,7 +109,6 @@ body{background:#eef4ff;padding:8px}
 </div>
 </div>
 
-<!-- 4 Orthopedic -->
 <div class="card" data-cat="orthopedic">
 <div class="dbox" style="background:#2c3e50">O</div>
 <div class="card-body">
@@ -120,7 +123,6 @@ body{background:#eef4ff;padding:8px}
 </div>
 </div>
 
-<!-- 5 Pediatric -->
 <div class="card" data-cat="pediatric">
 <div class="dbox" style="background:#ff8c00">P</div>
 <div class="card-body">
@@ -135,7 +137,6 @@ body{background:#eef4ff;padding:8px}
 </div>
 </div>
 
-<!-- 6 Pediatric Surgery -->
 <div class="card" data-cat="pediatric-surgery">
 <div class="dbox" style="background:#f39c12">PS</div>
 <div class="card-body">
@@ -150,7 +151,6 @@ body{background:#eef4ff;padding:8px}
 </div>
 </div>
 
-<!-- 7 Pulmonology -->
 <div class="card" data-cat="pulmonology">
 <div class="dbox" style="background:#16a085">P</div>
 <div class="card-body">
@@ -158,4 +158,53 @@ body{background:#eef4ff;padding:8px}
 <h2>Dr. Pulmonology ডাক্তার</h2>
 <div class="sub">Pulmonology - ফুসফুস / হাঁপানি বিশেষজ্ঞ</div>
 <div class="hosp">📍 POPULAR DIAGNOSTIC</div>
-<div class="row"><span>🕒
+<div class="row"><span>🕒 3-5</span><span>⭐ 4.9</span></div>
+<div class="price">500 টাকা</div>
+<button class="btn1">🟢 WhatsApp এ সিরিয়াল নিন</button>
+<button class="btn2">📩 SMS এ সিরিয়াল নিন</button>
+</div>
+</div>
+
+<div class="card" data-cat="urology">
+<div class="dbox" style="background:#2980b9">U</div>
+<div class="card-body">
+<div class="green">• এখন চেম্বারে আছেন</div>
+<h2>Dr. Urology ডাক্তার</h2>
+<div class="sub">Urology - কিডনি / প্রস্রাব বিশেষজ্ঞ</div>
+<div class="hosp">📍 URO CARE CENTER</div>
+<div class="row"><span>🕒 4-6</span><span>⭐ 4.8</span></div>
+<div class="price">500 টাকা</div>
+<button class="btn1">🟢 WhatsApp এ সিরিয়াল নিন</button>
+<button class="btn2">📩 SMS এ সিরিয়াল নিন</button>
+</div>
+</div>
+</div>
+
+<!-- হাসপাতাল এডমিন - নিচে আবার বসাই দিছি -->
+<div class="admin">
+<h3>🏥 হাসপাতাল এডমিন</h3>
+<p>আপনি কি হাসপাতাল / ডায়াগনস্টিক সেন্টার থেকে? আপনার ডাক্তার অ্যাড করুন</p>
+<button class="btn-green">➕ নতুন ডাক্তার অ্যাড করুন</button>
+<button>🔑 হাসপাতাল লগইন</button>
+</div>
+
+<div class="footer">Doctor Serial © 2026 - চট্টগ্রাম</div>
+
+<script>
+function filterCat(cat,btn){
+document.querySelectorAll('.cats button').forEach(b=>b.classList.remove('active'));
+btn.classList.add('active');
+document.querySelectorAll('.card').forEach(c=>{
+if(cat=='all'||c.dataset.cat==cat){c.style.display='block'}else{c.style.display='none'}
+});
+}
+function filterDoctor(){
+let q=document.getElementById('searchInput').value.toLowerCase();
+document.querySelectorAll('.card').forEach(c=>{
+if(c.innerText.toLowerCase().includes(q)){c.style.display='block'}else{c.style.display='none'}
+});
+}
+</script>
+
+</body>
+</html>
