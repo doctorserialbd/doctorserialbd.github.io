@@ -9,10 +9,16 @@ body{background:linear-gradient(180deg,#dbeafe 0%,#e0f2fe 35%,#ecfdf5 100%);padd
 .header{text-align:center;background:linear-gradient(135deg,#0ea5e9,#16a34a);padding:20px 10px 16px;border-radius:18px;color:#fff;box-shadow:0 6px 20px #0ea5e933;margin-bottom:10px}
 .header .logo{font-size:38px;font-weight:900;line-height:1}
 .header .logo .d{color:#fff}.header .logo .s{color:#fef08a}
-.header .sub{font-size:14px;color:#fff;margin-top:6px;font-weight:600}
+.header .sub{font-size:14px;color:#fff;margin-top:6px;font-weight:600;line-height:1.5}
 .header .badge-top{display:inline-block;background:#fff;color:#16a34a;font-size:12px;font-weight:900;padding:4px 12px;border-radius:20px;margin-bottom:8px}
 .live{background:#111;color:#fff;padding:12px;border-radius:12px;display:flex;justify-content:space-between;font-size:13px;font-weight:700}.live b{color:#fbbf24}
-.searchBox{display:flex;gap:8px;background:#fff;border:2px solid #e5e7eb;padding:10px;border-radius:14px;margin:14px 0}.searchBox input{flex:1;border:0;outline:0;font-size:15px;min-width:0}.searchBox button{background:#0ea5e9;color:#fff;border:0;padding:10px 14px;border-radius:20px;font-weight:700;white-space:nowrap}
+.searchWrap{position:relative;margin:14px 0}
+.searchBox{display:flex;gap:8px;background:#fff;border:2px solid #e5e7eb;padding:10px;border-radius:14px}.searchBox input{flex:1;border:0;outline:0;font-size:15px;min-width:0}.searchBox button{background:#0ea5e9;color:#fff;border:0;padding:10px 14px;border-radius:20px;font-weight:700;white-space:nowrap}
+.suggest{display:none;position:absolute;left:0;right:0;top:100%;margin-top:6px;background:#fff;border-radius:14px;box-shadow:0 10px 30px #00000020;border:1px solid #e5e7eb;z-index:50;overflow:hidden;max-height:300px;overflow-y:auto}
+.suggestTitle{padding:10px 12px 4px;font-size:12px;font-weight:900;color:#64748b}
+.suggestItem{display:flex;align-items:center;gap:8px;padding:11px 12px;border-top:1px solid #f1f5f9;cursor:pointer;font-weight:700;font-size:15px}
+.suggestItem:active{background:#f0f9ff}
+.suggestItem small{color:#0284c7;font-size:12px;display:block;font-weight:600}
 .filter{display:flex;gap:8px;overflow-x:auto;padding:4px 2px 12px;scrollbar-width:none;-webkit-overflow-scrolling:touch}.filter::-webkit-scrollbar{display:none}
 .filter button{flex:0 0 auto;white-space:nowrap;border:0;padding:10px 18px;border-radius:25px;font-weight:800;font-size:15px;color:#fff;box-shadow:0 2px 6px #00000020;cursor:pointer}
 .filter button.active{outline:2px solid #111;outline-offset:1px;transform:scale(1.05)}
@@ -27,10 +33,18 @@ body{background:linear-gradient(180deg,#dbeafe 0%,#e0f2fe 35%,#ecfdf5 100%);padd
 .delBtn{background:#fee2e2;color:#dc2626;border:0;padding:8px 10px;border-radius:8px;margin-top:6px;width:100%}
 .panel{display:none;background:#fff;padding:14px;border-radius:14px;margin-top:14px;border:2px dashed #0284c7}.panel input{width:100%;padding:11px;margin:5px 0;border:1px solid #ddd;border-radius:10px}.panel button{background:#0284c7;color:#fff;border:0;padding:11px;border-radius:10px;width:100%;font-weight:800}.panel label{font-size:13px;font-weight:700}
 .hospList{background:#f0f9ff;padding:10px;border-radius:10px;margin-top:10px;font-size:13px}
-.footer{text-align:center;margin-top:30px;color:#64748b;font-size:12px;padding:20px}
+.hospItem{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:10px;margin-top:8px}
+.hospItem b{font-size:15px}
+.hospItem small{color:#64748b;display:block;line-height:1.6;margin:4px 0}
+.hospItem .row2{display:flex;gap:8px}
+.hospItem .row2 button{padding:8px;border:0;border-radius:8px;font-weight:800;font-size:13px;cursor:pointer}
+.editBtn{background:#fef3c7;color:#92400e;flex:1}
+.delHospBtn{background:#fee2e2;color:#dc2626;flex:1}
+.footer{text-align:center;margin-top:30px;color:#64748b;font-size:12px;padding:20px;line-height:1.7}
 .footer a{color:#0284c7;font-weight:800;text-decoration:none}
 #preview{width:100%;height:150px;object-fit:cover;border-radius:10px;display:none;margin-top:6px}
-.who{font-size:13px;font-weight:700;color:#16a34a;text-align:center;margin-top:8px}
+.who{font-size:13px;font-weight:700;color:#16a34a;text-align:center;margin-top:8px;background:#dcfce7;padding:8px;border-radius:10px;display:none}
+.who.show{display:block}
 .modal{display:none;position:fixed;inset:0;background:#000000aa;z-index:99;align-items:center;justify-content:center;padding:14px}
 .modalBox{background:#fff;width:100%;max-width:380px;border-radius:18px;padding:18px}
 .modalBox h3{text-align:center;font-size:21px}
@@ -45,13 +59,16 @@ body{background:linear-gradient(180deg,#dbeafe 0%,#e0f2fe 35%,#ecfdf5 100%);padd
 </head>
 <body>
 <div class="header">
-<div class="badge-top">✦ দ্রুত সিরিয়াল • সারা বাংলাদেশ ✦</div>
+<div class="badge-top">✦ ১ মিনিটে সিরিয়াল • ঘরে বসেই ✦</div>
 <div class="logo"><span class="d">Doctor</span> <span class="s">Serial</span></div>
-<div class="sub">ঘরে বসে ডাক্তারের সিরিয়াল নিন - সহজে, কোনো লাইনে দাঁড়াতে হবে না</div>
+<div class="sub">লাইনে দাঁড়ানো ছাড়াই পছন্দের ডাক্তারের সিরিয়াল নিন<br>WhatsApp ও SMS এ সাথে সাথে কনফার্ম</div>
 </div>
-<div class="live"><span>🔴 LIVE - এখন সিরিয়াল চলতেছে</span><span>মোট: <b id="count">0</b> জন</span></div>
+<div class="live"><span>🔴 LIVE - এখন সিরিয়াল চলছে</span><span>মোট: <b id="count">0</b> জন ডাক্তার</span></div>
 <div class="who" id="who"></div>
-<div class="searchBox"><input id="search" placeholder="ডাক্তার / রোগ / হাসপাতাল লিখুন..." oninput="render()"><button onclick="render()">খুঁজুন</button></div>
+<div class="searchWrap">
+<div class="searchBox"><input id="search" placeholder="ডাক্তার / রোগ / হাসপাতাল লিখুন..." oninput="render();showHospitals()" onclick="showHospitals()" onfocus="showHospitals()"><button onclick="hideHospitals();render()">খুঁজুন</button></div>
+<div class="suggest" id="suggest"></div>
+</div>
 <div class="filter" id="filters"></div>
 <div class="grid" id="grid"></div>
 
@@ -95,7 +112,7 @@ body{background:linear-gradient(180deg,#dbeafe 0%,#e0f2fe 35%,#ecfdf5 100%);padd
 </div>
 
 <div class="footer">
-<a href="#" onclick="hospLogin();return false">Hospital Login</a><br>শুধু হাসপাতাল ডাক্তার Add করতে পারবে
+<a href="#" onclick="hospLogin();return false">🏥 Hospital Login</a><br>হাসপাতাল মালিক? ডাক্তার Add করতে এখানে চাপ দিন<br>Doctor Serial - সারা বাংলাদেশ • ঘরে বসে সিরিয়াল নিন
 </div>
 
 <script>
@@ -104,6 +121,7 @@ let hospitals=JSON.parse(localStorage.getItem("hospitals")||"null")||[
 {name:"চকবাজার সেন্টার",user:"chokbazar",pass:"1111",phone:"01812345678"},
 {name:"MID POINT HOSPITAL & DIAGNOSTIC CENTER",user:"midpoint",pass:"2222",phone:"01812345678"}
 ];
+hospitals=hospitals.map(h=>({name:h.name||"",user:h.user||h.username||"",pass:h.pass||h.password||"",phone:h.phone||h.mobile||""}));
 let doctors=JSON.parse(localStorage.getItem("doctors2")||"null")||[
 {name:"Dr. Somaiya Hassan",spec:"রেডিওলজিস্ট",center:"MID POINT HOSPITAL & DIAGNOSTIC CENTER",time:"3-5",fee:"100",color:"#0ea5e9",letter:"D",img:""},
 {name:"ডা. নুসরাত জাহান",spec:"গাইনী",center:"চকবাজার সেন্টার",time:"সকাল ১০টা - দুপুর ১টা",fee:"1000",color:"#ec4899",letter:"ন",img:""}
@@ -111,11 +129,30 @@ let doctors=JSON.parse(localStorage.getItem("doctors2")||"null")||[
 let currentUser=null; let isBoss=false; let tempImg=""; let selectedDoctor=""; let selectedCenter=""; let selectedPhone=""; let serialCount=parseInt(localStorage.getItem("serialCount")||"0");
 let cats=[{name:"সব",color:"#0284c7"},{name:"মেডিসিন",color:"#16a34a"},{name:"গাইনী",color:"#ec4899"},{name:"শিশু",color:"#f97316"},{name:"চোখ",color:"#9333ea"},{name:"হার্ট",color:"#dc2626"}];
 let active="সব";
-// Admin আলাদা লিংক দিয়ে - শুধু তুমি জানবা
 if(window.location.search.includes("admin=1")){ setTimeout(()=>bossLogin(),300); }
 function save(){localStorage.setItem("hospitals",JSON.stringify(hospitals));localStorage.setItem("doctors2",JSON.stringify(doctors))}
 function previewImg(e){let r=new FileReader();r.onload=function(){tempImg=r.result;let p=document.getElementById("preview");p.src=tempImg;p.style.display="block"};r.readAsDataURL(e.target.files[0])}
-function getPhoneForCenter(centerName){let h=hospitals.find(x=>x.name==centerName);return h?h.phone:"01812345678"}
+function getPhoneForCenter(centerName){let h=hospitals.find(x=>x.name==centerName);return h&&h.phone?h.phone:"01812345678"}
+// সার্চে ক্লিক করলে সব হাসপাতালের নাম আসবে
+function showHospitals(){
+let q=document.getElementById("search").value.toLowerCase().trim();
+let s=document.getElementById("suggest");
+let list=hospitals.filter(h=>h.name&&(!q||h.name.toLowerCase().includes(q)));
+if(list.length==0){s.style.display="none";return;}
+s.innerHTML=`<div class="suggestTitle">🏥 হাসপাতাল বেছে নিন - চাপ দিলেই ওই হাসপাতালের ডাক্তার দেখাবে</div>`+list.map(h=>{
+let c=doctors.filter(d=>d.center==h.name).length;
+return `<div class="suggestItem" onclick="pickHospital('${h.name.replace(/'/g,"")}')"><span style="font-size:22px">🏥</span><div>${h.name}<small>${c} জন ডাক্তার আছেন • চাপ দিন</small></div></div>`;
+}).join("");
+s.style.display="block";
+}
+function hideHospitals(){setTimeout(()=>{document.getElementById("suggest").style.display="none"},200);}
+function pickHospital(name){
+document.getElementById("search").value=name;
+document.getElementById("suggest").style.display="none";
+active="সব"; render();
+document.getElementById("grid").scrollIntoView({behavior:"smooth"});
+}
+document.addEventListener("click",function(e){if(!e.target.closest(".searchWrap")){document.getElementById("suggest").style.display="none";}});
 function render(){
 let q=document.getElementById("search").value.toLowerCase();
 let f=document.getElementById("filters");f.innerHTML="";
@@ -127,13 +164,17 @@ list.forEach(d=>{
 let canDel=isBoss||(currentUser&&currentUser.name==d.center);
 let div=document.createElement("div");div.className="card";
 let top=d.img?`<img src="${d.img}">`:`<div class="avatar" style="background:${d.color}">${d.letter}</div>`;
-div.innerHTML=top+`<div class="card-body"><div class="badge">● এখন চেম্বারে আছে</div><div class="name">${d.name}</div><div class="spec">${d.spec} বিশেষজ্ঞ</div><div class="center">📍 ${d.center}</div><div class="time">🕐 ${d.time}</div><div class="row"><span class="price">${d.fee} টাকা</span><span>⭐ 4.9</span></div><button class="serialBtn" onclick="book('${d.name.replace(/'/g,"")}','${d.center}')">🟢 WhatsApp এ সিরিয়াল নিন</button><button class="smsBtn" onclick="book('${d.name.replace(/'/g,"")}','${d.center}')">📩 SMS এ সিরিয়াল নিন</button>${canDel?`<button class="delBtn" style="display:block" onclick="delDoctor(${doctors.indexOf(d)})">Delete করুন</button>`:""}</div>`;
+div.innerHTML=top+`<div class="card-body"><div class="badge">● এখন চেম্বারে আছেন</div><div class="name">${d.name}</div><div class="spec">${d.spec} বিশেষজ্ঞ</div><div class="center">📍 ${d.center}</div><div class="time">🕐 ${d.time}</div><div class="row"><span class="price">${d.fee} টাকা</span><span>⭐ 4.9</span></div><button class="serialBtn" onclick="book('${d.name.replace(/'/g,"")}','${d.center}')">🟢 WhatsApp এ সিরিয়াল নিন</button><button class="smsBtn" onclick="book('${d.name.replace(/'/g,"")}','${d.center}')">📩 SMS এ সিরিয়াল নিন</button>${canDel?`<button class="delBtn" style="display:block" onclick="delDoctor(${doctors.indexOf(d)})">Delete করুন</button>`:""}</div>`;
 g.appendChild(div);
 });
-if(isBoss)document.getElementById("who").textContent="👑 তুমি Admin হিসাবে আছো";
-else if(currentUser)document.getElementById("who").textContent="🏥 তুমি "+currentUser.name+" হিসাবে আছো - WhatsApp + SMS যাবে: "+currentUser.phone;
-else document.getElementById("who").textContent="";
-let hl=document.getElementById("hospList");if(hl)hl.innerHTML="<b>তোমার হাসপাতাল গুলা:</b><br>"+hospitals.map(h=>`• ${h.name} - ইউজার: <b>${h.user}</b> পাস: <b>${h.pass}</b> - WhatsApp/SMS: <b>${h.phone}</b>`).join("<br>");
+let who=document.getElementById("who");
+if(isBoss){who.textContent="👑 Admin প্যানেল চালু আছে";who.classList.add("show");}
+else if(currentUser){who.textContent="🏥 স্বাগতম, "+currentUser.name+(currentUser.phone?"  •  সিরিয়াল যাবে: "+currentUser.phone:"");who.classList.add("show");}
+else{who.textContent="";who.classList.remove("show");}
+let hl=document.getElementById("hospList");
+if(hl){
+hl.innerHTML="<b>তোমার হাসপাতাল গুলা:</b>"+hospitals.map((h,i)=>`<div class="hospItem"><b>🏥 ${h.name||"(নাম নাই)"}</b><small>ইউজার: <b>${h.user||"(দেওয়া হয় নাই)"}</b><br>পাস: <b>${h.pass||"(দেওয়া হয় নাই)"}</b><br>WhatsApp/SMS: <b>${h.phone||"(দেওয়া হয় নাই)"}</b></small><div class="row2"><button class="editBtn" onclick="editHospital(${i})">✏️ Edit - ইউজার / পাস চেঞ্জ</button><button class="delHospBtn" onclick="delHospital(${i})">🗑️ Delete</button></div></div>`).join("");
+}
 }
 function book(name,center){
 selectedDoctor=name;selectedCenter=center;selectedPhone=getPhoneForCenter(center);
@@ -163,8 +204,24 @@ window.location.href="sms:"+phone880+"?body="+encodeURIComponent(smsMsg);
 }
 }
 function bossLogin(){let p=prompt("Admin পাসওয়ার্ড দাও (শুধু তুমি জানো):");if(p==BOSS_PASS){isBoss=true;currentUser=null;document.getElementById("bossPanel").style.display="block";document.getElementById("hospPanel").style.display="block";document.getElementById("myHospName").textContent="Admin - সব হাসপাতাল";render();alert("স্বাগতম Admin!")}else if(p!=null) alert("ভুল পাসওয়ার্ড!")}
-function hospLogin(){let u=prompt("হাসপাতালের ইউজারনেম দাও:");if(u==null) return; let p=prompt("হাসপাতালের পাসওয়ার্ড দাও:");let h=hospitals.find(x=>x.user==u&&x.pass==p);if(h){currentUser=h;isBoss=false;document.getElementById("bossPanel").style.display="none";document.getElementById("hospPanel").style.display="block";document.getElementById("myHospName").textContent=h.name;render();alert("স্বাগতম "+h.name+"! তোমার WhatsApp/SMS নাম্বার: "+h.phone)}else alert("ভুল ইউজার / পাসওয়ার্ড!")}
-function addHospital(){let n=document.getElementById("hName").value,u=document.getElementById("hUser").value,p=document.getElementById("hPass").value,ph=document.getElementById("hPhone").value;if(!n||!u||!p||!ph){alert("৪টা ঘরই পূরণ করো! নাম্বার না দিলে WhatsApp/SMS কোথায় যাবে!");return}hospitals.push({name:n,user:u,pass:p,phone:ph});save();render();alert("হয়ে গেছে! "+n+" এর WhatsApp + SMS যাবে "+ph+" এই নাম্বারে!")}
+function hospLogin(){let u=prompt("হাসপাতালের ইউজারনেম দাও:");if(u==null) return; let p=prompt("হাসপালের পাসওয়ার্ড দাও:");let h=hospitals.find(x=>x.user==u&&x.pass==p);if(h){currentUser=h;isBoss=false;document.getElementById("bossPanel").style.display="none";document.getElementById("hospPanel").style.display="block";document.getElementById("myHospName").textContent=h.name;render();alert("স্বাগতম "+h.name+"!")}else alert("ভুল ইউজার / পাসওয়ার্ড!")}
+function addHospital(){let n=document.getElementById("hName").value.trim(),u=document.getElementById("hUser").value.trim(),p=document.getElementById("hPass").value.trim(),ph=document.getElementById("hPhone").value.trim();if(!n||!u||!p||!ph){alert("৪টা ঘরই পূরণ করো! নাম্বার না দিলে WhatsApp/SMS কোথায় যাবে!");return}hospitals.push({name:n,user:u,pass:p,phone:ph});save();render();alert("হয়ে গেছে! "+n+" এর WhatsApp + SMS যাবে "+ph+" এই নাম্বারে!");document.getElementById("hName").value="";document.getElementById("hUser").value="";document.getElementById("hPass").value="";document.getElementById("hPhone").value="";}
+function editHospital(i){
+let h=hospitals[i];
+let nu=prompt("নতুন ইউজারনেম দাও ("+h.name+"):",h.user||"");
+if(nu==null) return;
+let np=prompt("নতুন পাসওয়ার্ড দাও ("+h.name+"):",h.pass||"");
+if(np==null) return;
+let nph=prompt("নতুন মোবাইল নাম্বার দাও (WhatsApp/SMS যাবে):",h.phone||"");
+if(nph==null) return;
+h.user=nu.trim(); h.pass=np.trim(); h.phone=nph.trim();
+save();render();alert("হয়ে গেছে! "+h.name+" এর নতুন ইউজার: "+h.user+" পাস: "+h.pass);
+}
+function delHospital(i){
+if(confirm("ডিলিট করবা? "+hospitals[i].name)){
+hospitals.splice(i,1);save();render();alert("ডিলিট হয়ে গেছে!");
+}
+}
 function addDoctor(){
 let n=document.getElementById("nName").value,s=document.getElementById("nSpec").value,t=document.getElementById("nTime").value,f=document.getElementById("nFee").value,im=document.getElementById("nImg").value||tempImg;
 let center=isBoss?"চকবাজার সেন্টার":currentUser.name;
