@@ -14,20 +14,15 @@ body{background:#eef4ff;padding:10px}
 .header p{font-size:15px;line-height:1.5;font-weight:bold}
 .live{background:#000;color:#fff;display:flex;justify-content:space-between;align-items:center;padding:12px 12px;border-radius:12px;margin:10px 0;font-size:14px;font-weight:bold}
 .live b{color:#ffcc00}
-.search-box{background:#fff;border-radius:14px;padding:8px;margin-bottom:10px;overflow:visible;position:relative;z-index:50}
+.search-box{background:#fff;border-radius:14px;padding:8px;margin-bottom:10px}
 .search-row{display:flex;align-items:center;gap:6px}
 .search-row input{flex:1;border:none;outline:none;padding:12px 10px;font-size:15px;min-width:0}
 .search-row button{background:#00a8e8;color:#fff;border:none;padding:10px 18px;border-radius:20px;font-weight:bold;font-size:15px;flex-shrink:0;cursor:pointer}
-.filter-box{position:relative;margin-top:8px}
-.filter-btn{width:100%;border:none;padding:14px;border-radius:12px;font-weight:bold;font-size:15px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;text-align:left}
-.hosp-btn{background:#000;color:#fff}
-.cat-btn{background:#0096e8;color:#fff}
-.filter-list{display:none;background:#fff;border:1px solid #ddd;border-radius:12px;margin-top:6px;max-height:300px;overflow-y:auto;position:absolute;left:0;right:0;z-index:999;box-shadow:0 8px 20px rgba(0,0,0,0.2)}
-.filter-list button{display:block;width:100%;text-align:left;background:#fff;border:none;border-bottom:1px solid #eee;padding:12px 12px;font-size:14px;font-weight:bold;cursor:pointer}
-.filter-list button:hover{background:#eef4ff}
-.filter-list button.active{background:#e8f5ff;color:#0077cc}
-.filter-list span{font-size:12px;color:#888;font-weight:normal;display:block}
-.card{background:#fff;border-radius:18px;overflow:hidden;margin-bottom:12px;position:relative;z-index:1}
+/* নতুন - আসল Select, ১০০% ক্লিক হবে */
+.select-box{width:100%;border:none;padding:14px;border-radius:12px;font-weight:bold;font-size:15px;cursor:pointer;margin-top:8px;appearance:none;-webkit-appearance:none;color:#fff;outline:none}
+.hosp-select{background:#000}
+.cat-select{background:#0096e8}
+.card{background:#fff;border-radius:18px;overflow:hidden;margin-bottom:12px}
 .dbox{background:#0096e8;color:#fff;text-align:center;font-size:68px;font-weight:bold;padding:18px 0;line-height:1}
 .card-body{padding:14px}
 .card-body .green{color:green;font-size:13px;font-weight:bold}
@@ -45,12 +40,12 @@ body{background:#eef4ff;padding:10px}
 .btn-wa svg,.btn-sms svg{width:22px;height:22px;flex-shrink:0;fill:#fff}
 .hosp-login{background:#fff;border-radius:14px;padding:12px;margin-top:10px}
 .hosp-login button{background:#000;color:#fff;border:none;padding:13px;width:100%;border-radius:10px;font-weight:bold;font-size:15px;cursor:pointer}
-.footer{text-align:center;font-size:12px;color:#888;padding:14px;cursor:pointer}
+.footer{text-align:center;font-size:12px;color:#888;padding:14px}
 .popup{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);z-index:9999;align-items:center;justify-content:center;padding:15px}
 .popup-box{background:#fff;width:100%;max-width:380px;border-radius:16px;padding:18px;text-align:center;max-height:92vh;overflow-y:auto}
 .popup-box h3{font-size:20px;margin-bottom:4px}
 .popup-box p{font-size:13px;color:#666;margin-bottom:10px}
-.popup-box input,.popup-box select{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;margin-bottom:8px;font-size:15px;outline:none}
+.popup-box input,.popup-box select{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;margin-bottom:8px;font-size:15px;outline:none;color:#000}
 .popup-box label{display:block;text-align:left;font-size:13px;font-weight:bold;margin:4px 0 2px}
 .popup-box button{width:100%;padding:12px;border:none;border-radius:10px;font-weight:bold;font-size:15px;cursor:pointer;margin-top:4px}
 .close{background:#eee!important;color:#000!important}
@@ -74,36 +69,32 @@ body{background:#eef4ff;padding:10px}
 <button type="button" onclick="filterDoctor()">খুঁজুন</button>
 </div>
 
-<div class="filter-box">
-<button type="button" class="filter-btn hosp-btn" onclick="toggleList('hospList',event)">🏥 <span id="hospLabel">সব হাসপাতাল - ক্লিক করলে সব হাসপাতাল দেখাবে</span> <span>▼</span></button>
-<div id="hospList" class="filter-list">
-<button type="button" class="active" onclick="filterHosp('all',this,'সব হাসপাতাল')">✅ সব হাসপাতাল <span>সব ডাক্তার দেখাবে</span></button>
-<button type="button" onclick="filterHosp('MID POINT',this,'MID POINT HOSPITAL')">🏥 MID POINT HOSPITAL & DIAGNOSTIC CENTER <span>চট্টগ্রাম • রুম ২০১</span></button>
-<button type="button" onclick="filterHosp('CHITTAGONG MEDICAL',this,'CHITTAGONG MEDICAL')">🏥 CHITTAGONG MEDICAL <span>চট্টগ্রাম</span></button>
-<button type="button" onclick="filterHosp('CANCER CENTER',this,'CANCER CENTER')">🏥 CHITTAGONG CANCER CENTER <span>চট্টগ্রাম</span></button>
-<button type="button" onclick="filterHosp('MEDICARE',this,'MEDICARE HOSPITAL')">🏥 MEDICARE HOSPITAL <span>চট্টগ্রাম</span></button>
-<button type="button" onclick="filterHosp('SHISHU',this,'SHISHU HOSPITAL')">🏥 SHISHU HOSPITAL <span>চট্টগ্রাম</span></button>
-<button type="button" onclick="filterHosp('POPULAR',this,'POPULAR DIAGNOSTIC')">🏥 POPULAR DIAGNOSTIC <span>চট্টগ্রাম</span></button>
-<button type="button" onclick="filterHosp('URO CARE',this,'URO CARE CENTER')">🏥 URO CARE CENTER <span>চট্টগ্রাম</span></button>
-</div>
-</div>
+<!-- ১. হাসপাতাল - আসল Select, ১০০% ক্লিক হবে -->
+<select id="hospSelect" class="select-box hosp-select" onchange="filterHosp(this.value)">
+<option value="all">🏥 সব হাসপাতাল - ক্লিক করলে সব হাসপাতাল দেখাবে ▼</option>
+<option value="MID POINT">🏥 MID POINT HOSPITAL & DIAGNOSTIC CENTER</option>
+<option value="CHITTAGONG MEDICAL">🏥 CHITTAGONG MEDICAL</option>
+<option value="CANCER CENTER">🏥 CHITTAGONG CANCER CENTER</option>
+<option value="MEDICARE">🏥 MEDICARE HOSPITAL</option>
+<option value="SHISHU">🏥 SHISHU HOSPITAL</option>
+<option value="POPULAR">🏥 POPULAR DIAGNOSTIC</option>
+<option value="URO CARE">🏥 URO CARE CENTER</option>
+</select>
 
-<div class="filter-box">
-<button type="button" class="filter-btn cat-btn" onclick="toggleList('catList',event)">📂 <span id="catLabel">সব বিভাগ - ক্লিক করলে সব বিভাগ দেখাবে</span> <span>▼</span></button>
-<div id="catList" class="filter-list">
-<button type="button" class="active" onclick="filterCat('all',this,'সব বিভাগ')">✅ সব বিভাগ <span>সব ডাক্তার দেখাবে</span></button>
-<button type="button" onclick="filterCat('medicine',this,'মেডিসিন')">💊 মেডিসিন <span>জ্বর, ডায়াবেটিস, প্রেসার</span></button>
-<button type="button" onclick="filterCat('gynae',this,'গাইনী')">🌸 গাইনী <span>মহিলা রোগ বিশেষজ্ঞ</span></button>
-<button type="button" onclick="filterCat('pediatric',this,'শিশু')">👶 শিশু <span>বাচ্চাদের বিশেষজ্ঞ</span></button>
-<button type="button" onclick="filterCat('eye',this,'চোখ')">👁️ চোখ <span>চোখের বিশেষজ্ঞ</span></button>
-<button type="button" onclick="filterCat('neurology',this,'Neurology - নার্ভ')">🧠 Neurology - নার্ভ <span>ব্রেন / নার্ভ বিশেষজ্ঞ</span></button>
-<button type="button" onclick="filterCat('oncology',this,'Oncology - ক্যান্সার')">🎗️ Oncology - ক্যান্সার <span>ক্যান্সার বিশেষজ্ঞ</span></button>
-<button type="button" onclick="filterCat('orthopedic',this,'Orthopedic - হাড়')">🦴 Orthopedic - হাড় <span>হাড় / জয়েন্ট বিশেষজ্ঞ</span></button>
-<button type="button" onclick="filterCat('pediatric-surgery',this,'Pediatric Surgery')">🔪 Pediatric Surgery <span>বাচ্চাদের অপারেশন</span></button>
-<button type="button" onclick="filterCat('pulmonology',this,'Pulmonology - ফুসফুস')">🫁 Pulmonology - ফুসফুস <span>ফুসফুস / হাঁপানি</span></button>
-<button type="button" onclick="filterCat('urology',this,'Urology - কিডনি')">💧 Urology - কিডনি <span>কিডনি / প্রস্রাব</span></button>
-</div>
-</div>
+<!-- ২. বিভাগ - আসল Select, ১০০% ক্লিক হবে -->
+<select id="catSelect" class="select-box cat-select" onchange="filterCat(this.value)">
+<option value="all">📂 সব বিভাগ - ক্লিক করলে সব বিভাগ দেখাবে ▼</option>
+<option value="medicine">💊 মেডিসিন</option>
+<option value="gynae">🌸 গাইনী</option>
+<option value="pediatric">👶 শিশু</option>
+<option value="eye">👁️ চোখ</option>
+<option value="neurology">🧠 Neurology - নার্ভ</option>
+<option value="oncology">🎗️ Oncology - ক্যান্সার</option>
+<option value="orthopedic">🦴 Orthopedic - হাড়</option>
+<option value="pediatric-surgery">🔪 Pediatric Surgery</option>
+<option value="pulmonology">🫁 Pulmonology - ফুসফুস</option>
+<option value="urology">💧 Urology - কিডনি</option>
+</select>
 </div>
 
 <div id="list">
@@ -237,4 +228,43 @@ body{background:#eef4ff;padding:10px}
 </div>
 </div>
 
-<div class="hosp-login"><button type="button" onclick="
+<div class="hosp-login"><button type="button" onclick="openHospLogin()">🔑 হাসপাতাল লগইন</button></div>
+<div class="footer">Doctor Serial © 2026 - চট্টগ্রাম</div>
+
+<div id="bookingPopup" class="popup">
+<div class="popup-box">
+<h3 id="bookingTitle">সিরিয়াল বুক করুন</h3>
+<p id="bookingRoom" style="color:#0077cc;font-weight:bold">🚪 রুম নাম্বার: রুম ২০১</p>
+<p id="bookingType" style="color:#25D366;font-weight:bold"></p>
+<label>রোগীর নাম *</label><input id="pName" placeholder="যেমন: রহিম উদ্দিন">
+<label>মোবাইল নাম্বার *</label><input id="pMobile" placeholder="01XXXXXXXXX" type="tel">
+<label>বয়স *</label><input id="pAge" placeholder="যেমন: 35" type="number">
+<label>রোগের নাম *</label><input id="pDisease" placeholder="যেমন: জ্বর / মাথা ব্যথা">
+<button type="button" id="confirmBtn" style="background:#00c853;color:#fff" onclick="confirmBooking()">✅ সিরিয়াল কনফার্ম করুন</button>
+<button type="button" class="close" onclick="closeAll()">বন্ধ করুন</button>
+<div id="successBox" class="success">
+<h2 style="color:#00c853">✅ সিরিয়াল কনফার্ম!</h2>
+<p>আপনার সিরিয়াল নং: <b id="mySerial" style="font-size:24px;color:#e74c3c">0</b></p>
+<p id="successDetail"></p>
+<p id="pcNote" style="font-size:12px;color:#333;background:#fff;padding:8px;border-radius:8px;margin-top:8px;display:none"></p>
+<a id="sendLink" href="#" target="_blank" style="display:block;background:#25D366;color:#fff;padding:12px;border-radius:10px;text-decoration:none;font-weight:bold;margin-top:8px">পাঠান</a>
+<button type="button" onclick="copyBookingText()" style="background:#000;color:#fff">📋 মেসেজ কপি করুন (PC এর জন্য)</button>
+</div>
+</div>
+</div>
+
+<div id="hospPopup" class="popup">
+<div class="popup-box">
+<div id="hospLoginBox">
+<h3>🏥 হাসপাতাল লগইন</h3>
+<input id="hospUser" placeholder="ইউজারনেম">
+<input id="hospPass" type="password" placeholder="পাসওয়ার্ড">
+<button type="button" style="background:#000;color:#fff" onclick="hospLogin()">লগইন করুন</button>
+<button type="button" class="close" onclick="closeAll()">বন্ধ করুন</button>
+<p style="font-size:11px;margin-top:8px">ডেমো - ইউজার: hospital / পাস: 1234</p>
+</div>
+<div id="hospAddBox" style="display:none;text-align:left">
+<h3 style="text-align:center">🏥 নতুন হাসপাতাল / ডাক্তার অ্যাড করুন</h3>
+<label>হাসপাতালের নাম *</label><input id="newHosp" placeholder="যেমন: MID POINT HOSPITAL">
+<label>ডাক্তারের নাম *</label><input id="newDoctor" placeholder="যেমন: Dr. রহিম">
+<label>বিভাগ</label><select id="newCat"><option v
