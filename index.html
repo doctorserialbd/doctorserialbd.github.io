@@ -25,37 +25,25 @@ body{background:#eef4ff;padding:10px}
 <span style="background:#fff;color:#008000;font-size:13px;padding:5px 14px;border-radius:20px;font-weight:bold;display:inline-block">✦ ১ মিনিটে সিরিয়াল • ঘরে বসেই ✦</span>
 <h1>Doctor <b>Serial</b></h1>
 <p style="font-size:15px;line-height:1.5;font-weight:bold">লাইনে দাঁড়ানো ছাড়াই পছন্দের ডাক্তারের সিরিয়াল নিন<br>WhatsApp ও SMS এ সাথে সাথে কনফার্ম</p>
-<div style="background:#000;color:#ffe600;font-size:11px;padding:3px 10px;border-radius:10px;display:inline-block;margin-top:6px">V17 - পুরা ফাইল - ছবি সহ</div>
 </div>
 
-<div class="live"><span>🔴 LIVE - এখন সিরিয়াল চলছে</span><span>মোট: <b>2 জন ডাক্তার</b></span></div>
+<div class="live"><span>🔴 LIVE - এখন সিরিয়াল চলছে</span><span>মোট: <b id="cnt">2 জন ডাক্তার</b></span></div>
 
 <div style="background:#fff;border-radius:12px;padding:8px;margin-bottom:10px">
-<select id="h" style="width:100%;border:none;padding:14px;border-radius:10px;font-weight:bold;font-size:15px;color:#fff;background:#000;margin-top:4px">
+<select id="h" onchange="filt()" style="width:100%;border:none;padding:14px;border-radius:10px;font-weight:bold;font-size:15px;color:#fff;background:#000;margin-top:4px">
 <option value="all">🏥 সব হাসপাতাল ▼</option>
-<option value="MID POINT">🏥 MID POINT HOSPITAL</option>
+<option value="MID POINT HOSPITAL">🏥 MID POINT HOSPITAL</option>
 <option value="CHITTAGONG MEDICAL">🏥 CHITTAGONG MEDICAL</option>
 </select>
-<select id="c" style="width:100%;border:none;padding:14px;border-radius:10px;font-weight:bold;font-size:15px;color:#fff;background:#0096e8;margin-top:8px">
+<select id="c" onchange="filt()" style="width:100%;border:none;padding:14px;border-radius:10px;font-weight:bold;font-size:15px;color:#fff;background:#0096e8;margin-top:8px">
 <option value="all">📂 সব বিভাগ ▼</option>
 <option value="medicine">💊 মেডিসিন</option>
 <option value="neurology">🧠 Neurology - নার্ভ</option>
 </select>
 </div>
 
-<div class="card">
-<div class="toprow"><img src="https://randomuser.me/api/portraits/women/44.jpg"><div><h2>Dr. Somaiya Hassan</h2><p style="font-size:13px;color:#666">MBBS • মেডিসিন বিশেষজ্ঞ</p></div></div>
-<p style="margin-top:8px">📍 MID POINT HOSPITAL | 🚪 রুম ২০১ | 100 টাকা</p><p>🔴 LIVE সিরিয়াল 5 নং</p>
-<button class="btn wa" onclick="document.getElementById('bt').innerText='WhatsApp - Dr. Somaiya Hassan';document.getElementById('br').innerText='🚪 রুম ২০১';document.getElementById('bp').style.display='flex';document.getElementById('ok').style.display='none';window.BT='whatsapp';window.CD='Dr. Somaiya Hassan';window.CR='রুম ২০১';">WhatsApp এ সিরিয়াল নিন</button>
-<button class="btn sm" onclick="document.getElementById('bt').innerText='SMS - Dr. Somaiya Hassan';document.getElementById('br').innerText='🚪 রুম ২০১';document.getElementById('bp').style.display='flex';document.getElementById('ok').style.display='none';window.BT='sms';window.CD='Dr. Somaiya Hassan';window.CR='রুম ২০১';">SMS এ সিরিয়াল নিন</button>
-</div>
-
-<div class="card">
-<div class="toprow"><img src="https://randomuser.me/api/portraits/men/32.jpg"><div><h2>Dr. Neurology ডাক্তার</h2><p style="font-size:13px;color:#666">MBBS • Neurology বিশেষজ্ঞ</p></div></div>
-<p style="margin-top:8px">📍 CHITTAGONG MEDICAL | 🚪 রুম ৩০২ | 500 টাকা</p><p>🔴 LIVE সিরিয়াল 3 নং</p>
-<button class="btn wa" onclick="document.getElementById('bt').innerText='WhatsApp - Dr. Neurology';document.getElementById('br').innerText='🚪 রুম ৩০২';document.getElementById('bp').style.display='flex';document.getElementById('ok').style.display='none';window.BT='whatsapp';window.CD='Dr. Neurology';window.CR='রুম ৩০২';">WhatsApp এ সিরিয়াল নিন</button>
-<button class="btn sm" onclick="document.getElementById('bt').innerText='SMS - Dr. Neurology';document.getElementById('br').innerText='🚪 রুম ৩০২';document.getElementById('bp').style.display='flex';document.getElementById('ok').style.display='none';window.BT='sms';window.CD='Dr. Neurology';window.CR='রুম ৩০২';">SMS এ সিরিয়াল নিন</button>
-</div>
+<div id="list"></div>
+<p id="empty" style="display:none;text-align:center;background:#fff;padding:16px;border-radius:12px;font-weight:bold">এই হাসপাতাল / বিভাগে ডাক্তার নাই ভাই</p>
 
 <div id="bp" class="pop"><div class="pb"><h3 id="bt">সিরিয়াল বুক করুন</h3><p id="br"></p>
 <input id="n1" placeholder="রোগীর নাম *"><input id="n2" placeholder="মোবাইল *"><input id="n3" placeholder="বয়স *"><input id="n4" placeholder="রোগের নাম *">
@@ -63,5 +51,13 @@ body{background:#eef4ff;padding:10px}
 <button onclick="document.getElementById('bp').style.display='none'">বন্ধ</button>
 <div id="ok" style="display:none;background:#d4edda;padding:12px;border-radius:10px;margin-top:10px"><b>✅ সিরিয়াল কনফার্ম!</b><p id="od"></p><a id="sl" href="#" target="_blank" style="display:block;background:#25D366;color:#fff;padding:11px;border-radius:9px;text-decoration:none;font-weight:bold;margin-top:8px">পাঠান</a></div>
 </div></div>
-<p style="text-align:center;font-size:12px;color:#888;padding:10px">Doctor Serial © 2026 | V17</p>
+<p style="text-align:center;font-size:12px;color:#888;padding:10px">Doctor Serial © 2026</p>
+
+<script>
+var DEF=[{n:'Dr. Somaiya Hassan',h:'MID POINT HOSPITAL',r:'রুম ২০১',f:'100 টাকা',c:'medicine',s:'5',p:'https://randomuser.me/api/portraits/women/44.jpg'},{n:'Dr. Neurology ডাক্তার',h:'CHITTAGONG MEDICAL',r:'রুম ৩০২',f:'500 টাকা',c:'neurology',s:'3',p:'https://randomuser.me/api/portraits/men/32.jpg'}];
+function getD(){var d=JSON.parse(localStorage.getItem('docs')||'null');if(!d){localStorage.setItem('docs',JSON.stringify(DEF));return DEF}return d}
+function filt(){var hv=document.getElementById('h').value,cv=document.getElementById('c').value;var d=getD();var f=d.filter(function(x){return (hv=='all'||x.h==hv)&&(cv=='all'||x.c==cv)});document.getElementById('cnt').innerText=f.length+' জন ডাক্তার';var L=document.getElementById('list');L.innerHTML='';document.getElementById('empty').style.display=f.length?'none':'block';f.forEach(function(x){L.innerHTML+='<div class=card><div class=toprow><img src="'+(x.p||'https://randomuser.me/api/portraits/men/32.jpg')+'"><div><h2>'+x.n+'</h2><p style=font-size:13px;color:#666>MBBS • বিশেষজ্ঞ</p></div></div><p style=margin-top:8px>📍 '+x.h+' | 🚪 '+x.r+' | '+x.f+'</p><p>🔴 LIVE সিরিয়াল '+x.s+' নং</p><button class=btn wa onclick="openB(\'whatsapp\',\''+x.n+'\',\''+x.r+'\')">WhatsApp এ সিরিয়াল নিন</button><button class=btn sm onclick="openB(\'sms\',\''+x.n+'\',\''+x.r+'\')">SMS এ সিরিয়াল নিন</button></div>'})}
+function openB(t,n,r){document.getElementById('bt').innerText=(t=='whatsapp'?'WhatsApp - ':'SMS - ')+n;document.getElementById('br').innerText='🚪 '+r;document.getElementById('bp').style.display='flex';document.getElementById('ok').style.display='none';window.BT=t;window.CD=n;window.CR=r}
+filt();
+</script>
 </body></html>
