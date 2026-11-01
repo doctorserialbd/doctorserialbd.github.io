@@ -4,10 +4,10 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:sans-serif}
 body{background:#eef4ff;padding:10px}
-.top{background:linear-gradient(135deg,#0096c7,#00b44d);color:#fff;text-align:center;padding:32px 10px 16px;border-radius:16px;max-width:1100px;margin:0 auto;position:relative}
-.hlogin{position:absolute;top:10px;right:10px;background:#fff;color:#006400;padding:8px 13px;border-radius:20px;font-weight:bold;font-size:13px;text-decoration:none;border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.25);cursor:pointer}
-.top h1{font-size:42px;margin:8px 0 2px;line-height:1;text-shadow:0 2px 6px rgba(0,0,0,.30)}
-.top h1 span{color:#fff}.top h1 b{color:#ffe600}.top p{color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.35)}
+.top{background:#00b44d;color:#fff;text-align:center;padding:32px 10px 16px;border-radius:16px;max-width:1100px;margin:0 auto;position:relative}
+.hlogin{position:absolute;top:10px;right:10px;background:#fff;color:#006400;padding:8px 13px;border-radius:20px;font-weight:bold;font-size:13px;border:2px solid #fff;cursor:pointer}
+.top h1{font-size:42px;margin:8px 0 2px;line-height:1}
+.top h1 span{color:#fff}.top h1 b{color:#ffe600}.top p{color:#fff}
 .badge{background:#fff;color:#006400;font-size:13px;padding:5px 14px;border-radius:20px;font-weight:bold;display:inline-block}
 .live{background:#000;color:#fff;display:flex;justify-content:space-between;align-items:center;padding:12px;border-radius:12px;margin:10px auto;font-size:14px;font-weight:bold;max-width:1100px}
 .live b{color:#ffcc00}
@@ -19,8 +19,7 @@ body{background:#eef4ff;padding:10px}
 .toprow img{width:72px;height:72px;border-radius:50%;object-fit:cover;border:3px solid #00c853;flex-shrink:0}
 .toprow h2{font-size:19px;line-height:1.3;color:#111}.toprow p{color:#555}.card p{color:#222}
 .btnrow{display:flex;flex-direction:column}
-.btn{width:100%;padding:16px;border:none;border-radius:12px;color:#fff;font-weight:bold;font-size:18px;margin-top:10px;cursor:pointer;box-shadow:0 4px 0 rgba(0,0,0,.20)}
-.wa{background:#00a63d !important;color:#fff !important;border:2px solid #007a2e}.sm{background:#0066cc !important;color:#fff !important;border:2px solid #004d99}
+.btn{width:100%;padding:16px;border:none;border-radius:12px;color:#fff;font-weight:bold;font-size:18px;margin-top:10px;cursor:pointer}
 .pop{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.85);z-index:99;align-items:center;justify-content:center;padding:15px}
 .pb{background:#fff;width:100%;max-width:360px;border-radius:14px;padding:16px;text-align:center}
 .pb input{width:100%;padding:11px;border:1px solid #ddd;border-radius:9px;margin-bottom:8px;font-size:15px}
@@ -64,8 +63,7 @@ body{background:#eef4ff;padding:10px}
 <div id="hl" class="pop"><div class="pb"><h3 style="color:#111">🏥 হাসপাতাল লগইন</h3><p style="color:#555;font-size:13px">এডমিনের দেওয়া আইডি + পাসওয়ার্ড দাও</p>
 <input id="hid" placeholder="হাসপাতাল আইডি - যেমন midpoint"><input id="hpw" type="password" placeholder="পাসওয়ার্ড">
 <button style="background:#000;color:#fff" onclick="hLogin()">লগইন</button>
-<button style="background:#eee;color:#111" onclick="document.getElementById('hl').style.display='none'">বন্ধ</button>
-<p style="font-size:12px;color:#888;margin-top:8px">আইডি নাই? বড় এডমিনকে বলো, সে বানাই দিবে।</p></div></div>
+<button style="background:#eee;color:#111" onclick="document.getElementById('hl').style.display='none'">বন্ধ</button></div></div>
 
 <div id="bp" class="pop"><div class="pb"><h3 id="bt" style="color:#111">সিরিয়াল বুক করুন</h3><p id="br" style="color:#333"></p>
 <input id="n1" placeholder="রোগীর নাম *"><input id="n2" placeholder="মোবাইল *"><input id="n3" placeholder="বয়স *"><input id="n4" placeholder="রোগের নাম *">
@@ -79,11 +77,11 @@ body{background:#eef4ff;padding:10px}
 var DEF=[{n:'Dr. Somaiya Hassan',h:'MID POINT HOSPITAL',r:'রুম ২০১',f:'100 টাকা',c:'medicine',s:'5',p:'https://randomuser.me/api/portraits/women/44.jpg'},{n:'Dr. Neurology ডাক্তার',h:'CHITTAGONG MEDICAL',r:'রুম ৩০২',f:'500 টাকা',c:'neurology',s:'3',p:'https://randomuser.me/api/portraits/men/32.jpg'}];
 function getD(){var d=JSON.parse(localStorage.getItem('docs')||'null');if(!d){localStorage.setItem('docs',JSON.stringify(DEF));return DEF}return d}
 function getH(){return JSON.parse(localStorage.getItem('hospitals')||'[{"id":"midpoint","pw":"1234","name":"MID POINT HOSPITAL"},{"id":"cmc","pw":"1234","name":"CHITTAGONG MEDICAL"}]')}
-function hLogin(){var id=document.getElementById('hid').value.trim(),pw=document.getElementById('hpw').value.trim();var hs=getH();var f=hs.find(function(x){return x.id==id&&x.pw==pw});if(!f){alert('আইডি / পাসওয়ার্ড ভুল ভাই! এডমিনকে বলো');return}localStorage.setItem('curHosp',JSON.stringify(f));document.getElementById('hl').style.display='none';showHosp()}
+function hLogin(){var id=document.getElementById('hid').value.trim(),pw=document.getElementById('hpw').value.trim();var hs=getH();var f=hs.find(function(x){return x.id==id&&x.pw==pw});if(!f){alert('আইডি / পাসওয়ার্ড ভুল ভাই!');return}localStorage.setItem('curHosp',JSON.stringify(f));document.getElementById('hl').style.display='none';showHosp()}
 function showHosp(){var c=JSON.parse(localStorage.getItem('curHosp')||'null');if(!c)return;document.getElementById('hospBar').style.display='block';document.getElementById('hospName').innerText='🏥 '+c.name+' - তুমি লগইন আছো';var d=getD().filter(function(x){return x.h==c.name});document.getElementById('myCnt').innerText=d.length;var L=document.getElementById('myList');L.innerHTML='';d.forEach(function(x){var idx=getD().indexOf(x);L.innerHTML+='<div style=background:#f5f5f5;padding:10px;border-radius:10px;margin-top:8px;display:flex;justify-content:space-between;align-items:center><b style=color:#111>'+x.n+'</b><button style=width:auto;padding:8px 12px;background:#ff3b30;color:#fff onclick=delMy('+idx+')>ডিলিট</button></div>'})}
 function delMy(idx){var d=getD();d.splice(idx,1);localStorage.setItem('docs',JSON.stringify(d));showHosp();filt()}
 function addDoc(){var c=JSON.parse(localStorage.getItem('curHosp')||'null');if(!c)return;var n=document.getElementById('d1').value,r=document.getElementById('d2').value,f=document.getElementById('d3').value,p=document.getElementById('d4').value||'https://randomuser.me/api/portraits/men/32.jpg',s=document.getElementById('d5').value||'1',cc=document.getElementById('d6').value;if(!n){alert('ডাক্তারের নাম দাও ভাই!');return}var d=getD();d.push({n:n,h:c.name,r:r,f:f,s:s,c:cc,p:p});localStorage.setItem('docs',JSON.stringify(d));alert('হইছে! ডাক্তার যোগ হইছে');document.getElementById('d1').value='';document.getElementById('d2').value='';document.getElementById('d3').value='';document.getElementById('d4').value='';document.getElementById('d5').value='';showHosp();filt()}
-function filt(){var hv=document.getElementById('h').value,cv=document.getElementById('c').value;var d=getD();var f=d.filter(function(x){return (hv=='all'||x.h==hv)&&(cv=='all'||x.c==cv)});document.getElementById('cnt').innerText=f.length+' জন ডাক্তার';var L=document.getElementById('list');L.innerHTML='';document.getElementById('empty').style.display=f.length?'none':'block';f.forEach(function(x){L.innerHTML+='<div class=card><div class=toprow><img src="'+(x.p||'https://randomuser.me/api/portraits/men/32.jpg')+'"><div><h2>'+x.n+'</h2><p style=font-size:13px>MBBS • বিশেষজ্ঞ</p></div></div><p style=margin-top:8px>📍 '+x.h+' | 🚪 '+x.r+' | '+x.f+'</p><p>🔴 LIVE সিরিয়াল '+x.s+' নং</p><div class=btnrow><button class=btn wa onclick="openB(\'whatsapp\',\''+x.n+'\',\''+x.r+'\')">💬 WhatsApp এ সিরিয়াল নিন</button><button class=btn sm onclick="openB(\'sms\',\''+x.n+'\',\''+x.r+'\')">✉️ SMS এ সিরিয়াল নিন</button></div></div>'})}
+function filt(){var hv=document.getElementById('h').value,cv=document.getElementById('c').value;var d=getD();var f=d.filter(function(x){return (hv=='all'||x.h==hv)&&(cv=='all'||x.c==cv)});document.getElementById('cnt').innerText=f.length+' জন ডাক্তার';var L=document.getElementById('list');L.innerHTML='';document.getElementById('empty').style.display=f.length?'none':'block';f.forEach(function(x){L.innerHTML+='<div class=card><div class=toprow><img src="'+(x.p||'https://randomuser.me/api/portraits/men/32.jpg')+'"><div><h2>'+x.n+'</h2><p style=font-size:13px>MBBS • বিশেষজ্ঞ</p></div></div><p style=margin-top:8px>📍 '+x.h+' | 🚪 '+x.r+' | '+x.f+'</p><p>🔴 LIVE সিরিয়াল '+x.s+' নং</p><div class=btnrow><button class=btn onclick="openB(\'whatsapp\',\''+x.n+'\',\''+x.r+'\')" style="background:#00a63d;color:#ffffff;border:2px solid #007a2e">💬 WhatsApp এ সিরিয়াল নিন</button><button class=btn onclick="openB(\'sms\',\''+x.n+'\',\''+x.r+'\')" style="background:#0066cc;color:#ffffff;border:2px solid #004d99">✉️ SMS এ সিরিয়াল নিন</button></div></div>'})}
 function openB(t,n,r){document.getElementById('bt').innerText=(t=='whatsapp'?'WhatsApp - ':'SMS - ')+n;document.getElementById('br').innerText='🚪 '+r;document.getElementById('bp').style.display='flex';document.getElementById('ok').style.display='none';window.BT=t;window.CD=n;window.CR=r}
 showHosp();filt();
 </script>
