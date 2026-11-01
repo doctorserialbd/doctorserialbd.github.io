@@ -14,13 +14,20 @@ body{background:#eef4ff;padding:10px}
 .header p{font-size:15px;line-height:1.5;font-weight:bold}
 .live{background:#000;color:#fff;display:flex;justify-content:space-between;align-items:center;padding:12px 12px;border-radius:12px;margin:10px 0;font-size:14px;font-weight:bold}
 .live b{color:#ffcc00}
-.search{background:#fff;display:flex;align-items:center;padding:6px;border-radius:14px;margin-bottom:12px}
-.search input{flex:1;border:none;outline:none;padding:12px 10px;font-size:15px;min-width:0}
-.search button{background:#00a8e8;color:#fff;border:none;padding:10px 18px;border-radius:20px;font-weight:bold;font-size:15px;flex-shrink:0}
-.cats{display:flex;gap:8px;overflow-x:auto;padding:2px 0 10px;scrollbar-width:none}
-.cats::-webkit-scrollbar{display:none}
-.cats button{border:none;padding:10px 22px;border-radius:25px;color:#fff;font-weight:bold;font-size:16px;white-space:nowrap;flex-shrink:0;cursor:pointer}
-.cats button.active{outline:3px solid #000}
+.search-box{background:#fff;border-radius:14px;padding:8px;margin-bottom:10px}
+.search-row{display:flex;align-items:center;gap:6px}
+.search-row input{flex:1;border:none;outline:none;padding:12px 10px;font-size:15px;min-width:0}
+.search-row button{background:#00a8e8;color:#fff;border:none;padding:10px 18px;border-radius:20px;font-weight:bold;font-size:15px;flex-shrink:0;cursor:pointer}
+/* হাসপাতাল বক্স + বিভাগ বক্স - ২টাই একই স্টাইল */
+.filter-box{position:relative;margin-top:8px}
+.filter-btn{width:100%;border:none;padding:14px;border-radius:12px;font-weight:bold;font-size:15px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;text-align:left}
+.hosp-btn{background:#000;color:#fff}
+.cat-btn{background:#0096e8;color:#fff}
+.filter-list{display:none;background:#fff;border:1px solid #ddd;border-radius:12px;margin-top:6px;overflow:hidden;max-height:300px;overflow-y:auto;position:absolute;left:0;right:0;z-index:99;box-shadow:0 8px 20px rgba(0,0,0,0.15)}
+.filter-list button{display:block;width:100%;text-align:left;background:#fff;border:none;border-bottom:1px solid #eee;padding:12px 12px;font-size:14px;font-weight:bold;cursor:pointer}
+.filter-list button:hover{background:#eef4ff}
+.filter-list button.active{background:#e8f5ff;color:#0077cc}
+.filter-list span{font-size:12px;color:#888;font-weight:normal;display:block}
 .card{background:#fff;border-radius:18px;overflow:hidden;margin-bottom:12px}
 .dbox{background:#0096e8;color:#fff;text-align:center;font-size:68px;font-weight:bold;padding:18px 0;line-height:1}
 .card-body{padding:14px}
@@ -33,8 +40,10 @@ body{background:#eef4ff;padding:10px}
 .price{color:green;font-size:22px;font-weight:bold}
 .serial-live{background:#fff3cd;border:1px solid #ffcc00;border-radius:10px;padding:8px 10px;margin:8px 0;display:flex;justify-content:space-between;align-items:center;font-size:13px;font-weight:bold}
 .serial-live b{color:#e74c3c;font-size:18px}
-.btn1{background:#00c853;color:#fff;width:100%;border:none;padding:12px;border-radius:10px;font-weight:bold;font-size:16px;margin-top:10px;cursor:pointer}
-.btn2{background:#0077cc;color:#fff;width:100%;border:none;padding:12px;border-radius:10px;font-weight:bold;font-size:16px;margin-top:8px;cursor:pointer}
+.btn-wa,.btn-sms{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:13px;border-radius:12px;font-weight:bold;font-size:16px;margin-top:8px;cursor:pointer;border:none;color:#fff;text-decoration:none}
+.btn-wa{background:#25D366}
+.btn-sms{background:#0077cc}
+.btn-wa svg,.btn-sms svg{width:22px;height:22px;flex-shrink:0;fill:#fff}
 .hosp-login{background:#fff;border-radius:14px;padding:12px;margin-top:10px}
 .hosp-login button{background:#000;color:#fff;border:none;padding:13px;width:100%;border-radius:10px;font-weight:bold;font-size:15px;cursor:pointer}
 .footer{text-align:center;font-size:12px;color:#888;padding:14px}
@@ -47,8 +56,6 @@ body{background:#eef4ff;padding:10px}
 .popup-box button{width:100%;padding:12px;border:none;border-radius:10px;font-weight:bold;font-size:15px;cursor:pointer;margin-top:4px}
 .close{background:#eee!important;color:#000!important}
 .success{background:#d4edda;border:1px solid #00c853;border-radius:12px;padding:14px;margin-top:10px;display:none}
-.success h2{color:#00c853;font-size:22px}
-.success p{font-size:14px;color:#000;margin:4px 0}
 </style>
 </head>
 <body>
@@ -61,25 +68,50 @@ body{background:#eef4ff;padding:10px}
 
 <div class="live"><span>🔴 LIVE - এখন সিরিয়াল চলছে</span><span>মোট: <b>8 জন ডাক্তার</b></span></div>
 
-<div class="search"><input id="searchInput" placeholder="ডাক্তার / রোগ / হাসপাতাল লিখুন..." onkeyup="filterDoctor()"><button onclick="filterDoctor()">খুঁজুন</button></div>
+<!-- খুঁজুন + হাসপাতাল বক্স + বিভাগ বক্স -->
+<div class="search-box">
+<div class="search-row">
+<input id="searchInput" placeholder="ডাক্তার / রোগ / হাসপাতাল লিখুন..." onkeyup="filterDoctor()">
+<button onclick="filterDoctor()">খুঁজুন</button>
+</div>
 
-<div class="cats">
-<button class="active" style="background:#0096e8" onclick="filterCat('all',this)">সব</button>
-<button style="background:#00c853" onclick="filterCat('medicine',this)">মেডিসিন</button>
-<button style="background:#ff4d8d" onclick="filterCat('gynae',this)">গাইনী</button>
-<button style="background:#ff8c00" onclick="filterCat('pediatric',this)">শিশু</button>
-<button style="background:#8e44ad" onclick="filterCat('eye',this)">চোখ</button>
-<button style="background:#8e44ad" onclick="filterCat('neurology',this)">Neurology - নার্ভ</button>
-<button style="background:#e74c3c" onclick="filterCat('oncology',this)">Oncology - ক্যান্সার</button>
-<button style="background:#2c3e50" onclick="filterCat('orthopedic',this)">Orthopedic - হাড়</button>
-<button style="background:#f39c12" onclick="filterCat('pediatric-surgery',this)">Pediatric Surgery</button>
-<button style="background:#16a085" onclick="filterCat('pulmonology',this)">Pulmonology - ফুসফুস</button>
-<button style="background:#2980b9" onclick="filterCat('urology',this)">Urology - কিডনি</button>
+<!-- ১. হাসপাতাল বক্স -->
+<div class="filter-box">
+<button class="filter-btn hosp-btn" onclick="toggleList('hospList')">🏥 <span id="hospLabel">সব হাসপাতাল - ক্লিক করলে সব হাসপাতাল দেখাবে</span> <span>▼</span></button>
+<div id="hospList" class="filter-list">
+<button class="active" onclick="filterHosp('all',this,'সব হাসপাতাল')">✅ সব হাসপাতাল <span>সব ডাক্তার দেখাবে</span></button>
+<button onclick="filterHosp('MID POINT',this,'MID POINT HOSPITAL')">🏥 MID POINT HOSPITAL & DIAGNOSTIC CENTER <span>চট্টগ্রাম • রুম ২০১</span></button>
+<button onclick="filterHosp('CHITTAGONG MEDICAL',this,'CHITTAGONG MEDICAL')">🏥 CHITTAGONG MEDICAL <span>চট্টগ্রাম</span></button>
+<button onclick="filterHosp('CANCER CENTER',this,'CANCER CENTER')">🏥 CHITTAGONG CANCER CENTER <span>চট্টগ্রাম</span></button>
+<button onclick="filterHosp('MEDICARE',this,'MEDICARE HOSPITAL')">🏥 MEDICARE HOSPITAL <span>চট্টগ্রাম</span></button>
+<button onclick="filterHosp('SHISHU',this,'SHISHU HOSPITAL')">🏥 SHISHU HOSPITAL <span>চট্টগ্রাম</span></button>
+<button onclick="filterHosp('POPULAR',this,'POPULAR DIAGNOSTIC')">🏥 POPULAR DIAGNOSTIC <span>চট্টগ্রাম</span></button>
+<button onclick="filterHosp('URO CARE',this,'URO CARE CENTER')">🏥 URO CARE CENTER <span>চট্টগ্রাম</span></button>
+</div>
+</div>
+
+<!-- ২. বিভাগ বক্স - এইটাই তুমি চাইছো বস! -->
+<div class="filter-box">
+<button class="filter-btn cat-btn" onclick="toggleList('catList')">📂 <span id="catLabel">সব বিভাগ - ক্লিক করলে সব বিভাগ দেখাবে</span> <span>▼</span></button>
+<div id="catList" class="filter-list">
+<button class="active" onclick="filterCat('all',this,'সব বিভাগ')">✅ সব বিভাগ <span>সব ডাক্তার দেখাবে</span></button>
+<button onclick="filterCat('medicine',this,'মেডিসিন')">💊 মেডিসিন <span>জ্বর, ডায়াবেটিস, প্রেসার</span></button>
+<button onclick="filterCat('gynae',this,'গাইনী')">🌸 গাইনী <span>মহিলা রোগ বিশেষজ্ঞ</span></button>
+<button onclick="filterCat('pediatric',this,'শিশু')">👶 শিশু <span>বাচ্চাদের বিশেষজ্ঞ</span></button>
+<button onclick="filterCat('eye',this,'চোখ')">👁️ চোখ <span>চোখের বিশেষজ্ঞ</span></button>
+<button onclick="filterCat('neurology',this,'Neurology - নার্ভ')">🧠 Neurology - নার্ভ <span>ব্রেন / নার্ভ বিশেষজ্ঞ</span></button>
+<button onclick="filterCat('oncology',this,'Oncology - ক্যান্সার')">🎗️ Oncology - ক্যান্সার <span>ক্যান্সার বিশেষজ্ঞ</span></button>
+<button onclick="filterCat('orthopedic',this,'Orthopedic - হাড়')">🦴 Orthopedic - হাড় <span>হাড় / জয়েন্ট বিশেষজ্ঞ</span></button>
+<button onclick="filterCat('pediatric-surgery',this,'Pediatric Surgery')">🔪 Pediatric Surgery <span>বাচ্চাদের অপারেশন</span></button>
+<button onclick="filterCat('pulmonology',this,'Pulmonology - ফুসফুস')">🫁 Pulmonology - ফুসফুস <span>ফুসফুস / হাঁপানি</span></button>
+<button onclick="filterCat('urology',this,'Urology - কিডনি')">💧 Urology - কিডনি <span>কিডনি / প্রস্রাব</span></button>
+</div>
+</div>
 </div>
 
 <div id="list">
 
-<div class="card" data-cat="medicine" data-room="রুম ২০১">
+<div class="card" data-cat="medicine" data-hosp="MID POINT">
 <div class="dbox">D</div>
 <div class="card-body">
 <div class="green">• এখন চেম্বারে আছেন</div>
@@ -90,12 +122,12 @@ body{background:#eef4ff;padding:10px}
 <div class="row"><span>🕒 3-5</span><span>⭐ 4.9</span></div>
 <div class="serial-live"><span>🔴 LIVE সিরিয়াল চলছে:</span><span>সিরিয়াল <b id="serial-1">5</b> নং</span></div>
 <div class="price">100 টাকা</div>
-<button class="btn1" onclick="openBooking('Dr. Somaiya Hassan','1','রুম ২০১')">🟢 সিরিয়াল বুক করুন</button>
-<button class="btn2" onclick="bookSMS('Dr. Somaiya Hassan')">📩 SMS এ সিরিয়াল নিন</button>
+<button class="btn-wa" onclick="openBooking('Dr. Somaiya Hassan','1','রুম ২০১','whatsapp')"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2zm4.6 12.1c-.3-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.3-.7.8-.9 1-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.4-3c-.3-.4 0-.5.1-.6l.4-.5c.1-.2.1-.3 0-.5l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1.1 2.7c.1.2 1.9 2.9 4.6 4 .6.3 1.1.4 1.5.6.6.2 1.2.2 1.6.1.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2-.1-.2-.2-.2-.5-.3z"/></svg>WhatsApp এ সিরিয়াল নিন</button>
+<button class="btn-sms" onclick="openBooking('Dr. Somaiya Hassan','1','রুম ২০১','sms')"><svg viewBox="0 0 24 24"><path d="M20 2H4a2 2 0 0 0-2 2v18l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zm-9 9H7V9h4v2zm6 0h-4V9h4v2z"/></svg>SMS এ সিরিয়াল নিন</button>
 </div>
 </div>
 
-<div class="card" data-cat="neurology" data-room="রুম ৩০২">
+<div class="card" data-cat="neurology" data-hosp="CHITTAGONG MEDICAL">
 <div class="dbox" style="background:#8e44ad">N</div>
 <div class="card-body">
 <div class="green">• এখন চেম্বারে আছেন</div>
@@ -106,12 +138,12 @@ body{background:#eef4ff;padding:10px}
 <div class="row"><span>🕒 4-6</span><span>⭐ 4.8</span></div>
 <div class="serial-live"><span>🔴 LIVE সিরিয়াল চলছে:</span><span>সিরিয়াল <b id="serial-2">3</b> নং</span></div>
 <div class="price">500 টাকা</div>
-<button class="btn1" onclick="openBooking('Dr. Neurology','2','রুম ৩০২')">🟢 সিরিয়াল বুক করুন</button>
-<button class="btn2" onclick="bookSMS('Dr. Neurology')">📩 SMS এ সিরিয়াল নিন</button>
+<button class="btn-wa" onclick="openBooking('Dr. Neurology','2','রুম ৩০২','whatsapp')"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2zm4.6 12.1c-.3-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.3-.7.8-.9 1-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.4-3c-.3-.4 0-.5.1-.6l.4-.5c.1-.2.1-.3 0-.5l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1.1 2.7c.1.2 1.9 2.9 4.6 4 .6.3 1.1.4 1.5.6.6.2 1.2.2 1.6.1.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2-.1-.2-.2-.2-.5-.3z"/></svg>WhatsApp এ সিরিয়াল নিন</button>
+<button class="btn-sms" onclick="openBooking('Dr. Neurology','2','রুম ৩০২','sms')"><svg viewBox="0 0 24 24"><path d="M20 2H4a2 2 0 0 0-2 2v18l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zm-9 9H7V9h4v2zm6 0h-4V9h4v2z"/></svg>SMS এ সিরিয়াল নিন</button>
 </div>
 </div>
 
-<div class="card" data-cat="oncology" data-room="রুম ১০৫">
+<div class="card" data-cat="oncology" data-hosp="CANCER CENTER">
 <div class="dbox" style="background:#e74c3c">O</div>
 <div class="card-body">
 <div class="green">• এখন চেম্বারে আছেন</div>
@@ -122,12 +154,12 @@ body{background:#eef4ff;padding:10px}
 <div class="row"><span>🕒 3-5</span><span>⭐ 4.9</span></div>
 <div class="serial-live"><span>🔴 LIVE সিরিয়াল চলছে:</span><span>সিরিয়াল <b id="serial-3">7</b> নং</span></div>
 <div class="price">600 টাকা</div>
-<button class="btn1" onclick="openBooking('Dr. Oncology','3','রুম ১০৫')">🟢 সিরিয়াল বুক করুন</button>
-<button class="btn2" onclick="bookSMS('Dr. Oncology')">📩 SMS এ সিরিয়াল নিন</button>
+<button class="btn-wa" onclick="openBooking('Dr. Oncology','3','রুম ১০৫','whatsapp')"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2zm4.6 12.1c-.3-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.3-.7.8-.9 1-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.4-3c-.3-.4 0-.5.1-.6l.4-.5c.1-.2.1-.3 0-.5l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1.1 2.7c.1.2 1.9 2.9 4.6 4 .6.3 1.1.4 1.5.6.6.2 1.2.2 1.6.1.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2-.1-.2-.2-.2-.5-.3z"/></svg>WhatsApp এ সিরিয়াল নিন</button>
+<button class="btn-sms" onclick="openBooking('Dr. Oncology','3','রুম ১০৫','sms')"><svg viewBox="0 0 24 24"><path d="M20 2H4a2 2 0 0 0-2 2v18l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zm-9 9H7V9h4v2zm6 0h-4V9h4v2z"/></svg>SMS এ সিরিয়াল নিন</button>
 </div>
 </div>
 
-<div class="card" data-cat="orthopedic" data-room="রুম ৪০১">
+<div class="card" data-cat="orthopedic" data-hosp="MEDICARE">
 <div class="dbox" style="background:#2c3e50">O</div>
 <div class="card-body">
 <div class="green">• এখন চেম্বারে আছেন</div>
@@ -138,12 +170,12 @@ body{background:#eef4ff;padding:10px}
 <div class="row"><span>🕒 5-7</span><span>⭐ 4.7</span></div>
 <div class="serial-live"><span>🔴 LIVE সিরিয়াল চলছে:</span><span>সিরিয়াল <b id="serial-4">2</b> নং</span></div>
 <div class="price">400 টাকা</div>
-<button class="btn1" onclick="openBooking('Dr. Orthopedic','4','রুম ৪০১')">🟢 সিরিয়াল বুক করুন</button>
-<button class="btn2" onclick="bookSMS('Dr. Orthopedic')">📩 SMS এ সিরিয়াল নিন</button>
+<button class="btn-wa" onclick="openBooking('Dr. Orthopedic','4','রুম ৪০১','whatsapp')"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2zm4.6 12.1c-.3-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.3-.7.8-.9 1-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.4-3c-.3-.4 0-.5.1-.6l.4-.5c.1-.2.1-.3 0-.5l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1.1 2.7c.1.2 1.9 2.9 4.6 4 .6.3 1.1.4 1.5.6.6.2 1.2.2 1.6.1.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2-.1-.2-.2-.2-.5-.3z"/></svg>WhatsApp এ সিরিয়াল নিন</button>
+<button class="btn-sms" onclick="openBooking('Dr. Orthopedic','4','রুম ৪০১','sms')"><svg viewBox="0 0 24 24"><path d="M20 2H4a2 2 0 0 0-2 2v18l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zm-9 9H7V9h4v2zm6 0h-4V9h4v2z"/></svg>SMS এ সিরিয়াল নিন</button>
 </div>
 </div>
 
-<div class="card" data-cat="pediatric" data-room="রুম ১০১">
+<div class="card" data-cat="pediatric" data-hosp="SHISHU">
 <div class="dbox" style="background:#ff8c00">P</div>
 <div class="card-body">
 <div class="green">• এখন চেম্বারে আছেন</div>
@@ -154,12 +186,12 @@ body{background:#eef4ff;padding:10px}
 <div class="row"><span>🕒 4-6</span><span>⭐ 5.0</span></div>
 <div class="serial-live"><span>🔴 LIVE সিরিয়াল চলছে:</span><span>সিরিয়াল <b id="serial-5">9</b> নং</span></div>
 <div class="price">300 টাকা</div>
-<button class="btn1" onclick="openBooking('Dr. Shishu','5','রুম ১০১')">🟢 সিরিয়াল বুক করুন</button>
-<button class="btn2" onclick="bookSMS('Dr. Shishu')">📩 SMS এ সিরিয়াল নিন</button>
+<button class="btn-wa" onclick="openBooking('Dr. Shishu','5','রুম ১০১','whatsapp')"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2zm4.6 12.1c-.3-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.3-.7.8-.9 1-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.4-3c-.3-.4 0-.5.1-.6l.4-.5c.1-.2.1-.3 0-.5l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1.1 2.7c.1.2 1.9 2.9 4.6 4 .6.3 1.1.4 1.5.6.6.2 1.2.2 1.6.1.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2-.1-.2-.2-.2-.5-.3z"/></svg>WhatsApp এ সিরিয়াল নিন</button>
+<button class="btn-sms" onclick="openBooking('Dr. Shishu','5','রুম ১০১','sms')"><svg viewBox="0 0 24 24"><path d="M20 2H4a2 2 0 0 0-2 2v18l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zm-9 9H7V9h4v2zm6 0h-4V9h4v2z"/></svg>SMS এ সিরিয়াল নিন</button>
 </div>
 </div>
 
-<div class="card" data-cat="pediatric-surgery" data-room="রুম ৫০১">
+<div class="card" data-cat="pediatric-surgery" data-hosp="CHITTAGONG MEDICAL">
 <div class="dbox" style="background:#f39c12">PS</div>
 <div class="card-body">
 <div class="green">• এখন চেম্বারে আছেন</div>
@@ -170,12 +202,12 @@ body{background:#eef4ff;padding:10px}
 <div class="row"><span>🕒 2-4</span><span>⭐ 4.8</span></div>
 <div class="serial-live"><span>🔴 LIVE সিরিয়াল চলছে:</span><span>সিরিয়াল <b id="serial-6">1</b> নং</span></div>
 <div class="price">800 টাকা</div>
-<button class="btn1" onclick="openBooking('Dr. Pediatric Surgery','6','রুম ৫০১')">🟢 সিরিয়াল বুক করুন</button>
-<button class="btn2" onclick="bookSMS('Dr. Pediatric Surgery')">📩 SMS এ সিরিয়াল নিন</button>
+<button class="btn-wa" onclick="openBooking('Dr. Pediatric Surgery','6','রুম ৫০১','whatsapp')"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2zm4.6 12.1c-.3-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.3-.7.8-.9 1-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.4-3c-.3-.4 0-.5.1-.6l.4-.5c.1-.2.1-.3 0-.5l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1.1 2.7c.1.2 1.9 2.9 4.6 4 .6.3 1.1.4 1.5.6.6.2 1.2.2 1.6.1.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2-.1-.2-.2-.2-.5-.3z"/></svg>WhatsApp এ সিরিয়াল নিন</button>
+<button class="btn-sms" onclick="openBooking('Dr. Pediatric Surgery','6','রুম ৫০১','sms')"><svg viewBox="0 0 24 24"><path d="M20 2H4a2 2 0 0 0-2 2v18l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zm-9 9H7V9h4v2zm6 0h-4V9h4v2z"/></svg>SMS এ সিরিয়াল নিন</button>
 </div>
 </div>
 
-<div class="card" data-cat="pulmonology" data-room="রুম ২০৩">
+<div class="card" data-cat="pulmonology" data-hosp="POPULAR">
 <div class="dbox" style="background:#16a085">P</div>
 <div class="card-body">
 <div class="green">• এখন চেম্বারে আছেন</div>
@@ -186,12 +218,12 @@ body{background:#eef4ff;padding:10px}
 <div class="row"><span>🕒 3-5</span><span>⭐ 4.9</span></div>
 <div class="serial-live"><span>🔴 LIVE সিরিয়াল চলছে:</span><span>সিরিয়াল <b id="serial-7">4</b> নং</span></div>
 <div class="price">500 টাকা</div>
-<button class="btn1" onclick="openBooking('Dr. Pulmonology','7','রুম ২০৩')">🟢 সিরিয়াল বুক করুন</button>
-<button class="btn2" onclick="bookSMS('Dr. Pulmonology')">📩 SMS এ সিরিয়াল নিন</button>
+<button class="btn-wa" onclick="openBooking('Dr. Pulmonology','7','রুম ২০৩','whatsapp')"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2zm4.6 12.1c-.3-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.3-.7.8-.9 1-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.4-3c-.3-.4 0-.5.1-.6l.4-.5c.1-.2.1-.3 0-.5l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1.1 2.7c.1.2 1.9 2.9 4.6 4 .6.3 1.1.4 1.5.6.6.2 1.2.2 1.6.1.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2-.1-.2-.2-.2-.5-.3z"/></svg>WhatsApp এ সিরিয়াল নিন</button>
+<button class="btn-sms" onclick="openBooking('Dr. Pulmonology','7','রুম ২০৩','sms')"><svg viewBox="0 0 24 24"><path d="M20 2H4a2 2 0 0 0-2 2v18l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zm-9 9H7V9h4v2zm6 0h-4V9h4v2z"/></svg>SMS এ সিরিয়াল নিন</button>
 </div>
 </div>
 
-<div class="card" data-cat="urology" data-room="রুম ৩০১">
+<div class="card" data-cat="urology" data-hosp="URO CARE">
 <div class="dbox" style="background:#2980b9">U</div>
 <div class="card-body">
 <div class="green">• এখন চেম্বারে আছেন</div>
@@ -202,8 +234,8 @@ body{background:#eef4ff;padding:10px}
 <div class="row"><span>🕒 4-6</span><span>⭐ 4.8</span></div>
 <div class="serial-live"><span>🔴 LIVE সিরিয়াল চলছে:</span><span>সিরিয়াল <b id="serial-8">6</b> নং</span></div>
 <div class="price">500 টাকা</div>
-<button class="btn1" onclick="openBooking('Dr. Urology','8','রুম ৩০১')">🟢 সিরিয়াল বুক করুন</button>
-<button class="btn2" onclick="bookSMS('Dr. Urology')">📩 SMS এ সিরিয়াল নিন</button>
+<button class="btn-wa" onclick="openBooking('Dr. Urology','8','রুম ৩০১','whatsapp')"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2zm4.6 12.1c-.3-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.3-.7.8-.9 1-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.4-3c-.3-.4 0-.5.1-.6l.4-.5c.1-.2.1-.3 0-.5l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1.1 2.7c.1.2 1.9 2.9 4.6 4 .6.3 1.1.4 1.5.6.6.2 1.2.2 1.6.1.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2-.1-.2-.2-.2-.5-.3z"/></svg>WhatsApp এ সিরিয়াল নিন</button>
+<button class="btn-sms" onclick="openBooking('Dr. Urology','8','রুম ৩০১','sms')"><svg viewBox="0 0 24 24"><path d="M20 2H4a2 2 0 0 0-2 2v18l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zm-9 9H7V9h4v2zm6 0h-4V9h4v2z"/></svg>SMS এ সিরিয়াল নিন</button>
 </div>
 </div>
 </div>
@@ -211,148 +243,11 @@ body{background:#eef4ff;padding:10px}
 <div class="hosp-login"><button onclick="openHospLogin()">🔑 হাসপাতাল লগইন</button></div>
 <div class="footer">Doctor Serial © 2026 - চট্টগ্রাম</div>
 
-<!-- বুকিং ফর্ম - রোগী শুধু ৪টা দিবে, রুম নাম্বার দিবে না -->
 <div id="bookingPopup" class="popup">
 <div class="popup-box">
-<h3 id="bookingTitle">🟢 সিরিয়াল বুক করুন</h3>
+<h3 id="bookingTitle">সিরিয়াল বুক করুন</h3>
 <p id="bookingRoom" style="color:#0077cc;font-weight:bold">🚪 রুম নাম্বার: রুম ২০১</p>
-<label>রোগীর নাম *</label>
-<input id="pName" placeholder="যেমন: রহিম উদ্দিন">
-<label>মোবাইল নাম্বার *</label>
-<input id="pMobile" placeholder="01XXXXXXXXX" type="tel">
-<label>বয়স *</label>
-<input id="pAge" placeholder="যেমন: 35" type="number">
-<label>রোগের নাম *</label>
-<input id="pDisease" placeholder="যেমন: জ্বর / মাথা ব্যথা / হাড় ব্যথা">
-<button style="background:#00c853;color:#fff" onclick="confirmBooking()">✅ সিরিয়াল কনফার্ম করুন</button>
-<button class="close" onclick="closeAll()">বন্ধ করুন</button>
-<div id="successBox" class="success">
-<h2>✅ সিরিয়াল কনফার্ম!</h2>
-<p>আপনার সিরিয়াল নং: <b id="mySerial" style="font-size:24px;color:#e74c3c">0</b></p>
-<p id="successDetail"></p>
-<p style="font-size:12px;color:green">WhatsApp এ মেসেজ চলে গেছে, হাসপাতাল থেকে কল দিবে</p>
-<button style="background:#25D366;color:#fff" onclick="sendWhatsApp()">🟢 WhatsApp এ পাঠান</button>
-</div>
-</div>
-</div>
-
-<!-- হাসপাতাল লগইন + হাসপাতাল অ্যাড -->
-<div id="hospPopup" class="popup">
-<div class="popup-box">
-<div id="hospLoginBox">
-<h3>🏥 হাসপাতাল লগইন</h3>
-<p>হাসপাতালের ইউজারনেম ও পাসওয়ার্ড দিন</p>
-<input id="hospUser" placeholder="ইউজারনেম">
-<input id="hospPass" type="password" placeholder="পাসওয়ার্ড">
-<button style="background:#000;color:#fff" onclick="hospLogin()">লগইন করুন</button>
-<button class="close" onclick="closeAll()">বন্ধ করুন</button>
-<p style="font-size:11px;margin-top:8px">ডেমো - ইউজার: hospital / পাস: 1234</p>
-</div>
-<div id="hospAddBox" style="display:none;text-align:left">
-<h3 style="text-align:center">🏥 নতুন হাসপাতাল / ডাক্তার অ্যাড করুন</h3>
-<label>হাসপাতালের নাম *</label>
-<input id="newHosp" placeholder="যেমন: MID POINT HOSPITAL">
-<label>ডাক্তারের নাম *</label>
-<input id="newDoctor" placeholder="যেমন: Dr. রহিম">
-<label>বিভাগ</label>
-<select id="newCat"><option value="medicine">মেডিসিন</option><option value="neurology">Neurology</option><option value="oncology">Oncology</option><option value="orthopedic">Orthopedic</option><option value="pediatric">Pediatric</option><option value="pediatric-surgery">Pediatric Surgery</option><option value="pulmonology">Pulmonology</option><option value="urology">Urology</option></select>
-<label>রুম নাম্বার * - তুমি এখানে বসাবা বস!</label>
-<input id="newRoom" placeholder="যেমন: রুম ২০১ / রুম ৩০২">
-<label>ফি</label>
-<input id="newFee" placeholder="যেমন: 500">
-<button style="background:#00c853;color:#fff" onclick="addDoctor()">✅ ডাক্তার অ্যাড করুন</button>
-<button class="close" onclick="closeAll()">বন্ধ করুন</button>
-</div>
-</div>
-</div>
-
-<!-- তোমার এডমিন লগইন -->
-<div id="adminPopup" class="popup">
-<div class="popup-box">
-<h3>🔐 মালিক এডমিন লগইন</h3>
-<p>শুধু তুমি ঢুকতে পারবা বস!</p>
-<input id="adminUser" placeholder="এডমিন ইউজারনেম">
-<input id="adminPass" type="password" placeholder="এডমিন পাসওয়ার্ড">
-<button style="background:#e74c3c;color:#fff" onclick="adminLogin()">এডমিনে ঢুকুন</button>
-<button class="close" onclick="closeAll()">বন্ধ করুন</button>
-<p style="font-size:11px;margin-top:8px">ডেমো - ইউজার: admin / পাস: admin123</p>
-</div>
-</div>
-
-<script>
-let currentDoctor=""; let currentId=""; let currentRoom=""; let lastBooking=null;
-function filterCat(cat,btn){
-document.querySelectorAll('.cats button').forEach(b=>b.classList.remove('active'));
-btn.classList.add('active');
-document.querySelectorAll('.card').forEach(c=>{
-if(cat=='all'||c.dataset.cat==cat){c.style.display='block'}else{c.style.display='none'}
-});
-}
-function filterDoctor(){
-let q=document.getElementById('searchInput').value.toLowerCase();
-document.querySelectorAll('.card').forEach(c=>{
-if(c.innerText.toLowerCase().includes(q)){c.style.display='block'}else{c.style.display='none'}
-});
-}
-function openBooking(doctor,id,room){
-currentDoctor=doctor; currentId=id; currentRoom=room;
-document.getElementById('bookingTitle').innerText="🟢 "+doctor+" - সিরিয়াল বুক";
-document.getElementById('bookingRoom').innerText="🚪 রুম নাম্বার: "+room+" (হাসপাতাল থেকে দেওয়া)";
-document.getElementById('successBox').style.display='none';
-document.getElementById('bookingPopup').style.display='flex';
-}
-function closeAll(){document.querySelectorAll('.popup').forEach(p=>p.style.display='none');}
-function confirmBooking(){
-let name=document.getElementById('pName').value;
-let mobile=document.getElementById('pMobile').value;
-let age=document.getElementById('pAge').value;
-let disease=document.getElementById('pDisease').value;
-if(!name||!mobile||!age||!disease){alert('❌ বস, নাম, মোবাইল, বয়স, রোগের নাম - এই ৪টা অবশ্যই দিতে হবে!');return;}
-let el=document.getElementById('serial-'+currentId);
-let now=parseInt(el.innerText)+1;
-el.innerText=now;
-document.getElementById('mySerial').innerText=now;
-document.getElementById('successDetail').innerHTML="নাম: "+name+"<br>মোবাইল: "+mobile+"<br>বয়স: "+age+"<br>রোগ: "+disease+"<br>🚪 রুম: "+currentRoom+"<br>ডাক্তার: "+currentDoctor;
-document.getElementById('successBox').style.display='block';
-lastBooking={name,mobile,age,disease,room:currentRoom,doctor:currentDoctor,serial:now};
-}
-function sendWhatsApp(){
-if(!lastBooking) return;
-let m="🏥 Doctor Serial - নতুন সিরিয়াল\n\nডাক্তার: "+lastBooking.doctor+"\nসিরিয়াল নং: "+lastBooking.serial+"\nরোগীর নাম: "+lastBooking.name+"\nমোবাইল: "+lastBooking.mobile+"\nবয়স: "+lastBooking.age+"\nরোগের নাম: "+lastBooking.disease+"\nরুম নাম্বার: "+lastBooking.room;
-window.open("https://wa.me/8801812345678?text="+encodeURIComponent(m),"_blank");
-}
-function bookSMS(name){
-let msg="আমি "+name+" এর সিরিয়াল নিতে চাই। নাম: , মোবাইল: , বয়স: , রোগ: ";
-window.location.href="sms:8801812345678?body="+encodeURIComponent(msg);
-}
-function openHospLogin(){
-document.getElementById('hospLoginBox').style.display='block';
-document.getElementById('hospAddBox').style.display='none';
-document.getElementById('hospPopup').style.display='flex';
-}
-function hospLogin(){
-let u=document.getElementById('hospUser').value; let p=document.getElementById('hospPass').value;
-if(u=='hospital'&&p=='1234'){
-document.getElementById('hospLoginBox').style.display='none';
-document.getElementById('hospAddBox').style.display='block';
-}else{alert('❌ ইউজার / পাসওয়ার্ড ভুল!');}
-}
-function addDoctor(){
-let hosp=document.getElementById('newHosp').value;
-let doc=document.getElementById('newDoctor').value;
-let cat=document.getElementById('newCat').value;
-let room=document.getElementById('newRoom').value;
-let fee=document.getElementById('newFee').value||'500';
-if(!hosp||!doc||!room){alert('❌ হাসপাতাল, ডাক্তার, রুম নাম্বার - এই ৩টা দিতেই হবে বস!');return;}
-let id=Date.now();
-let html=`<div class="card" data-cat="${cat}"><div class="dbox">${doc.charAt(0)}</div><div class="card-body"><div class="green">• এখন চেম্বারে আছেন</div><h2>${doc}</h2><div class="sub">${cat}</div><div class="hosp">📍 ${hosp}</div><div class="room">🚪 রুম নাম্বার: ${room}</div><div class="row"><span>🕒 3-5</span><span>⭐ 4.9</span></div><div class="serial-live"><span>🔴 LIVE সিরিয়াল চলছে:</span><span>সিরিয়াল <b id="serial-${id}">0</b> নং</span></div><div class="price">${fee} টাকা</div><button class="btn1" onclick="openBooking('${doc}','${id}','${room}')">🟢 সিরিয়াল বুক করুন</button><button class="btn2" onclick="bookSMS('${doc}')">📩 SMS এ সিরিয়াল নিন</button></div></div>`;
-document.getElementById('list').insertAdjacentHTML('beforeend',html);
-alert('✅ হয়ে গেছে বস! ডাক্তার অ্যাড হয়ে গেছে, রুম '+room+' সহ!');
-closeAll();
-}
-function adminLogin(){
-let u=document.getElementById('adminUser').value; let p=document.getElementById('adminPass').value;
-if(u=='admin'&&p=='admin123'){alert('✅ স্বাগতম বস! এডমিনে ঢুকে গেছো');closeAll();}
-else{alert('❌ ভুল পাসওয়ার্ড বস!');}
-}
-i
+<p id="bookingType" style="color:#25D366;font-weight:bold"></p>
+<label>রোগীর নাম *</label><input id="pName" placeholder="যেমন: রহিম উদ্দিন">
+<label>মোবাইল নাম্বার *</label><input id="pMobile" placeholder="01XXXXXXXXX" type="tel">
+<label>বয়স *</label><input id="pAge" placeholder="যেমন: 35" type=
