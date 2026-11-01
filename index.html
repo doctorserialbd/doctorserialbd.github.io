@@ -18,7 +18,6 @@ body{background:#eef4ff;padding:10px}
 .search-row{display:flex;align-items:center;gap:6px}
 .search-row input{flex:1;border:none;outline:none;padding:12px 10px;font-size:15px;min-width:0}
 .search-row button{background:#00a8e8;color:#fff;border:none;padding:10px 18px;border-radius:20px;font-weight:bold;font-size:15px;flex-shrink:0;cursor:pointer}
-/* নতুন - আসল Select, ১০০% ক্লিক হবে */
 .select-box{width:100%;border:none;padding:14px;border-radius:12px;font-weight:bold;font-size:15px;cursor:pointer;margin-top:8px;appearance:none;-webkit-appearance:none;color:#fff;outline:none}
 .hosp-select{background:#000}
 .cat-select{background:#0096e8}
@@ -38,10 +37,10 @@ body{background:#eef4ff;padding:10px}
 .btn-wa{background:#25D366}
 .btn-sms{background:#0077cc}
 .btn-wa svg,.btn-sms svg{width:22px;height:22px;flex-shrink:0;fill:#fff}
-.hosp-login{background:#fff;border-radius:14px;padding:12px;margin-top:10px}
-.hosp-login button{background:#000;color:#fff;border:none;padding:13px;width:100%;border-radius:10px;font-weight:bold;font-size:15px;cursor:pointer}
+.hosp-login{background:#fff;border-radius:14px;padding:12px;margin-top:10px;border:2px solid #000}
+.hosp-login button{background:#000;color:#fff;border:none;padding:16px;width:100%;border-radius:10px;font-weight:bold;font-size:17px;cursor:pointer}
 .footer{text-align:center;font-size:12px;color:#888;padding:14px}
-.popup{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);z-index:9999;align-items:center;justify-content:center;padding:15px}
+.popup{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);z-index:99999;align-items:center;justify-content:center;padding:15px}
 .popup-box{background:#fff;width:100%;max-width:380px;border-radius:16px;padding:18px;text-align:center;max-height:92vh;overflow-y:auto}
 .popup-box h3{font-size:20px;margin-bottom:4px}
 .popup-box p{font-size:13px;color:#666;margin-bottom:10px}
@@ -69,7 +68,6 @@ body{background:#eef4ff;padding:10px}
 <button type="button" onclick="filterDoctor()">খুঁজুন</button>
 </div>
 
-<!-- ১. হাসপাতাল - আসল Select, ১০০% ক্লিক হবে -->
 <select id="hospSelect" class="select-box hosp-select" onchange="filterHosp(this.value)">
 <option value="all">🏥 সব হাসপাতাল - ক্লিক করলে সব হাসপাতাল দেখাবে ▼</option>
 <option value="MID POINT">🏥 MID POINT HOSPITAL & DIAGNOSTIC CENTER</option>
@@ -81,7 +79,6 @@ body{background:#eef4ff;padding:10px}
 <option value="URO CARE">🏥 URO CARE CENTER</option>
 </select>
 
-<!-- ২. বিভাগ - আসল Select, ১০০% ক্লিক হবে -->
 <select id="catSelect" class="select-box cat-select" onchange="filterCat(this.value)">
 <option value="all">📂 সব বিভাগ - ক্লিক করলে সব বিভাগ দেখাবে ▼</option>
 <option value="medicine">💊 মেডিসিন</option>
@@ -228,7 +225,9 @@ body{background:#eef4ff;padding:10px}
 </div>
 </div>
 
-<div class="hosp-login"><button type="button" onclick="openHospLogin()">🔑 হাসপাতাল লগইন</button></div>
+<div class="hosp-login">
+<button type="button" id="hospLoginBtn" onclick="openHospLogin()">🔑 হাসপাতাল লগইন - ক্লিক করুন</button>
+</div>
 <div class="footer">Doctor Serial © 2026 - চট্টগ্রাম</div>
 
 <div id="bookingPopup" class="popup">
@@ -257,14 +256,15 @@ body{background:#eef4ff;padding:10px}
 <div class="popup-box">
 <div id="hospLoginBox">
 <h3>🏥 হাসপাতাল লগইন</h3>
+<p>হাসপাতালের লোকেরা এখানে ঢুকবে</p>
 <input id="hospUser" placeholder="ইউজারনেম">
 <input id="hospPass" type="password" placeholder="পাসওয়ার্ড">
 <button type="button" style="background:#000;color:#fff" onclick="hospLogin()">লগইন করুন</button>
 <button type="button" class="close" onclick="closeAll()">বন্ধ করুন</button>
-<p style="font-size:11px;margin-top:8px">ডেমো - ইউজার: hospital / পাস: 1234</p>
+<p style="font-size:11px;margin-top:8px">ইউজার: hospital / পাস: 1234</p>
 </div>
 <div id="hospAddBox" style="display:none;text-align:left">
 <h3 style="text-align:center">🏥 নতুন হাসপাতাল / ডাক্তার অ্যাড করুন</h3>
 <label>হাসপাতালের নাম *</label><input id="newHosp" placeholder="যেমন: MID POINT HOSPITAL">
 <label>ডাক্তারের নাম *</label><input id="newDoctor" placeholder="যেমন: Dr. রহিম">
-<label>বিভাগ</label><select id="newCat"><option v
+<label>বিভাগ</label><select id="newCat"><option value="medicine">মেডিসিন</option><option value="neur
