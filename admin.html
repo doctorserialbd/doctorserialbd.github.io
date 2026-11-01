@@ -4,27 +4,27 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:sans-serif}
 body{background:#111;padding:12px;color:#fff}
-.top{background:linear-gradient(135deg,#0096c7,#00b44d);color:#fff;text-align:center;padding:14px;border-radius:14px}
+.top{background:#00b44d;color:#fff;text-align:center;padding:14px;border-radius:14px}
 .box{background:#fff;color:#000;border-radius:14px;padding:14px;margin-top:12px}
-input,select{width:100%;padding:12px;border:1px solid #ddd;border-radius:9px;margin-bottom:8px;font-size:15px}
+input{width:100%;padding:12px;border:1px solid #ddd;border-radius:9px;margin-bottom:8px;font-size:15px}
 button{width:100%;padding:13px;border:none;border-radius:9px;font-weight:bold;font-size:15px;margin-top:4px}
 .hrow{background:#f5f5f5;padding:10px;border-radius:10px;margin-top:8px}
 </style></head>
 <body>
-<div class="top"><h2>👑 Super Admin</h2><p>শুধু তুমি - হাসপাতালের আইডি বানাবা</p></div>
+<div class="top"><h2>👑 Super Admin - Ain Uddin</h2><p>শুধু তুমি - হাসপাতালের আইডি বানাবা</p></div>
 <div class="box" id="loginBox"><h3>🔑 তোমার পাসওয়ার্ড</h3><input id="pw" type="password" placeholder="1234"><button style="background:#000;color:#fff" onclick="if(document.getElementById('pw').value=='1234'){document.getElementById('loginBox').style.display='none';document.getElementById('mainBox').style.display='block';loadH()}else{alert('ভুল পাসওয়ার্ড!')}">লগইন</button></div>
 <div class="box" id="mainBox" style="display:none">
-<h3>➕ নতুন হাসপাতালের আইডি বানাও</h3>
-<input id="h1" placeholder="হাসপাতালের নাম - MID POINT HOSPITAL">
-<input id="h2" placeholder="হাসপাতাল আইডি - যেমন midpoint (ইংরেজিতে, ফাঁকা ছাড়া)">
-<input id="h3" placeholder="পাসওয়ার্ড - যেমন 1234">
-<button style="background:#00a63d;color:#fff" onclick="var n=document.getElementById('h1').value,h=document.getElementById('h2').value,p=document.getElementById('h3').value;if(!n||!h||!p){alert('৩টা ঘরই দাও ভাই!')}else{var hs=JSON.parse(localStorage.getItem('hospitals')||'[]');if(hs.find(function(x){return x.id==h})){alert('এই আইডি আগেই আছে ভাই! অন্য আইডি দাও');return}hs.push({id:h,pw:p,name:n});localStorage.setItem('hospitals',JSON.stringify(hs));alert('হইছে ভাই! হাসপাতালকে এইটা দাও - আইডি: '+h+' পাসওয়ার্ড: '+p);loadH();document.getElementById('h1').value='';document.getElementById('h2').value='';document.getElementById('h3').value='';}">✅ হাসপাতাল আইডি বানাও</button>
+<h3>➕ নতুন হাসপাতাল এড করো</h3>
+<input id="h1" placeholder="১. হাসপাতালের নাম - MID POINT HOSPITAL">
+<input id="h2" placeholder="২. হাসপাতাল আইডি - যেমন midpoint">
+<input id="h3" placeholder="৩. পাসওয়ার্ড - যেমন 1234">
+<input id="h4" placeholder="৪. হাসপাতালের নাম্বার - যেমন 01888404288">
+<button style="background:#00a63d;color:#fff" onclick="var n=document.getElementById('h1').value,h=document.getElementById('h2').value,p=document.getElementById('h3').value,ph=document.getElementById('h4').value;if(!n||!h||!p||!ph){alert('৪টা ঘরই দাও বস! নাম্বার ছাড়া হবে না')}else{var hs=JSON.parse(localStorage.getItem('hospitals')||'[]');if(hs.find(function(x){return x.id==h})){alert('এই আইডি আগেই আছে বস!');return}hs.push({id:h,pw:p,name:n,phone:ph});localStorage.setItem('hospitals',JSON.stringify(hs));alert('হইছে বস! হাসপাতালকে দাও - আইডি: '+h+' পাস: '+p+' নাম্বার: '+ph);loadH();document.getElementById('h1').value='';document.getElementById('h2').value='';document.getElementById('h3').value='';document.getElementById('h4').value='';}">✅ হাসপাতাল বানাও</button>
 <h3 style="margin-top:16px">🏥 হাসপাতাল লিস্ট</h3>
 <div id="list"></div>
-<p style="font-size:12px;color:#888;margin-top:10px">টেস্টের জন্য আগে থেকে ২টা বানানো আছে - midpoint / 1234 আর cmc / 1234</p>
 </div>
 <script>
-function loadH(){var hs=JSON.parse(localStorage.getItem('hospitals')||'[]');if(!hs.length){hs=[{id:'midpoint',pw:'1234',name:'MID POINT HOSPITAL'},{id:'cmc',pw:'1234',name:'CHITTAGONG MEDICAL'}];localStorage.setItem('hospitals',JSON.stringify(hs))}var L=document.getElementById('list');L.innerHTML='';hs.forEach(function(x,i){L.innerHTML+='<div class=hrow><b>'+x.name+'</b><br><span style=font-size:13px>আইডি: <b>'+x.id+'</b> | পাসওয়ার্ড: <b>'+x.pw+'</b></span><br><button style=width:auto;padding:8px 14px;background:#ff3b30;color:#fff;margin-top:6px onclick=delH('+i+')>ডিলিট</button></div>'})}
+function loadH(){var hs=JSON.parse(localStorage.getItem('hospitals')||'[]');if(!hs.length){hs=[{id:'midpoint',pw:'1234',name:'MID POINT HOSPITAL',phone:'01888404288'},{id:'cmc',pw:'1234',name:'CHITTAGONG MEDICAL',phone:'01888404288'}];localStorage.setItem('hospitals',JSON.stringify(hs))}var L=document.getElementById('list');L.innerHTML='';hs.forEach(function(x,i){L.innerHTML+='<div class=hrow><b>'+x.name+'</b><br><span style=font-size:13px>আইডি: <b>'+x.id+'</b> | পাস: <b>'+x.pw+'</b><br>📞 নাম্বার: <b>'+(x.phone||'দেওয়া নাই')+'</b></span><br><button style=width:auto;padding:8px 14px;background:#ff3b30;color:#fff;margin-top:6px onclick=delH('+i+')>ডিলিট</button></div>'})}
 function delH(i){var hs=JSON.parse(localStorage.getItem('hospitals')||'[]');hs.splice(i,1);localStorage.setItem('hospitals',JSON.stringify(hs));loadH()}
 </script>
 </body></html>
