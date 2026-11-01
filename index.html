@@ -5,7 +5,7 @@
 *{margin:0;padding:0;box-sizing:border-box;font-family:sans-serif}
 body{background:#eef4ff;padding:10px}
 .top{background:#00b44d;color:#fff;text-align:center;padding:32px 10px 16px;border-radius:16px;max-width:1100px;margin:0 auto;position:relative}
-.hlogin{position:absolute;top:10px;right:10px;background:#fff;color:#006400;padding:8px 13px;border-radius:20px;font-weight:bold;font-size:13px;border:2px solid #fff;cursor:pointer}
+.hlogin{position:absolute;top:10px;right:10px;background:#ffffff;color:#006400;padding:8px 13px;border-radius:20px;font-weight:bold;font-size:13px;border:2px solid #fff;cursor:pointer}
 .top h1{font-size:42px;margin:8px 0 2px;line-height:1}
 .top h1 span{color:#fff}.top h1 b{color:#ffe600}.top p{color:#fff}
 .badge{background:#fff;color:#006400;font-size:13px;padding:5px 14px;border-radius:20px;font-weight:bold;display:inline-block}
@@ -19,14 +19,13 @@ body{background:#eef4ff;padding:10px}
 .toprow img{width:72px;height:72px;border-radius:50%;object-fit:cover;border:3px solid #00c853;flex-shrink:0}
 .toprow h2{font-size:19px;line-height:1.3;color:#111}.toprow p{color:#555}.card p{color:#222}
 .btnrow{display:flex;flex-direction:column}
-.btn{width:100%;padding:16px;border:none;border-radius:12px;color:#fff;font-weight:bold;font-size:18px;margin-top:10px;cursor:pointer}
 .pop{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.85);z-index:99;align-items:center;justify-content:center;padding:15px}
 .pb{background:#fff;width:100%;max-width:360px;border-radius:14px;padding:16px;text-align:center}
 .pb input{width:100%;padding:11px;border:1px solid #ddd;border-radius:9px;margin-bottom:8px;font-size:15px}
 .pb button{width:100%;padding:12px;border:none;border-radius:9px;font-weight:bold;margin-top:4px}
 .hbox{background:#fff;border-radius:14px;padding:14px;margin:10px auto;max-width:1100px;display:none}
 .hbox input{width:100%;padding:12px;border:1px solid #ddd;border-radius:9px;margin-bottom:8px}
-@media(min-width:800px){body{padding:20px}.top{padding:30px 10px 26px}.top h1{font-size:58px}.hlogin{font-size:14px;padding:10px 16px;top:14px;right:14px}.filters{display:flex;gap:10px}.filters select{margin-top:0}#list{display:grid;grid-template-columns:1fr 1fr;gap:14px}.card{margin-bottom:0}.btnrow{flex-direction:row;gap:10px}.btn{font-size:16px}}
+@media(min-width:800px){body{padding:20px}.top{padding:30px 10px 26px}.top h1{font-size:58px}.hlogin{font-size:14px;padding:10px 16px;top:14px;right:14px}.filters{display:flex;gap:10px}.filters select{margin-top:0}#list{display:grid;grid-template-columns:1fr 1fr;gap:14px}.card{margin-bottom:0}.btnrow{flex-direction:row;gap:10px}}
 @media(min-width:1100px){#list{grid-template-columns:1fr 1fr 1fr}}
 </style></head>
 <body>
@@ -39,11 +38,10 @@ body{background:#eef4ff;padding:10px}
 
 <div id="hospBar" class="hbox">
 <h3 id="hospName" style="color:#111">🏥 হাসপাতাল প্যানেল</h3>
-<p style="color:#555;font-size:13px">তুমি এখন তোমার হাসপাতালে ঢুকে আছো। নিচে ডাক্তার যোগ করো।</p>
 <input id="d1" placeholder="ডাক্তারের নাম - Dr. ...">
 <input id="d2" placeholder="রুম - রুম ২০১">
 <input id="d3" placeholder="ফি - 100 টাকা">
-<input id="d4" placeholder="ছবির লিংক - না দিলে ডিফল্ট ছবি">
+<input id="d4" placeholder="ছবির লিংক">
 <input id="d5" placeholder="LIVE সিরিয়াল নং - 5">
 <select id="d6" style="width:100%;padding:12px;border:1px solid #ddd;border-radius:9px;margin-bottom:8px"><option value="medicine">💊 মেডিসিন</option><option value="neurology">🧠 Neurology</option></select>
 <button style="background:#00a63d;color:#fff" onclick="addDoc()">✅ ডাক্তার যোগ করো</button>
@@ -54,7 +52,7 @@ body{background:#eef4ff;padding:10px}
 
 <div class="live"><span>🔴 LIVE - এখন সিরিয়াল চলছে</span><span>মোট: <b id="cnt">2 জন ডাক্তার</b></span></div>
 <div class="filters">
-<select id="h" onchange="filt()" style="background:#111"><option value="all">🏥 সব হাসপাতাল ▼</option><option value="MID POINT HOSPITAL">🏥 MID POINT HOSPITAL</option><option value="CHITTAGONG MEDICAL">🏥 CHITTAGONG MEDICAL</option></select>
+<select id="h" onchange="filt()" style="background:#111111"><option value="all">🏥 সব হাসপাতাল ▼</option><option value="MID POINT HOSPITAL">🏥 MID POINT HOSPITAL</option><option value="CHITTAGONG MEDICAL">🏥 CHITTAGONG MEDICAL</option></select>
 <select id="c" onchange="filt()" style="background:#0066cc"><option value="all">📂 সব বিভাগ ▼</option><option value="medicine">💊 মেডিসিন</option><option value="neurology">🧠 Neurology - নার্ভ</option></select>
 </div>
 <div id="list"></div>
@@ -62,13 +60,13 @@ body{background:#eef4ff;padding:10px}
 
 <div id="hl" class="pop"><div class="pb"><h3 style="color:#111">🏥 হাসপাতাল লগইন</h3><p style="color:#555;font-size:13px">এডমিনের দেওয়া আইডি + পাসওয়ার্ড দাও</p>
 <input id="hid" placeholder="হাসপাতাল আইডি - যেমন midpoint"><input id="hpw" type="password" placeholder="পাসওয়ার্ড">
-<button style="background:#000;color:#fff" onclick="hLogin()">লগইন</button>
-<button style="background:#eee;color:#111" onclick="document.getElementById('hl').style.display='none'">বন্ধ</button></div></div>
+<button style="background:#000000;color:#ffffff" onclick="hLogin()">লগইন</button>
+<button style="background:#eeeeee;color:#111111" onclick="document.getElementById('hl').style.display='none'">বন্ধ</button></div></div>
 
 <div id="bp" class="pop"><div class="pb"><h3 id="bt" style="color:#111">সিরিয়াল বুক করুন</h3><p id="br" style="color:#333"></p>
 <input id="n1" placeholder="রোগীর নাম *"><input id="n2" placeholder="মোবাইল *"><input id="n3" placeholder="বয়স *"><input id="n4" placeholder="রোগের নাম *">
 <button style="background:#00a63d;color:#fff;font-size:17px;padding:14px" onclick="var a=document.getElementById('n1').value,b=document.getElementById('n2').value,c=document.getElementById('n3').value,d=document.getElementById('n4').value;if(!a||!b||!c||!d){alert('৪টা ঘরই পূরণ করো ভাই!')}else{var m='Doctor Serial\nডাক্তার: '+window.CD+'\nনাম: '+a+'\nমোবাইল: '+b+'\nবয়স: '+c+'\nরোগ: '+d+'\nরুম: '+window.CR;document.getElementById('od').innerText=m;document.getElementById('ok').style.display='block';var L=document.getElementById('sl');if(window.BT=='whatsapp'){L.href='https://wa.me/8801812345678?text='+encodeURIComponent(m);L.innerText='WhatsApp এ পাঠান';L.style.background='#00a63d';}else{L.href='sms:+8801812345678?body='+encodeURIComponent(m);L.innerText='SMS এ পাঠান';L.style.background='#0066cc';}}">✅ কনফার্ম করুন</button>
-<button style="background:#eee;color:#111" onclick="document.getElementById('bp').style.display='none'">বন্ধ</button>
+<button style="background:#eeeeee;color:#111111" onclick="document.getElementById('bp').style.display='none'">বন্ধ</button>
 <div id="ok" style="display:none;background:#d4edda;padding:12px;border-radius:10px;margin-top:10px;color:#111"><b>✅ সিরিয়াল কনফার্ম!</b><p id="od"></p><a id="sl" href="#" target="_blank" style="display:block;background:#00a63d;color:#fff;padding:11px;border-radius:9px;text-decoration:none;font-weight:bold;margin-top:8px">পাঠান</a></div>
 </div></div>
 <p style="text-align:center;font-size:12px;color:#888;padding:10px">Doctor Serial © 2026</p>
@@ -81,7 +79,7 @@ function hLogin(){var id=document.getElementById('hid').value.trim(),pw=document
 function showHosp(){var c=JSON.parse(localStorage.getItem('curHosp')||'null');if(!c)return;document.getElementById('hospBar').style.display='block';document.getElementById('hospName').innerText='🏥 '+c.name+' - তুমি লগইন আছো';var d=getD().filter(function(x){return x.h==c.name});document.getElementById('myCnt').innerText=d.length;var L=document.getElementById('myList');L.innerHTML='';d.forEach(function(x){var idx=getD().indexOf(x);L.innerHTML+='<div style=background:#f5f5f5;padding:10px;border-radius:10px;margin-top:8px;display:flex;justify-content:space-between;align-items:center><b style=color:#111>'+x.n+'</b><button style=width:auto;padding:8px 12px;background:#ff3b30;color:#fff onclick=delMy('+idx+')>ডিলিট</button></div>'})}
 function delMy(idx){var d=getD();d.splice(idx,1);localStorage.setItem('docs',JSON.stringify(d));showHosp();filt()}
 function addDoc(){var c=JSON.parse(localStorage.getItem('curHosp')||'null');if(!c)return;var n=document.getElementById('d1').value,r=document.getElementById('d2').value,f=document.getElementById('d3').value,p=document.getElementById('d4').value||'https://randomuser.me/api/portraits/men/32.jpg',s=document.getElementById('d5').value||'1',cc=document.getElementById('d6').value;if(!n){alert('ডাক্তারের নাম দাও ভাই!');return}var d=getD();d.push({n:n,h:c.name,r:r,f:f,s:s,c:cc,p:p});localStorage.setItem('docs',JSON.stringify(d));alert('হইছে! ডাক্তার যোগ হইছে');document.getElementById('d1').value='';document.getElementById('d2').value='';document.getElementById('d3').value='';document.getElementById('d4').value='';document.getElementById('d5').value='';showHosp();filt()}
-function filt(){var hv=document.getElementById('h').value,cv=document.getElementById('c').value;var d=getD();var f=d.filter(function(x){return (hv=='all'||x.h==hv)&&(cv=='all'||x.c==cv)});document.getElementById('cnt').innerText=f.length+' জন ডাক্তার';var L=document.getElementById('list');L.innerHTML='';document.getElementById('empty').style.display=f.length?'none':'block';f.forEach(function(x){L.innerHTML+='<div class=card><div class=toprow><img src="'+(x.p||'https://randomuser.me/api/portraits/men/32.jpg')+'"><div><h2>'+x.n+'</h2><p style=font-size:13px>MBBS • বিশেষজ্ঞ</p></div></div><p style=margin-top:8px>📍 '+x.h+' | 🚪 '+x.r+' | '+x.f+'</p><p>🔴 LIVE সিরিয়াল '+x.s+' নং</p><div class=btnrow><button class=btn onclick="openB(\'whatsapp\',\''+x.n+'\',\''+x.r+'\')" style="background:#00a63d;color:#ffffff;border:2px solid #007a2e">💬 WhatsApp এ সিরিয়াল নিন</button><button class=btn onclick="openB(\'sms\',\''+x.n+'\',\''+x.r+'\')" style="background:#0066cc;color:#ffffff;border:2px solid #004d99">✉️ SMS এ সিরিয়াল নিন</button></div></div>'})}
+function filt(){var hv=document.getElementById('h').value,cv=document.getElementById('c').value;var d=getD();var f=d.filter(function(x){return (hv=='all'||x.h==hv)&&(cv=='all'||x.c==cv)});document.getElementById('cnt').innerText=f.length+' জন ডাক্তার';var L=document.getElementById('list');L.innerHTML='';document.getElementById('empty').style.display=f.length?'none':'block';f.forEach(function(x){L.innerHTML+='<div class=card><div class=toprow><img src="'+(x.p||'https://randomuser.me/api/portraits/men/32.jpg')+'"><div><h2>'+x.n+'</h2><p style=font-size:13px>MBBS • বিশেষজ্ঞ</p></div></div><p style=margin-top:8px>📍 '+x.h+' | 🚪 '+x.r+' | '+x.f+'</p><p>🔴 LIVE সিরিয়াল '+x.s+' নং</p><div class=btnrow><button onclick="openB(\'whatsapp\',\''+x.n+'\',\''+x.r+'\')" style="width:100%;padding:16px;border:none;border-radius:12px;font-weight:bold;font-size:18px;margin-top:10px;cursor:pointer;background:#00a63d;color:#ffffff;border:2px solid #007a2e">💬 WhatsApp এ সিরিয়াল নিন</button><button onclick="openB(\'sms\',\''+x.n+'\',\''+x.r+'\')" style="width:100%;padding:16px;border:none;border-radius:12px;font-weight:bold;font-size:18px;margin-top:10px;cursor:pointer;background:#0066cc;color:#ffffff;border:2px solid #004d99">✉️ SMS এ সিরিয়াল নিন</button></div></div>'})}
 function openB(t,n,r){document.getElementById('bt').innerText=(t=='whatsapp'?'WhatsApp - ':'SMS - ')+n;document.getElementById('br').innerText='🚪 '+r;document.getElementById('bp').style.display='flex';document.getElementById('ok').style.display='none';window.BT=t;window.CD=n;window.CR=r}
 showHosp();filt();
 </script>
