@@ -1,114 +1,55 @@
 <!DOCTYPE html>
 <html lang="bn"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Doctor Serial</title>
+<title>Admin Panel - Doctor Serial</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:sans-serif}
-body{background:#eef4ff;padding:10px}
-.top{background:#00b44d;color:#fff;text-align:center;padding:32px 10px 16px;border-radius:16px;max-width:1100px;margin:0 auto;position:relative}
-.hlogin{position:absolute;top:8px;right:8px;background:rgba(255,255,255,.85);color:#006400;padding:4px 8px;border-radius:12px;font-weight:bold;font-size:11px;border:1px solid #fff;cursor:pointer;opacity:.85}
-.top h1{font-size:42px;margin:8px 0 2px;line-height:1}
-.top h1 span{color:#fff}.top h1 b{color:#ffe600}.top p{color:#fff}
-.badge{background:#fff;color:#006400;font-size:13px;padding:5px 14px;border-radius:20px;font-weight:bold;display:inline-block}
-.live{background:#000;color:#fff;display:flex;justify-content:space-between;align-items:center;padding:12px;border-radius:12px;margin:10px auto;font-size:14px;font-weight:bold;max-width:1100px}
-.live b{color:#ffcc00}
-.filters{background:#fff;border-radius:12px;padding:8px;margin:0 auto 10px;max-width:1100px}
-.filters select{width:100%;border:none;padding:14px;border-radius:10px;font-weight:bold;font-size:15px;color:#fff;margin-top:4px}
-#list{max-width:1100px;margin:0 auto}
-.card{background:#fff;border-radius:16px;padding:14px;margin-bottom:12px;border:1px solid #dbe6ff}
-.toprow{display:flex;gap:12px;align-items:center}
-.toprow img{width:72px;height:72px;border-radius:50%;object-fit:cover;border:3px solid #00c853;flex-shrink:0}
-.toprow h2{font-size:19px;line-height:1.3;color:#111}.toprow p{color:#555}.card p{color:#222}
-.btnrow{display:flex;flex-direction:column}
-.pop{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.85);z-index:99;align-items:center;justify-content:center;padding:15px}
-.pb{background:#fff;width:100%;max-width:360px;border-radius:14px;padding:16px;text-align:center}
-.pb input{width:100%;padding:11px;border:1px solid #ddd;border-radius:9px;margin-bottom:8px;font-size:15px}
-.pb select{width:100%;padding:11px;border:1px solid #ddd;border-radius:9px;margin-bottom:8px;font-size:15px;background:#fff}
-.pb button{width:100%;padding:12px;border:none;border-radius:9px;font-weight:bold;margin-top:4px}
-.hbox{background:#fff;border-radius:14px;padding:14px;margin:10px auto;max-width:1100px;display:none}
-.hbox input{width:100%;padding:12px;border:1px solid #ddd;border-radius:9px;margin-bottom:8px}
-@media(min-width:800px){body{padding:20px}.top{padding:30px 10px 26px}.top h1{font-size:58px}.hlogin{font-size:11px;padding:5px 9px;top:8px;right:8px}.filters{display:flex;gap:10px}.filters select{margin-top:0}#list{display:grid;grid-template-columns:1fr 1fr;gap:14px}.card{margin-bottom:0}.btnrow{flex-direction:row;gap:10px}}
-@media(min-width:1100px){#list{grid-template-columns:1fr 1fr 1fr}}
+body{background:#111;padding:12px;color:#fff}
+.top{background:#00b44d;color:#fff;text-align:center;padding:14px;border-radius:14px}
+.box{background:#fff;color:#000;border-radius:14px;padding:14px;margin-top:12px}
+input{width:100%;padding:12px;border:1px solid #ddd;border-radius:9px;margin-bottom:8px;font-size:15px}
+button{width:100%;padding:13px;border:none;border-radius:9px;font-weight:bold;font-size:15px;margin-top:4px}
+.hrow{background:#f5f5f5;padding:10px;border-radius:10px;margin-top:8px}
 </style></head>
 <body>
-<div class="top">
-<button class="hlogin" id="loginBtn" onclick="document.getElementById('hl').style.display='flex'">🏥 লগইন</button>
-<span class="badge">✦ ১ মিনিটে সিরিয়াল • ঘরে বসেই ✦</span>
-<h1><span>Doctor</span> <b>Serial</b></h1>
-<p style="font-size:15px;line-height:1.5;font-weight:bold">লাইনে দাঁড়ানো ছাড়াই পছন্দের ডাক্তারের সিরিয়াল নিন<br>WhatsApp ও SMS এ সাথে সাথে কনফার্ম</p>
-</div>
-
-<div id="hospBar" class="hbox">
-<h3 id="hospName" style="color:#111">🏥 হাসপাতাল প্যানেল</h3>
-<p id="hospPhone" style="color:#00a63d;font-weight:bold"></p>
-<p style="background:#d4edda;padding:8px;border-radius:8px;font-weight:bold;color:#111;font-size:13px;margin-top:6px">👁️ আপনি শুধু আপনার হাসপাতালের ডাক্তার দেখছেন - অন্য হাসপাতালের ডাক্তার এখানে দেখাবে না</p>
-<h3 id="docFormTitle" style="color:#111;margin-bottom:8px">➕ নতুন ডাক্তার যোগ করুন</h3>
-<input id="d1" placeholder="ডাক্তারের নাম - Dr. ...">
-<input id="d7" placeholder="🎓 ডিগ্রী - MBBS, FCPS">
-<input id="d2" placeholder="রুম - রুম ২০১">
-<input id="d3" placeholder="ফি - 100 টাকা">
-<input id="dTime" placeholder="🕐 কয়টা থেকে কয়টা - বিকাল ৪টা থেকে রাত ৮টা">
-<label style="font-size:13px;font-weight:bold;color:#111">📸 ডাক্তারের ছবি - গ্যালারি থেকে বাছো</label>
-<input id="dPhoto" type="file" accept="image/*" style="background:#f5f5f5">
-<img id="preview" style="display:none;width:72px;height:72px;border-radius:50%;object-fit:cover;border:3px solid #00c853;margin-bottom:8px">
-<input id="d4" placeholder="ছবির লিংক - লিংক থাকলে দাও, না থাকলে খালি রাখো">
-<label style="font-size:13px;font-weight:bold;color:#111">📂 বিভাগ - বাছো অথবা নিজে নতুন লেখো</label>
-<input id="d6" list="deptList" placeholder="📂 বিভাগ লেখো - যেমন মেডিসিন, শিশু, চোখ, দাঁত">
-<datalist id="deptList"><option value="মেডিসিন"><option value="নিউরোলজি - নার্ভ"><option value="শিশু"><option value="চোখ"><option value="দাঁত"><option value="হাড় - অর্থোপেডিক"><option value="চর্ম - স্কিন"><option value="গাইনি"><option value="কার্ডিওলজি - হার্ট"><option value="কিডনি"></datalist>
-<input id="d5" placeholder="🔴 LIVE সিরিয়াল - এখন কয় নং চলছে? যেমন 5">
-<p style="font-size:12px;color:#666;margin:-4px 0 8px">👉 LIVE মানে এখন ভিতরে কয় নম্বর রোগী আছে - যেমন 5 লিখলে রোগী বুঝবে 5 নং চলছে</p>
-<button id="saveDocBtn" style="background:#00a63d;color:#fff" onclick="saveDoc()">✅ ডাক্তার যোগ করো</button>
-<button id="cancelDocBtn" style="background:#eeeeee;color:#000;display:none" onclick="cancelDocEdit()">বাতিল</button>
-<button style="background:#ff3b30;color:#fff" onclick="localStorage.removeItem('curHosp');location.reload()">🚪 লগআউট</button>
-<h4 style="margin-top:12px;color:#111">আমার ডাক্তার - <span id="myCnt">0</span> জন</h4>
-<div id="myList"></div>
-</div>
-
-<div class="live"><span>🔴 LIVE - এখন সিরিয়াল চলছে</span><span>মোট: <b id="cnt">2 জন ডাক্তার</b></span></div>
-<div class="filters" id="filterBox">
-<select id="h" onchange="filt()" style="background:#111111"><option value="all">🏥 সব হাসপাতাল ▼</option><option value="MID POINT HOSPITAL">🏥 MID POINT HOSPITAL</option><option value="CHITTAGONG MEDICAL">🏥 CHITTAGONG MEDICAL</option></select>
-<select id="c" onchange="filt()" style="background:#0066cc"><option value="all">📂 সব বিভাগ ▼</option></select>
-</div>
-<div id="onlyMine" style="display:none;max-width:1100px;margin:0 auto 10px;background:#0066cc;color:#fff;padding:10px;border-radius:10px;font-weight:bold;font-size:14px;text-align:center">🏥 <span id="onlyMineName"></span> - শুধু এই হাসপাতালের ডাক্তার দেখছেন</div>
+<div class="top"><h2>👑 Admin Panel</h2><p>শুধু এডমিনের জন্য</p><p style="font-size:12px;margin-top:4px"><a href="index.html" style="color:#fff">← সাইটে ফিরে যান</a></p></div>
+<div class="box" id="loginBox"><h3>🔑 এডমিন পাসওয়ার্ড</h3>
+<div style="display:flex;gap:6px"><input id="pw" type="password" placeholder="🔑 পাসওয়ার্ড" style="flex:1"><button style="width:50px;background:#eee;color:#000" onclick="var p=document.getElementById('pw');p.type=p.type=='password'?'text':'password'">👁️</button></div>
+<button style="background:#000;color:#fff" onclick="var v=document.getElementById('pw').value.trim();if(v=='ain@4088'){document.getElementById('loginBox').style.display='none';document.getElementById('mainBox').style.display='block';loadH();loadD()}else{alert('ভুল পাসওয়ার্ড! তুমি লিখছো: '+v)}">লগইন</button></div>
+<div class="box" id="mainBox" style="display:none">
+<h3 id="formTitle">➕ নতুন হাসপাতাল যোগ করুন</h3>
+<input id="h1" placeholder="🏥 হাসপাতালের নাম">
+<input id="h2" placeholder="👤 ইউজার">
+<input id="h3" placeholder="🔑 পাসওয়ার্ড">
+<input id="h4" placeholder="📞 হাসপাতালের নাম্বার">
+<button id="saveBtn" style="background:#00a63d;color:#fff" onclick="saveH()">✅ হাসপাতাল তৈরি করুন</button>
+<button id="cancelBtn" style="background:#eeeeee;color:#000;display:none" onclick="cancelEdit()">বাতিল</button>
+<h3 style="margin-top:16px">🏥 হাসপাতাল লিস্ট - এডিট করতে পারবেন</h3>
 <div id="list"></div>
-<p id="empty" style="display:none;text-align:center;background:#fff;padding:16px;border-radius:12px;font-weight:bold;color:#111;max-width:1100px;margin:0 auto">এই হাসপাতালে এখনো ডাক্তার যোগ করা হয় নাই</p>
-
-<div style="max-width:1100px;margin:10px auto 0;background:#0a0a0a;border-radius:12px;padding:12px 10px;text-align:center;color:#fff;border:1px solid #00a63d" id="footerBox">
-<p style="font-size:13px;line-height:1.4;color:#fff"><b>🏥 আপনার হাসপাতালের জন্য এই সিস্টেম নিতে চান?</b> <b style="color:#ffe600">যারা নিতে চান যোগাযোগ করেন 👇</b></p>
-<p style="font-size:14px;font-weight:bold;color:#fff;margin-top:4px">👤 Ain Uddin - <span style="color:#00ff66">📞 01888-404288</span></p>
-<div style="display:flex;gap:6px;margin-top:8px"><a href="https://wa.me/8801888404288?text=আসসালামু আলাইকুম Ain Uddin ভাই, আমি আমার হাসপাতালের জন্য Doctor Serial সিস্টেম নিতে চাই" target="_blank" style="flex:1;background:#00a63d;color:#fff;text-decoration:none;padding:10px;border-radius:9px;font-weight:bold;font-size:14px">💬 WhatsApp</a><a href="tel:+8801888404288" style="flex:1;background:#fff;color:#000;text-decoration:none;padding:10px;border-radius:9px;font-weight:bold;font-size:14px">📞 কল করুন</a></div>
+<h3 style="margin-top:16px">🩺 সব ডাক্তার লিস্ট - এডমিন এডিট করতে পারবে</h3>
+<div id="docList"></div>
+<div id="docEditBox" style="display:none;background:#eef4ff;padding:12px;border-radius:10px;margin-top:12px">
+<h3 id="docEditTitle">✏️ ডাক্তার এডিট</h3>
+<input id="e1" placeholder="ডাক্তারের নাম">
+<input id="e2" placeholder="🎓 ডিগ্রী">
+<input id="e3" placeholder="রুম">
+<input id="e4" placeholder="ফি">
+<input id="e5" placeholder="🕐 কয়টা থেকে কয়টা">
+<input id="e6" placeholder="📂 বিভাগ">
+<input id="e7" placeholder="🔴 LIVE সিরিয়াল">
+<button style="background:#0066cc;color:#fff" onclick="saveDocEdit()">💾 ডাক্তার আপডেট করুন</button>
+<button style="background:#eeeeee;color:#000" onclick="document.getElementById('docEditBox').style.display='none'">বাতিল</button>
 </div>
-<p style="text-align:center;font-size:11px;color:#888;padding:8px">Doctor Serial © 2026 | Ain Uddin - 01888-404288 | <a href="admin.html" style="color:#888;text-decoration:none;font-size:11px">Admin</a></p>
-
-<div id="hl" class="pop"><div class="pb"><h3 style="color:#111">🏥 হাসপাতাল লগইন</h3><p style="color:#555;font-size:13px">তোমার ইউজার + পাসওয়ার্ড দাও</p>
-<input id="hid" placeholder="👤 ইউজার"><input id="hpw" type="password" placeholder="🔑 পাসওয়ার্ড">
-<button style="background:#000000;color:#ffffff" onclick="hLogin()">লগইন</button>
-<button style="background:#eeeeee;color:#111111" onclick="document.getElementById('hl').style.display='none'">বন্ধ</button></div></div>
-
-<div id="bp" class="pop"><div class="pb"><h3 id="bt" style="color:#111">সিরিয়াল বুক করুন</h3><p id="br" style="color:#333"></p>
-<input id="n1" placeholder="রোগীর নাম *"><input id="n2" placeholder="মোবাইল *"><input id="n3" placeholder="বয়স *">
-<select id="n5"><option value="">👤 ছেলে নাকি মেয়ে? *</option><option value="ছেলে">👦 ছেলে</option><option value="মেয়ে">👧 মেয়ে</option></select>
-<input id="n4" placeholder="রোগের নাম *">
-<button style="background:#00a63d;color:#fff;font-size:17px;padding:14px" onclick="var a=document.getElementById('n1').value,b=document.getElementById('n2').value,c=document.getElementById('n3').value,g=document.getElementById('n5').value,d=document.getElementById('n4').value;if(!a||!b||!c||!g||!d){alert('সব ঘর পূরণ করো ভাই! ছেলে / মেয়ে বাছো!')}else{var m='Doctor Serial\nডাক্তার: '+window.CD+'\nনাম: '+a+'\nমোবাইল: '+b+'\nবয়স: '+c+'\nলিঙ্গ: '+g+'\nরোগ: '+d+'\nরুম: '+window.CR;document.getElementById('od').innerText=m;document.getElementById('ok').style.display='block';var L=document.getElementById('sl');var ph=window.PHONE||'8801888404288';if(window.BT=='whatsapp'){L.href='https://wa.me/'+ph+'?text='+encodeURIComponent(m);L.innerText='WhatsApp এ পাঠান';L.style.background='#00a63d';}else{L.href='sms:+'+ph+'?body='+encodeURIComponent(m);L.innerText='SMS এ পাঠান';L.style.background='#0066cc';}}">✅ কনফার্ম করুন</button>
-<button style="background:#eeeeee;color:#111111" onclick="document.getElementById('bp').style.display='none'">বন্ধ</button>
-<div id="ok" style="display:none;background:#d4edda;padding:12px;border-radius:10px;margin-top:10px;color:#111"><b>✅ সিরিয়াল কনফার্ম!</b><p id="od"></p><a id="sl" href="#" target="_blank" style="display:block;background:#00a63d;color:#fff;padding:11px;border-radius:9px;text-decoration:none;font-weight:bold;margin-top:8px">পাঠান</a></div>
-</div></div>
-
+</div>
 <script>
-var DEF=[{n:'Dr. Somaiya Hassan',h:'MID POINT HOSPITAL',r:'রুম ২০১',f:'100 টাকা',c:'মেডিসিন',s:'5',deg:'MBBS, FCPS',time:'বিকাল ৪টা থেকে রাত ৮টা',p:'https://randomuser.me/api/portraits/women/44.jpg'},{n:'Dr. Neurology ডাক্তার',h:'CHITTAGONG MEDICAL',r:'রুম ৩০২',f:'500 টাকা',c:'নিউরোলজি - নার্ভ',s:'3',deg:'MBBS, MD',time:'সকাল ১০টা থেকে দুপুর ১টা',p:'https://randomuser.me/api/portraits/men/32.jpg'}];
-var tmpPhoto='';var editDocIdx=-1;
-function getD(){var d=JSON.parse(localStorage.getItem('docs')||'null');if(!d){localStorage.setItem('docs',JSON.stringify(DEF));return DEF}return d}
-function getH(){return JSON.parse(localStorage.getItem('hospitals')||'[{"id":"midpoint","pw":"1234","name":"MID POINT HOSPITAL","phone":"01888404288"},{"id":"cmc","pw":"1234","name":"CHITTAGONG MEDICAL","phone":"01888404288"}]')}
-function to88(p){p=(p||'01888404288').replace(/[^0-9]/g,'');if(p.length==11&&p[0]=='0')p='88'+p;if(p.length==10)p='880'+p;return p}
-function hospPhone(hname){var hs=getH();var f=hs.find(function(x){return x.name==hname});return to88(f?f.phone:'01888404288')}
-function hLogin(){var id=document.getElementById('hid').value.trim(),pw=document.getElementById('hpw').value.trim();var hs=getH();var f=hs.find(function(x){return x.id==id&&x.pw==pw});if(!f){alert('ইউজার / পাসওয়ার্ড ভুল ভাই!');return}localStorage.setItem('curHosp',JSON.stringify(f));document.getElementById('hl').style.display='none';showHosp();filt()}
-function showHosp(){var c=JSON.parse(localStorage.getItem('curHosp')||'null');if(!c)return;document.getElementById('hospBar').style.display='block';document.getElementById('loginBtn').style.display='none';document.getElementById('hospName').innerText='🏥 '+c.name+' - তুমি লগইন আছো';document.getElementById('hospPhone').innerText='📞 তোমার হাসপাতালের নাম্বার: '+(c.phone||'দেওয়া নাই')+' - রোগীর মেসেজ এই নাম্বারে যাবে';document.getElementById('filterBox').style.display='none';document.getElementById('onlyMine').style.display='block';document.getElementById('onlyMineName').innerText=c.name;document.getElementById('footerBox').style.display='none';var d=getD().filter(function(x){return x.h==c.name});document.getElementById('myCnt').innerText=d.length;var L=document.getElementById('myList');L.innerHTML='';d.forEach(function(x){var idx=getD().indexOf(x);L.innerHTML+='<div style=background:#f5f5f5;padding:10px;border-radius:10px;margin-top:8px><div style=display:flex;gap:10px;align-items:center><img src="'+(x.p||'')+'" style=width:50px;height:50px;border-radius:50%;object-fit:cover><div><b style=color:#111>'+x.n+'</b><br><span style=font-size:12px;color:#333>'+(x.deg||'')+' | '+(x.c||'')+' | 🕐 '+(x.time||'')+' | 🔴 LIVE '+x.s+'</span></div></div><div style=display:flex;gap:6px;margin-top:8px><button style=width:auto;padding:8px 12px;background:#0066cc;color:#fff;flex:1 onclick=editDoc('+idx+')>✏️ এডিট</button><button style=width:auto;padding:8px 12px;background:#ff3b30;color:#fff;flex:1 onclick=delMy('+idx+')>🗑️ ডিলিট</button></div></div>'})}
-function delMy(idx){if(!confirm('ডিলিট করবো?'))return;var d=getD();d.splice(idx,1);localStorage.setItem('docs',JSON.stringify(d));showHosp();filt()}
-function editDoc(idx){var d=getD();var x=d[idx];editDocIdx=idx;tmpPhoto='';document.getElementById('d1').value=x.n||'';document.getElementById('d7').value=x.deg||'';document.getElementById('d2').value=x.r||'';document.getElementById('d3').value=x.f||'';document.getElementById('dTime').value=x.time||'';document.getElementById('d4').value=(x.p||'').indexOf('data:')==0?'':(x.p||'');document.getElementById('d6').value=x.c||'';document.getElementById('d5').value=x.s||'';if(x.p){var im=document.getElementById('preview');im.src=x.p;im.style.display='block'}document.getElementById('docFormTitle').innerText='✏️ এডিট করছেন - '+x.n;document.getElementById('saveDocBtn').innerText='💾 আপডেট করুন';document.getElementById('saveDocBtn').style.background='#0066cc';document.getElementById('cancelDocBtn').style.display='block';window.scrollTo(0,0)}
-function cancelDocEdit(){editDocIdx=-1;tmpPhoto='';document.getElementById('d1').value='';document.getElementById('d7').value='';document.getElementById('d2').value='';document.getElementById('d3').value='';document.getElementById('dTime').value='';document.getElementById('d4').value='';document.getElementById('d6').value='';document.getElementById('d5').value='';document.getElementById('dPhoto').value='';document.getElementById('preview').style.display='none';document.getElementById('docFormTitle').innerText='➕ নতুন ডাক্তার যোগ করুন';document.getElementById('saveDocBtn').innerText='✅ ডাক্তার যোগ করো';document.getElementById('saveDocBtn').style.background='#00a63d';document.getElementById('cancelDocBtn').style.display='none'}
-document.getElementById('dPhoto').addEventListener('change',function(e){var f=e.target.files[0];if(!f)return;var r=new FileReader();r.onload=function(ev){tmpPhoto=ev.target.result;var im=document.getElementById('preview');im.src=tmpPhoto;im.style.display='block'};r.readAsDataURL(f)});
-function saveDoc(){var c=JSON.parse(localStorage.getItem('curHosp')||'null');if(!c)return;var n=document.getElementById('d1').value,deg=document.getElementById('d7').value||'MBBS',r=document.getElementById('d2').value,f=document.getElementById('d3').value,time=document.getElementById('dTime').value||'বিকাল ৪টা থেকে রাত ৮টা',link=document.getElementById('d4').value,s=document.getElementById('d5').value||'1',cc=document.getElementById('d6').value||'মেডিসিন';if(!n){alert('ডাক্তারের নাম দাও ভাই!');return}var d=getD();var oldP='https://randomuser.me/api/portraits/men/32.jpg';if(editDocIdx>=0){oldP=d[editDocIdx].p}var p=tmpPhoto||link||oldP;if(editDocIdx>=0){d[editDocIdx]={n:n,h:c.name,r:r,f:f,s:s,c:cc,deg:deg,time:time,p:p};localStorage.setItem('docs',JSON.stringify(d));alert('হইছে! ডাক্তার আপডেট হইছে');cancelDocEdit();showHosp();filt()}else{d.push({n:n,h:c.name,r:r,f:f,s:s,c:cc,deg:deg,time:time,p:p});localStorage.setItem('docs',JSON.stringify(d));alert('হইছে! ডাক্তার যোগ হইছে');cancelDocEdit();showHosp();filt()}}
-function filt(){var c=JSON.parse(localStorage.getItem('curHosp')||'null');var hv, cv=document.getElementById('c').value;if(c){hv=c.name}else{hv=document.getElementById('h').value}var d=getD();var cats={};d.forEach(function(x){cats[x.c]=1});var cs=document.getElementById('c');var curVal=cs.value;cs.innerHTML='<option value="all">📂 সব বিভাগ ▼</option>';Object.keys(cats).forEach(function(k){cs.innerHTML+='<option value="'+k+'">📂 '+k+'</option>'});cs.value=curVal;var f=d.filter(function(x){return (hv=='all'||x.h==hv)&&(cv=='all'||x.c==cv)});document.getElementById('cnt').innerText=f.length+' জন ডাক্তার';var L=document.getElementById('list');L.innerHTML='';document.getElementById('empty').style.display=f.length?'none':'block';f.forEach(function(x){var ph=hospPhone(x.h);var deg=x.deg||'MBBS';var tm=x.time||'';L.innerHTML+='<div class=card><div class=toprow><img src="'+(x.p||'https://randomuser.me/api/portraits/men/32.jpg')+'"><div><h2>'+x.n+'</h2><p style=font-size:13px>'+deg+' • বিশেষজ্ঞ</p><p style=font-size:13px;color:#0066cc;font-weight:bold>📂 '+x.c+'</p></div></div><p style=margin-top:8px>📍 '+x.h+' | 🚪 '+x.r+' | '+x.f+'</p><p>🕐 '+tm+'</p><p>🔴 LIVE সিরিয়াল '+x.s+' নং চলছে</p><div class=btnrow><button onclick="openB(\'whatsapp\',\''+x.n+'\',\''+x.r+'\',\''+ph+'\')" style="width:100%;padding:16px;border:none;border-radius:12px;font-weight:bold;font-size:18px;margin-top:10px;cursor:pointer;background:#00a63d;color:#ffffff;border:2px solid #007a2e">💬 WhatsApp এ সিরিয়াল নিন</button><button onclick="openB(\'sms\',\''+x.n+'\',\''+x.r+'\',\''+ph+'\')" style="width:100%;padding:16px;border:none;border-radius:12px;font-weight:bold;font-size:18px;margin-top:10px;cursor:pointer;background:#0066cc;color:#ffffff;border:2px solid #004d99">✉️ SMS এ সিরিয়াল নিন</button></div></div>'})}
-function openB(t,n,r,ph){document.getElementById('bt').innerText=(t=='whatsapp'?'WhatsApp - ':'SMS - ')+n;document.getElementById('br').innerText='🚪 '+r;document.getElementById('bp').style.display='flex';document.getElementById('ok').style.display='none';window.BT=t;window.CD=n;window.CR=r;window.PHONE=ph}
-showHosp();filt();
+var editIdx=-1;var editDocIdx=-1;
+function loadH(){var hs=JSON.parse(localStorage.getItem('hospitals')||'[]');if(!hs.length){hs=[{id:'midpoint',pw:'1234',name:'MID POINT HOSPITAL',phone:'01888404288'},{id:'cmc',pw:'1234',name:'CHITTAGONG MEDICAL',phone:'01888404288'}];localStorage.setItem('hospitals',JSON.stringify(hs))}var L=document.getElementById('list');L.innerHTML='';hs.forEach(function(x,i){var ph=x.phone||'01888404288';L.innerHTML+='<div class=hrow><b>'+x.name+'</b><br><span style=font-size:13px>ইউজার: <b>'+x.id+'</b> | পাসওয়ার্ড: <b>'+x.pw+'</b><br>📞 নাম্বার: <b>'+ph+'</b></span><br><div style=display:flex;gap:6px;margin-top:6px><button style=width:auto;padding:8px 14px;background:#0066cc;color:#fff;margin-top:0;flex:1 onclick=editH('+i+')>✏️ এডিট</button><button style=width:auto;padding:8px 14px;background:#ff3b30;color:#fff;margin-top:0;flex:1 onclick=delH('+i+')>🗑️ ডিলিট</button></div></div>'})}
+function editH(i){var hs=JSON.parse(localStorage.getItem('hospitals')||'[]');var x=hs[i];editIdx=i;document.getElementById('h1').value=x.name;document.getElementById('h2').value=x.id;document.getElementById('h3').value=x.pw;document.getElementById('h4').value=x.phone||'01888404288';document.getElementById('formTitle').innerText='✏️ এডিট করছেন - '+x.name;document.getElementById('saveBtn').innerText='💾 আপডেট করুন';document.getElementById('saveBtn').style.background='#0066cc';document.getElementById('cancelBtn').style.display='block';window.scrollTo(0,0)}
+function cancelEdit(){editIdx=-1;document.getElementById('h1').value='';document.getElementById('h2').value='';document.getElementById('h3').value='';document.getElementById('h4').value='';document.getElementById('formTitle').innerText='➕ নতুন হাসপাতাল যোগ করুন';document.getElementById('saveBtn').innerText='✅ হাসপাতাল তৈরি করুন';document.getElementById('saveBtn').style.background='#00a63d';document.getElementById('cancelBtn').style.display='none'}
+function saveH(){var n=document.getElementById('h1').value,h=document.getElementById('h2').value,p=document.getElementById('h3').value,ph=document.getElementById('h4').value;if(!n||!h||!p||!ph){alert('সব ঘর পূরণ করুন!');return}var hs=JSON.parse(localStorage.getItem('hospitals')||'[]');if(editIdx>=0){hs[editIdx]={id:h,pw:p,name:n,phone:ph};localStorage.setItem('hospitals',JSON.stringify(hs));alert('হইছে! আপডেট হইছে');cancelEdit();loadH()}else{if(hs.find(function(x){return x.id==h})){alert('এই ইউজার আগেই আছে!');return}hs.push({id:h,pw:p,name:n,phone:ph});localStorage.setItem('hospitals',JSON.stringify(hs));alert('হইছে! হাসপাতালকে দিন - ইউজার: '+h+' পাসওয়ার্ড: '+p+' নাম্বার: '+ph);document.getElementById('h1').value='';document.getElementById('h2').value='';document.getElementById('h3').value='';document.getElementById('h4').value='';loadH()}}
+function delH(i){if(!confirm('ডিলিট করবো?'))return;var hs=JSON.parse(localStorage.getItem('hospitals')||'[]');hs.splice(i,1);localStorage.setItem('hospitals',JSON.stringify(hs));loadH()}
+function loadD(){var d=JSON.parse(localStorage.getItem('docs')||'[]');var L=document.getElementById('docList');L.innerHTML='';if(!d.length)L.innerHTML='<p style=font-size:13px>এখনো ডাক্তার নাই</p>';d.forEach(function(x,i){L.innerHTML+='<div class=hrow><b>'+x.n+'</b> <span style=font-size:12px>('+x.h+')</span><br><span style=font-size:13px>'+(x.deg||'')+' | '+(x.c||'')+' | 🕐 '+(x.time||'')+' | 💰 '+(x.f||'')+' | 🔴 LIVE '+(x.s||'')+'</span><br><div style=display:flex;gap:6px;margin-top:6px><button style=width:auto;padding:8px 14px;background:#0066cc;color:#fff;margin-top:0;flex:1 onclick=editDoc('+i+')>✏️ এডিট</button><button style=width:auto;padding:8px 14px;background:#ff3b30;color:#fff;margin-top:0;flex:1 onclick=delDoc('+i+')>🗑️ ডিলিট</button></div></div>'})}
+function editDoc(i){var d=JSON.parse(localStorage.getItem('docs')||'[]');var x=d[i];editDocIdx=i;document.getElementById('docEditBox').style.display='block';document.getElementById('docEditTitle').innerText='✏️ এডিট - '+x.n+' ('+x.h+')';document.getElementById('e1').value=x.n||'';document.getElementById('e2').value=x.deg||'';document.getElementById('e3').value=x.r||'';document.getElementById('e4').value=x.f||'';document.getElementById('e5').value=x.time||'';document.getElementById('e6').value=x.c||'';document.getElementById('e7').value=x.s||'';window.scrollTo(0,document.body.scrollHeight)}
+function saveDocEdit(){var d=JSON.parse(localStorage.getItem('docs')||'[]');if(editDocIdx<0)return;d[editDocIdx].n=document.getElementById('e1').value;d[editDocIdx].deg=document.getElementById('e2').value;d[editDocIdx].r=document.getElementById('e3').value;d[editDocIdx].f=document.getElementById('e4').value;d[editDocIdx].time=document.getElementById('e5').value;d[editDocIdx].c=document.getElementById('e6').value;d[editDocIdx].s=document.getElementById('e7').value;localStorage.setItem('docs',JSON.stringify(d));alert('হইছে! ডাক্তার আপডেট হইছে');document.getElementById('docEditBox').style.display='none';loadD()}
+function delDoc(i){if(!confirm('ডাক্তার ডিলিট করবো?'))return;var d=JSON.parse(localStorage.getItem('docs')||'[]');d.splice(i,1);localStorage.setItem('docs',JSON.stringify(d));loadD()}
 </script>
 </body></html>
